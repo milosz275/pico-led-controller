@@ -3,9 +3,9 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - 'test_workflow'
-      - 'develop'
-      - 'master'
+      - "test_workflow"
+      - "develop"
+      - "master"
 
 jobs:
   build:
