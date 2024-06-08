@@ -1,0 +1,9 @@
+{
+    "cSpell.words": [
+        "GPIO",
+        "PICO"
+    ],
+    "files.associations": {
+        "cyw43_arch.h": "c"
+    }
+}

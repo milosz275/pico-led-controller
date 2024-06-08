@@ -1,0 +1,37 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/home/mlsh/projects/pico/pico-sdk**",
+                "/usr/lib/gcc/arm-none-eabi/**",
+                "/home/mlsh/projects/pico/pico-examples/build/generated/pico_base",
+                "/home/mlsh/projects/pico/pico-sdk/src/rp2_common/pico_cyw43_arch/include",
+                "/home/mlsh/projects/pico/pico-sdk/src/common/pico_base/include",
+                "/home/mlsh/projects/pico/pico-sdk/src/rp2_common/pico_platform/include",
+                "/home/mlsh/projects/pico/pico-sdk/src/rp2040/hardware_regs/include",
+                "/home/mlsh/projects/pico/pico-sdk/lib/cyw43-driver/src",
+                "/home/mlsh/projects/pico/pico-sdk/lib/cyw43-driver/tests/sdio",
+                "/home/mlsh/projects/pico/pico-sdk/src/rp2_common/pico_async_context/include",
+                "/home/mlsh/projects/pico/pico-sdk/src/common/pico_time/include",
+                "/home/mlsh/projects/pico/pico-sdk/src/rp2_common/hardware_timer/include",
+                "/home/mlsh/projects/pico/pico-sdk/src/rp2040/hardware_structs/include",
+                "/home/mlsh/projects/pico/pico-sdk/src/rp2_common/hardware_base/include",
+                "/home/mlsh/projects/pico/pico-sdk/src/common/pico_stdlib/include",
+                "/home/mlsh/projects/pico/pico-sdk/src/rp2_common/pico_stdio/include",
+                "/home/mlsh/projects/pico/pico-sdk/src/rp2_common/hardware_gpio/include",
+                "/home/mlsh/projects/pico/pico-sdk/src/rp2_common/hardware_irq/include",
+                "/home/mlsh/projects/pico/pico-sdk/src/rp2_common/hardware_uart/include",
+                "/home/mlsh/projects/pico/pico-sdk/src/boards/include"
+            ],
+            "defines": [],
+            "compilerPath": "arm-none-eabi-gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-arm",
+            "configurationProvider": "ms-vscode.cmake-tools"
+        }
+    ],
+    "version": 4
+}
