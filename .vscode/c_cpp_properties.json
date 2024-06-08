@@ -23,7 +23,9 @@
                 "/home/mlsh/projects/pico/pico-sdk/src/rp2_common/hardware_gpio/include",
                 "/home/mlsh/projects/pico/pico-sdk/src/rp2_common/hardware_irq/include",
                 "/home/mlsh/projects/pico/pico-sdk/src/rp2_common/hardware_uart/include",
-                "/home/mlsh/projects/pico/pico-sdk/src/boards/include"
+                "/home/mlsh/projects/pico/pico-sdk/src/boards/include",
+                "/home/mlsh/projects/pico/pico-sdk/src/rp2_common/hardware_pio/include",
+                "${workspaceFolder}/PicoLed"
             ],
             "defines": [],
             "compilerPath": "arm-none-eabi-gcc",
