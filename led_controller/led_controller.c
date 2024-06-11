@@ -45,11 +45,15 @@ bool init()
         printf("Wi-Fi init failed");
         return false;
     }
-    
+    // cyw43_arch_lwip_begin();
     cyw43_arch_enable_sta_mode();
-    cyw43_arch_wifi_connect_async(WIFI_SSID, WIFI_PASSWORD, CYW43_AUTH_WPA2_AES_PSK);
-    
-    onboard_led_blink(250, 250);
+    while (!cyw43_arch_wifi_connect_async(WIFI_SSID, WIFI_PASSWORD, CYW43_AUTH_WPA2_AES_PSK))
+    {
+        printf("Could not start connecting to Wi-Fi");
+        onboard_led_blink(50, 250);
+        onboard_led_blink(50, 250);
+    }
+    onboard_led_blink(250, 0);
     return true;
 }
 
@@ -98,28 +102,21 @@ int main()
     uint offset = pio_add_program(pio, &ws2812_program);
     ws2812_program_init(pio, sm, offset, WS2812_PIN, 800000, IS_RGBW);
 
+    puts("Beginning main loop");
     while (true)
     {
         onboard_led_blink(50, 0);
-
-        puts("Turning on all LEDs white");
-        set_all_leds(0xffffffff, NUM_PIXELS);
-        sleep_ms(1000);
-
-        puts("Turning on all LEDs red");
-        set_all_red(NUM_PIXELS, 255);
-        sleep_ms(1000);
-
-        puts("Turning on all LEDs green");
-        set_all_green(NUM_PIXELS, 255);
-        sleep_ms(1000);
-
-        puts("Turning on all LEDs blue");
-        set_all_blue(NUM_PIXELS, 255);
-        sleep_ms(1000);
-
-        puts("Turning off all LEDs");
-        turn_off_all(NUM_PIXELS);
-        sleep_ms(1000);
+        for (int i = 0; i < 255; ++i)
+        {
+            set_all_red(NUM_PIXELS, i);
+            sleep_ms(10);
+        }
+        sleep_ms(490);
+        for (int i = 255; i >= 0; --i)
+        {
+            set_all_red(NUM_PIXELS, i);
+            sleep_ms(10);
+        }
+        sleep_ms(490);
     }
 }
