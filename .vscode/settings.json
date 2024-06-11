@@ -1,12 +1,14 @@
 {
     "cSpell.words": [
+        "dreq",
         "GPIO",
         "Leds",
         "Maculewicz",
         "Miłosz",
         "mldxo",
         "PICO",
-        "PICOLED"
+        "PICOLED",
+        "urgb"
     ],
     "files.associations": {
         "cyw43_arch.h": "c",
