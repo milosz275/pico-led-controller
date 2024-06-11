@@ -13,6 +13,9 @@
 #define NUM_PIXELS 118
 #define IS_RGBW false
 
+const char* WIFI_SSID = "wifi_ssid";
+const char* WIFI_PASSWORD = "wifi_password";
+
 static inline void put_pixel(uint32_t pixel_grb)
 {
     pio_sm_put_blocking(pio0, 0, pixel_grb << 8u);
@@ -42,6 +45,10 @@ bool init()
         printf("Wi-Fi init failed");
         return false;
     }
+    
+    cyw43_arch_enable_sta_mode();
+    cyw43_arch_wifi_connect_async(WIFI_SSID, WIFI_PASSWORD, CYW43_AUTH_WPA2_AES_PSK);
+    
     onboard_led_blink(250, 250);
     return true;
 }
