@@ -5,3 +5,7 @@ build
 venv
 .DS_Store
 *.pdf
+generated
+*.pyc
+*.pyo
+*.pyd
