@@ -1,4 +1,12 @@
+cmake_minimum_required(VERSION 3.10)
+project(led_controller)
+
 add_executable(led_controller)
+
+add_custom_command(
+        TARGET led_controller PRE_BUILD
+        COMMAND /usr/bin/env WIFI_SSID="$ENV{WIFI_SSID}" WIFI_PASSWORD="$ENV{WIFI_PASSWORD}" /bin/bash ${CMAKE_CURRENT_LIST_DIR}/pre_build_script.sh
+        COMMENT "Running pre-build script with WIFI_SSID and WIFI_PASSWORD")
 
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/generated)
 
@@ -30,3 +38,8 @@ add_custom_command(OUTPUT ${CMAKE_CURRENT_LIST_DIR}/generated/ws2812.py
 
 add_dependencies(led_controller
         led_controller_datasheet)
+
+add_custom_command(
+        TARGET led_controller POST_BUILD
+        COMMAND /bin/bash ${CMAKE_CURRENT_LIST_DIR}/post_build_script.sh
+        COMMENT "Running post-build script")
