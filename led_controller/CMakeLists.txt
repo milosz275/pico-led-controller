@@ -1,6 +1,16 @@
 cmake_minimum_required(VERSION 3.10)
 project(led_controller)
 
+if (NOT "$ENV{WIFI_SSID}" STREQUAL "")
+    set(WIFI_SSID "$ENV{WIFI_SSID}" CACHE INTERNAL "Copied from environment variable")
+endif()
+message("WIFI_SSID = ${WIFI_SSID}")
+
+if (NOT "$ENV{WIFI_PASSWORD}" STREQUAL "")
+    set(WIFI_PASSWORD "$ENV{WIFI_PASSWORD}" CACHE INTERNAL "Copied from environment variable")
+endif()
+message("WIFI_PASSWORD = ${WIFI_PASSWORD}")
+
 add_executable(led_controller)
 
 add_custom_command(
