@@ -23,6 +23,30 @@ jobs:
         cd pico-sdk
         git submodule update --init
         echo "PICO_SDK_PATH=$(pwd)" >> $GITHUB_ENV
+    
+    - name: Setup PICO Examples
+      run: |
+        echo "Setting up PICO Examples"
+        git clone https://github.com/raspberrypi/pico-examples.git
+        cd pico-examples
+        git submodule update --init
+        echo "PICO_EXAMPLES_PATH=$(pwd)" >> $GITHUB_ENV
+
+    - name: Setup PICO Extras
+      run: |
+        echo "Setting up PICO Extras"
+        git clone https://github.com/raspberrypi/pico-extras.git
+        cd pico-extras
+        git submodule update --init
+        echo "PICO_EXTRAS_PATH=$(pwd)" >> $GITHUB_ENV
+
+    - name: Setup FreeRTOS Kernel
+      run: |
+        echo "Setting up FreeRTOS Kernel"
+        git clone https://github.com/FreeRTOS/FreeRTOS-Kernel.git
+        cd FreeRTOS-Kernel
+        git submodule update --init
+        echo "FREERTOS_KERNEL_PATH=$(pwd)" >> $GITHUB_ENV
 
     - name: Build Main Project
       run: |
