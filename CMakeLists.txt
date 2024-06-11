@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.13)
 
-set(PICO_SDK_PATH "/home/mlsh/projects/pico/pico-sdk")
+set(PICO_SDK_PATH "${PICO_SDK_PATH}")
 
 include(pico_sdk_import.cmake)
 
@@ -31,7 +31,7 @@ pico_enable_stdio_uart(LedController 1)
 pico_enable_stdio_usb(LedController 1)
 
 # Add the standard library to the build
-target_link_libraries(LedController pico_stdlib pico_cyw43_arch_none PicoLed)
+target_link_libraries(LedController pico_stdlib pico_cyw43_arch_none)
 
 pico_add_extra_outputs(LedController)
 
