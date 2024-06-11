@@ -8,7 +8,8 @@
         "mldxo",
         "PICO",
         "PICOLED",
-        "urgb"
+        "urgb",
+        "endline"
     ],
     "files.associations": {
         "cyw43_arch.h": "c",
@@ -65,6 +66,7 @@
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "cinttypes": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "pio.h": "c"
     }
 }
