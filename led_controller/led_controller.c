@@ -3,11 +3,11 @@
 #include <stdint.h>
 
 #include "pico/stdlib.h"
+#include "pico/cyw43_arch.h"
+#include "boards/pico_w.h"
 #include "generated/ws2812.pio.h"
 #include "hardware/pio.h"
 #include "hardware/clocks.h"
-#include "pico/cyw43_arch.h"
-#include "boards/pico_w.h"
 
 #define WS2812_PIN 2
 #define NUM_PIXELS 118
@@ -45,14 +45,10 @@ bool init()
         printf("Wi-Fi init failed");
         return false;
     }
-    // cyw43_arch_lwip_begin();
+
     cyw43_arch_enable_sta_mode();
-    while (!cyw43_arch_wifi_connect_async(WIFI_SSID, WIFI_PASSWORD, CYW43_AUTH_WPA2_AES_PSK))
-    {
-        printf("Could not start connecting to Wi-Fi");
-        onboard_led_blink(50, 250);
-        onboard_led_blink(50, 250);
-    }
+    cyw43_arch_wifi_connect_async(WIFI_SSID, WIFI_PASSWORD, CYW43_AUTH_WPA2_AES_PSK);
+    onboard_led_blink(250, 50);
     onboard_led_blink(250, 0);
     return true;
 }
@@ -89,12 +85,59 @@ void set_all_blue(uint len, uint8_t brightness)
     set_all_leds(blue, len);
 }
 
+uint32_t hsv_to_rgb(uint16_t h, uint8_t s, uint8_t v)
+{
+    float hf = h / 60.0f;
+    float sf = s / 255.0f;
+    float vf = v / 255.0f;
+
+    int i = (int)hf % 6;
+    float f = hf - (int)hf;
+    uint8_t p = (uint8_t)(vf * (1.0f - sf) * 255);
+    uint8_t q = (uint8_t)(vf * (1.0f - sf * f) * 255);
+    uint8_t t = (uint8_t)(vf * (1.0f - sf * (1.0f - f)) * 255);
+    uint8_t vi = (uint8_t)(vf * 255);
+
+    uint8_t r, g, b;
+    switch (i) {
+        case 0:
+            r = vi;
+            g = t;
+            b = p;
+            break;
+        case 1:
+            r = q;
+            g = vi;
+            b = p;
+            break;
+        case 2:
+            r = p;
+            g = vi;
+            b = t;
+            break;
+        case 3:
+            r = p;
+            g = q;
+            b = vi;
+            break;
+        case 4:
+            r = t;
+            g = p;
+            b = vi;
+            break;
+        case 5:
+            r = vi;
+            g = p;
+            b = q;
+            break;
+    }
+    return ((uint32_t)g << 16) | ((uint32_t)r << 8) | (uint32_t)b;
+}
+
 int main()
 {
     if (!init())
-    {
         return -1;
-    }
     printf("WS2812 LED Control, using pin %d\n", WS2812_PIN);
 
     PIO pio = pio0;
@@ -103,20 +146,21 @@ int main()
     ws2812_program_init(pio, sm, offset, WS2812_PIN, 800000, IS_RGBW);
 
     puts("Beginning main loop");
+    int base_hue = 0;
+    int speed_factor = 3;
+    int density_factor = 2;
     while (true)
     {
         onboard_led_blink(50, 0);
-        for (int i = 0; i < 255; ++i)
+        for (int i = 0; i < NUM_PIXELS; ++i)
         {
-            set_all_red(NUM_PIXELS, i);
-            sleep_ms(10);
+            int hue = (base_hue + i * 360 / NUM_PIXELS * density_factor) % 360;
+            uint32_t color = hsv_to_rgb(hue, 255, 255);
+            put_pixel(color);
+            hue++;
         }
-        sleep_ms(490);
-        for (int i = 255; i >= 0; --i)
-        {
-            set_all_red(NUM_PIXELS, i);
-            sleep_ms(10);
-        }
-        sleep_ms(490);
+
+        base_hue += speed_factor;
+        base_hue %= 360;
     }
 }
