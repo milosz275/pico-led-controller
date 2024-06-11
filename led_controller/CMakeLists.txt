@@ -15,9 +15,9 @@ add_executable(led_controller)
 
 add_custom_command(
         TARGET led_controller PRE_BUILD
-        COMMAND /usr/bin/env WIFI_SSID="$ENV{WIFI_SSID}" WIFI_PASSWORD="$ENV{WIFI_PASSWORD}" /bin/bash ${CMAKE_CURRENT_LIST_DIR}/pre_build_script.sh
-        COMMENT "Running pre-build script with WIFI_SSID and WIFI_PASSWORD")
-
+        COMMAND /bin/bash ${CMAKE_CURRENT_LIST_DIR}/pre_build_script.sh
+        COMMENT "Running pre-build script")
+        
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/generated)
 
 # generate the header file into the source tree as it is included in the RP2040 datasheet
