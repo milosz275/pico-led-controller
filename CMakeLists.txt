@@ -31,7 +31,14 @@ pico_enable_stdio_uart(LedController 1)
 pico_enable_stdio_usb(LedController 1)
 
 # Add the standard library to the build
-target_link_libraries(LedController pico_stdlib pico_cyw43_arch_none)
+target_link_libraries(LedController
+        pico_stdlib
+        pico_cyw43_arch_none)
+
+# target_include_directories(LedController PRIVATE
+#         ${CMAKE_CURRENT_LIST_DIR}
+#         ${CMAKE_CURRENT_LIST_DIR}/led_controller
+# )
 
 pico_add_extra_outputs(LedController)
 
@@ -47,4 +54,3 @@ include(example_auto_set_url.cmake)
 
 # Hardware-specific examples in subdirectories:
 add_subdirectory(led_controller)
-add_subdirectory(ws2812)

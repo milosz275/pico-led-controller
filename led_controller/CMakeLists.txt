@@ -30,7 +30,7 @@ target_sources(led_controller
 target_link_libraries(led_controller
         PRIVATE
         pico_stdlib
-        pico_cyw43_arch_lwip_threadsafe_background
+        pico_cyw43_arch_none
         hardware_pio)
 
 target_include_directories(led_controller PRIVATE
