@@ -43,5 +43,8 @@ if (CMAKE_C_COMPILER_ID STREQUAL "GNU")
     add_compile_options(-Wno-maybe-uninitialized)
 endif()
 
+include(example_auto_set_url.cmake)
+
 # Hardware-specific examples in subdirectories:
 add_subdirectory(led_controller)
+add_subdirectory(ws2812)
