@@ -30,8 +30,13 @@ target_sources(led_controller
 target_link_libraries(led_controller
         PRIVATE
         pico_stdlib
-        pico_cyw43_arch_none
+        pico_cyw43_arch_lwip_threadsafe_background
         hardware_pio)
+
+target_include_directories(led_controller PRIVATE
+        ${CMAKE_CURRENT_LIST_DIR}
+        ${CMAKE_CURRENT_LIST_DIR}/.. # for our common lwipopts
+)
 
 pico_add_extra_outputs(led_controller)
 
