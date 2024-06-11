@@ -1,4 +1,4 @@
-# Raspberry Pi Pico W LED Controller + Web interface
+# Raspberry Pi Pico W LED Controller with Web interface
 
 This project is a simple example of how to manage a WS2812B LED strip with a Raspberry Pi Pico W and a Web interface.
 
