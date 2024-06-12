@@ -1,6 +1,7 @@
 # Raspberry Pi Pico W LED Controller with Web interface
 
 [![Build](https://github.com/mldxo/pico-led-controller/actions/workflows/cmake.yml/badge.svg)](https://github.com/mldxo/pico-led-controller/actions/workflows/cmake.yml)
+[![CodeQL](https://github.com/mldxo/pico-led-controller/actions/workflows/codeql.yml/badge.svg)](https://github.com/mldxo/pico-led-controller/actions/workflows/codeql.yml)
 
 This project is a simple example of how to manage a WS2812B LED strip with a Raspberry Pi Pico W and a Web interface.
 
