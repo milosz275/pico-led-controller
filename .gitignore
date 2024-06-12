@@ -9,3 +9,4 @@ generated
 *.pyc
 *.pyo
 *.pyd
+.notes
