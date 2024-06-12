@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
-project(led_controller)
+project(led_controller VERSION 0)
+message("CMAKE_PROJECT_VERSION = ${CMAKE_PROJECT_VERSION}")
 
 if (NOT "$ENV{WIFI_SSID}" STREQUAL "")
     set(WIFI_SSID "$ENV{WIFI_SSID}" CACHE INTERNAL "Copied from environment variable")
