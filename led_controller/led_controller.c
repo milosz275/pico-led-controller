@@ -134,6 +134,20 @@ uint32_t hsv_to_rgb(uint16_t h, uint8_t s, uint8_t v)
     return ((uint32_t)g << 16) | ((uint32_t)r << 8) | (uint32_t)b;
 }
 
+void apply_rainbow_effect(int *base_hue, int *speed_factor, int *density_factor, int *brightness)
+{
+    for (int i = 0; i < NUM_PIXELS; ++i)
+        {
+            int hue = (*base_hue + i * 360 / NUM_PIXELS * *density_factor) % 360;
+            uint32_t color = hsv_to_rgb(hue * *brightness / 100, 255 * *brightness / 100, 255* *brightness / 100);
+            put_pixel(color);
+            hue++;
+        }
+        *speed_factor = rand() % 3 + 5;
+        *base_hue += *speed_factor;
+        *base_hue %= 360;
+}
+
 int main()
 {
     if (!init())
@@ -147,20 +161,12 @@ int main()
 
     puts("Beginning main loop");
     int base_hue = 0;
-    int speed_factor = 3;
+    int speed_factor = 5;
     int density_factor = 2;
+    int brightness = 100;
     while (true)
     {
         onboard_led_blink(50, 0);
-        for (int i = 0; i < NUM_PIXELS; ++i)
-        {
-            int hue = (base_hue + i * 360 / NUM_PIXELS * density_factor) % 360;
-            uint32_t color = hsv_to_rgb(hue, 255, 255);
-            put_pixel(color);
-            hue++;
-        }
-
-        base_hue += speed_factor;
-        base_hue %= 360;
+        apply_rainbow_effect(&base_hue, &speed_factor, &density_factor, &brightness);
     }
 }
