@@ -1,0 +1,113 @@
+name: "CodeQL with CMake Build"
+
+on:
+  push:
+    branches: [ "main", "default-branch-rule" ]
+  pull_request:
+    branches: [ "main", "default-branch-rule" ]
+  schedule:
+    - cron: '35 20 * * 0'
+
+env:
+  BUILD_TYPE: Release
+
+jobs:
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    permissions:
+      security-events: write
+      packages: read
+      actions: read
+      contents: read
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - language: c-cpp
+            build-mode: manual
+          - language: python
+            build-mode: none
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: ${{ matrix.build-mode }}
+
+      - if: matrix.build-mode == 'manual'
+        name: Setup Environment
+        run: |
+          echo "Setting up the environment"
+          sudo apt-get update
+          sudo apt-get install -y cmake gcc-arm-none-eabi libnewlib-arm-none-eabi build-essential
+
+      - if: matrix.build-mode == 'manual'
+        name: Setup PICO SDK
+        run: |
+          echo "Setting up PICO SDK"
+          git clone https://github.com/raspberrypi/pico-sdk.git
+          cd pico-sdk
+          git submodule update --init
+          echo "PICO_SDK_PATH=$(pwd)" >> $GITHUB_ENV
+
+      - if: matrix.build-mode == 'manual'
+        name: Setup PICO Examples
+        run: |
+          echo "Setting up PICO Examples"
+          git clone https://github.com/raspberrypi/pico-examples.git
+          cd pico-examples
+          git submodule update --init
+          echo "PICO_EXAMPLES_PATH=$(pwd)" >> $GITHUB_ENV
+
+      - if: matrix.build-mode == 'manual'
+        name: Setup PICO Extras
+        run: |
+          echo "Setting up PICO Extras"
+          git clone https://github.com/raspberrypi/pico-extras.git
+          cd pico-extras
+          git submodule update --init
+          echo "PICO_EXTRAS_PATH=$(pwd)" >> $GITHUB_ENV
+
+      - if: matrix.build-mode == 'manual'
+        name: Setup FreeRTOS Kernel
+        run: |
+          echo "Setting up FreeRTOS Kernel"
+          git clone https://github.com/FreeRTOS/FreeRTOS-Kernel.git
+          cd FreeRTOS-Kernel
+          git submodule update --init
+          echo "FREERTOS_KERNEL_PATH=$(pwd)" >> $GITHUB_ENV
+
+      - if: matrix.build-mode == 'manual'
+        name: Setup Pico Board
+        run: |
+          echo "Setting up Pico Board"
+          echo "PICO_BOARD=pico_w" >> $GITHUB_ENV
+
+      - if: matrix.build-mode == 'manual'
+        name: Build Main Project
+        run: |
+          mkdir build
+          cd build
+          cmake .. -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
+          make -j$(nproc)
+
+      - if: matrix.build-mode == 'manual'
+        name: Build pico_w Project
+        run: |
+          cd pico_w
+          mkdir build
+          cd build
+          cmake .. -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
+          make -j$(nproc)
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{matrix.language}}"
