@@ -28,8 +28,6 @@ jobs:
         include:
           - language: c-cpp
             build-mode: manual
-          - language: python
-            build-mode: none
 
     steps:
       - name: Checkout repository
@@ -89,6 +87,20 @@ jobs:
         run: |
           echo "Setting up Pico Board"
           echo "PICO_BOARD=pico_w" >> $GITHUB_ENV
+
+      - if: matrix.build-mode == 'manual'
+        name: Create wifi_credentials.h
+        run: |
+          mkdir -p ./led_controller/
+          cat <<EOT >> ./led_controller/wifi_credentials.h
+          #ifndef _WIFI_CREDENTIALS_H
+          #define _WIFI_CREDENTIALS_H
+
+          #define WIFI_SSID "wifi_ssid"
+          #define WIFI_PASSWORD "wifi_password"
+
+          #endif
+          EOT
 
       - if: matrix.build-mode == 'manual'
         name: Build Main Project
