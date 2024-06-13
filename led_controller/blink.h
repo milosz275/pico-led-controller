@@ -8,7 +8,7 @@
 
 #include "light_state.h"
 
-void onboard_led_blink(int on_time, int off_time)
+void onboard_led_blink(uint32_t on_time, uint32_t off_time)
 {
     cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 1);
     sleep_ms(on_time);
@@ -16,7 +16,7 @@ void onboard_led_blink(int on_time, int off_time)
     sleep_ms(off_time);
 }
 
-void led_blink(int on_time, int off_time)
+void led_blink(uint32_t on_time, uint32_t off_time)
 {
     toggle_light_state();
     sleep_ms(on_time);
