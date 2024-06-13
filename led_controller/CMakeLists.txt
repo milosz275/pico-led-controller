@@ -2,6 +2,11 @@ cmake_minimum_required(VERSION 3.10)
 project(led_controller VERSION 0)
 message("CMAKE_PROJECT_VERSION = ${CMAKE_PROJECT_VERSION}")
 
+message("Running makefsdata python script")
+execute_process(COMMAND
+    py makefsdata.py
+    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
+
 add_executable(led_controller)
         
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/generated)
@@ -22,11 +27,7 @@ target_link_libraries(led_controller
         hardware_pio)
 
 target_include_directories(led_controller PRIVATE
-        ${CMAKE_CURRENT_LIST_DIR}
-        ${CMAKE_CURRENT_LIST_DIR}/.. # for our common lwipopts
-)
+        ${CMAKE_CURRENT_LIST_DIR})
 
 pico_add_extra_outputs(led_controller)
-
-# add url via pico_set_program_url
 example_auto_set_url(led_controller)
