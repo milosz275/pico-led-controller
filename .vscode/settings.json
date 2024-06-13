@@ -1,5 +1,6 @@
 {
     "cSpell.words": [
+        "ARRAYSIZE",
         "dreq",
         "endline",
         "GPIO",
@@ -11,7 +12,8 @@
         "mldxo",
         "PICO",
         "PICOLED",
-        "urgb"
+        "urgb",
+        "Webserver"
     ],
     "files.associations": {
         "cyw43_arch.h": "c",
@@ -72,6 +74,8 @@
         "pio.h": "c",
         "pico_w.h": "c",
         "stdlib.h": "c",
-        "ws2812.pio.h": "c"
+        "ws2812.pio.h": "c",
+        "lwipopts.h": "c",
+        "blink.h": "c"
     }
 }
