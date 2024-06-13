@@ -18,7 +18,6 @@ void onboard_led_blink(int on_time, int off_time)
 
 void led_blink(int on_time, int off_time)
 {
-    bool previous_light_state = light_state;
     toggle_light_state();
     sleep_ms(on_time);
     toggle_light_state();
