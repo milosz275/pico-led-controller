@@ -2,12 +2,16 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-#include "pico/stdlib.h"
-#include "pico/cyw43_arch.h"
-#include "boards/pico_w.h"
+#include <pico/stdlib.h>
+#include <pico/cyw43_arch.h>
+#include <boards/pico_w.h>
+#include <hardware/pio.h>
+#include <hardware/clocks.h>
+
+#include "urgb.h"
+#include "hsv.h"
+#include "ws2812b.h"
 #include "generated/ws2812.pio.h"
-#include "hardware/pio.h"
-#include "hardware/clocks.h"
 
 #define WS2812_PIN 2
 #define NUM_PIXELS 118
@@ -15,19 +19,6 @@
 
 const char* WIFI_SSID = "wifi_ssid";
 const char* WIFI_PASSWORD = "wifi_password";
-
-static inline void put_pixel(uint32_t pixel_grb)
-{
-    pio_sm_put_blocking(pio0, 0, pixel_grb << 8u);
-}
-
-static inline uint32_t urgb_u32(uint8_t r, uint8_t g, uint8_t b)
-{
-    return
-        ((uint32_t) (r) << 8) |
-        ((uint32_t) (g) << 16) |
-        (uint32_t) (b);
-}
 
 void onboard_led_blink(int on_time, int off_time)
 {
@@ -51,87 +42,6 @@ bool init()
     onboard_led_blink(250, 50);
     onboard_led_blink(250, 0);
     return true;
-}
-
-void set_all_leds(uint32_t color, uint len)
-{
-    for (uint i = 0; i < len; ++i)
-    {
-        put_pixel(color);
-    }
-}
-
-void turn_off_all(uint len)
-{
-    uint32_t off = urgb_u32(0, 0, 0);
-    set_all_leds(off, len);
-}
-
-void set_all_red(uint len, uint8_t brightness)
-{
-    uint32_t red = urgb_u32(brightness, 0, 0);
-    set_all_leds(red, len);
-}
-
-void set_all_green(uint len, uint8_t brightness)
-{
-    uint32_t green = urgb_u32(0, brightness, 0);
-    set_all_leds(green, len);
-}
-
-void set_all_blue(uint len, uint8_t brightness)
-{
-    uint32_t blue = urgb_u32(0, 0, brightness);
-    set_all_leds(blue, len);
-}
-
-uint32_t hsv_to_rgb(uint16_t h, uint8_t s, uint8_t v)
-{
-    float hf = h / 60.0f;
-    float sf = s / 255.0f;
-    float vf = v / 255.0f;
-
-    int i = (int)hf % 6;
-    float f = hf - (int)hf;
-    uint8_t p = (uint8_t)(vf * (1.0f - sf) * 255);
-    uint8_t q = (uint8_t)(vf * (1.0f - sf * f) * 255);
-    uint8_t t = (uint8_t)(vf * (1.0f - sf * (1.0f - f)) * 255);
-    uint8_t vi = (uint8_t)(vf * 255);
-
-    uint8_t r, g, b;
-    switch (i) {
-        case 0:
-            r = vi;
-            g = t;
-            b = p;
-            break;
-        case 1:
-            r = q;
-            g = vi;
-            b = p;
-            break;
-        case 2:
-            r = p;
-            g = vi;
-            b = t;
-            break;
-        case 3:
-            r = p;
-            g = q;
-            b = vi;
-            break;
-        case 4:
-            r = t;
-            g = p;
-            b = vi;
-            break;
-        case 5:
-            r = vi;
-            g = p;
-            b = q;
-            break;
-    }
-    return ((uint32_t)g << 16) | ((uint32_t)r << 8) | (uint32_t)b;
 }
 
 void apply_rainbow_effect(int *base_hue, int *speed_factor, int *density_factor, int *brightness)
