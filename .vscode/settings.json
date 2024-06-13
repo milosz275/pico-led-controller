@@ -3,6 +3,7 @@
         "dreq",
         "endline",
         "GPIO",
+        "ifndef",
         "Leds",
         "LWIPOPTS",
         "Maculewicz",

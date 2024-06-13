@@ -7,12 +7,26 @@ This project is a simple example of how to manage a WS2812B LED strip with a Ras
 
 ## Prerequisites
 
+Env variables
+
 ```bash
 export PICO_SDK_PATH="insert_path_here"
 export PICO_EXTRAS_PATH="insert_path_here"
 export PICO_EXAMPLES_PATH="insert_path_here"
 export FREERTOS_KERNEL_PATH="insert_path_here"
 export PICO_BOARD="pico_w"
+```
+
+`led_controller/wifi_credentials.h`
+
+```c
+#ifndef _WIFI_CREDENTIALS_H
+#define _WIFI_CREDENTIALS_H
+
+#define WIFI_SSID "wifi_ssid"
+#define WIFI_PASSWORD "wifi_password"
+
+#endif
 ```
 
 ## License
