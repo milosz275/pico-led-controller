@@ -1,0 +1,18 @@
+{
+    "name": "Raspberry Pi Pico W LED Controller and Webserver",
+    "short_name": "PicoWLED",
+    "scope": "/",
+    "id": "/index.shtml",
+    "start_url": "/index.shtml",
+    "display": "standalone",
+    "description": "Pico W controller with web interface",
+    "icons": [
+      {
+        "src": "favicon.ico",
+        "sizes": "48x48",
+        "type": "image/x-icon"
+      }
+    ],
+    "background_color": "#ffffff",
+    "theme_color": "#455A64"
+}
