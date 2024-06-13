@@ -24,10 +24,7 @@
 
 #define WS2812_PIN 2
 #define LIGHT_TOGGLE_PIN 15
-#define NUM_PIXELS 118
 #define IS_RGBW false
-
-bool button_previous_state = true; // button is up
 
 void connect_to_wifi()
 {
@@ -37,12 +34,19 @@ void connect_to_wifi()
     printf("Connected!\n");
 }
 
+void button_irq_handler(uint gpio, uint32_t events)
+{
+    toggle_light_state(NUM_PIXELS);
+}
+
 bool init()
 {
     stdio_init_all();
     gpio_init(LIGHT_TOGGLE_PIN);
     gpio_set_dir(LIGHT_TOGGLE_PIN, GPIO_IN);
     gpio_pull_up(LIGHT_TOGGLE_PIN);
+
+    gpio_set_irq_enabled_with_callback(LIGHT_TOGGLE_PIN, GPIO_IRQ_EDGE_FALL, true, &button_irq_handler);
 
     if (cyw43_arch_init())
     {
@@ -61,36 +65,18 @@ bool init()
     return true;
 }
 
-void apply_rainbow_effect(int *base_hue, int *speed_factor, int *density_factor, int *brightness)
+void apply_rainbow_effect(uint16_t* base_hue, uint8_t* speed_factor, uint8_t* density_factor, uint8_t* brightness)
 {
-    for (int i = 0; i < NUM_PIXELS; ++i)
+    for (uint8_t i = 0; i < NUM_PIXELS; ++i)
     {
-        int hue = (*base_hue + i * 360 / NUM_PIXELS * *density_factor) % 360;
+        uint16_t hue = (*base_hue + i * 360 / NUM_PIXELS * *density_factor) % 360;
         uint32_t color = hsv_to_rgb(hue * *brightness / 100, 255 * *brightness / 100, 255* *brightness / 100);
         put_pixel(color);
         hue++;
     }
-    *speed_factor = rand() % 3 + 5;
+    *speed_factor = rand() % 3 + 5; // 5, 6, 7
     *base_hue += *speed_factor;
     *base_hue %= 360;
-}
-
-void handle_light_button_toggle()
-{
-    if (gpio_get(LIGHT_TOGGLE_PIN))
-    {
-        if (!button_previous_state)
-            button_previous_state = true;
-    }
-    else
-    {
-        if (button_previous_state)
-        {
-            toggle_light_state();
-            button_previous_state = false;
-            printf("Light toggled");
-        }
-    }
 }
 
 int main()
@@ -105,26 +91,20 @@ int main()
     ws2812_program_init(pio, sm, offset, WS2812_PIN, 800000, IS_RGBW);
 
     puts("Beginning main loop");
-    int base_hue = 0;
-    int speed_factor = 5;
-    int density_factor = 2;
-    int brightness = 100;
-    int previous_light_state = true;
+    uint16_t base_hue = 0;
+    uint8_t speed_factor = 4;
+    uint8_t density_factor = 3;
+    uint8_t brightness = 100;
     while (true)
     {
-        handle_light_button_toggle();
-        bool current_light_state = light_state;
-        if (previous_light_state != current_light_state)
-        {
-            if (!current_light_state)
-                turn_off_all(NUM_PIXELS);
-        }
-        if (current_light_state)
+        if (light_state)
             apply_rainbow_effect(&base_hue, &speed_factor, &density_factor, &brightness);
-        previous_light_state = current_light_state;
         if (cyw43_tcpip_link_status(&cyw43_state, CYW43_ITF_STA) != CYW43_LINK_UP)
+        {
+            turn_off_all(NUM_PIXELS);
             connect_to_wifi();
-        sleep_ms(50);
+        }
+        sleep_ms(70);
     }
     cyw43_arch_deinit();
 }
