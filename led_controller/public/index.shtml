@@ -1,24 +1,44 @@
 <!DOCTYPE html>
-<html>
-    <head> 
-        <title>PicoW Webserver</title> 
-        <meta name="theme-color" media="(prefers-color-scheme: light)" content="white">
-        <meta name="theme-color" media="(prefers-color-scheme: dark)"  content="black">
-        <link rel="manifest" href="/manifest.json">
-    </head>
-    <body> <h1>PicoW Webserver Tutorial</h1>
-        <br>
-        <h2>This bit is SSI:</h2>
-        <p>Voltage: <!--#volt--></p>
-        <p>Temp: <!--#temp--> C</p>
-        <p>Onboard LED is: <!--#onboard-led--></p>
-        <p>LED strip is: <!--#led--></p>
-        <br>
-        <h2>This bit is CGI:</h2>
-        <a href="/onboard_led.cgi?toggle"><button>Onboard LED toggle</button></a>
-        <a href="/led.cgi?toggle"><button>LED Strip toggle</button></a>
-        <br>
-        <br>
-        <a href="/index.shtml">Refresh</a>
-   </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pico W</title>
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="white">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="black">
+    <link rel="manifest" href="/manifest.json">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-100">
+    <div class="container mx-auto p-6">
+        <h1 class="text-4xl font-bold mb-6">Raspberry Pi Pico W LED Controller with Web interface</h1>
+        <div class="mb-6">
+            <h2 class="text-2xl font-semibold mb-4">SSI:</h2>
+            <p class="mb-2">Voltage: <span class="font-mono text-blue-500"><!--#volt--></span></p>
+            <p class="mb-2">Temp: <span class="font-mono text-blue-500"><!--#temp--></span> °C</p>
+            <p class="mb-2">Onboard LED is: <span class="font-mono text-blue-500"><!--#onboard-led--></span></p>
+            <p class="mb-2">LED strip is: <span class="font-mono text-blue-500"><!--#led--></span></p>
+        </div>
+        <div class="mb-6">
+            <h2 class="text-2xl font-semibold mb-4">CGI:</h2>
+            <a href="/onboard_led.cgi?toggle" class="inline-block mb-2">
+                <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300">
+                    Onboard LED toggle
+                </button>
+            </a>
+            <a href="/led.cgi?toggle" class="inline-block mb-2">
+                <button class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-300">
+                    LED Strip toggle
+                </button>
+            </a>
+        </div>
+        <div>
+            <a href="/index.shtml">
+                <button class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600 transition duration-300">
+                    Refresh
+                </button>
+            </a>
+        </div>
+    </div>
+</body>
 </html>
