@@ -2,6 +2,9 @@
 <html>
     <head> 
         <title>PicoW Webserver</title> 
+        <meta name="theme-color" media="(prefers-color-scheme: light)" content="white">
+        <meta name="theme-color" media="(prefers-color-scheme: dark)"  content="black">
+        <link rel="manifest" href="/manifest.json">
     </head>
     <body> <h1>PicoW Webserver Tutorial</h1>
         <br>
