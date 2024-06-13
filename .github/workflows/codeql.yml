@@ -28,6 +28,8 @@ jobs:
         include:
           - language: c-cpp
             build-mode: manual
+          - language: python
+            build-mode: manual
 
     steps:
       - name: Checkout repository
