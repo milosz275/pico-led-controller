@@ -11,6 +11,7 @@ const char* cgi_onboard_led_handler(int iIndex, int iNumParams, char* pcParam[],
 {
     if (strcmp(pcParam[0] , "toggle") == 0)
     {
+        printf("Toggling onboard LED\n");
         if (cyw43_arch_gpio_get(CYW43_WL_GPIO_LED_PIN))
             cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 0);
         else
@@ -23,18 +24,21 @@ const char* cgi_led_handler(int iIndex, int iNumParams, char* pcParam[], char* p
 {
     if (strcmp(pcParam[0] , "toggle") == 0)
     {
-        light_state = !light_state;
+        printf("Toggling LED strip\n");
+        toggle_light_state();
     }
     return "/index.shtml";
 }
 
 const char* cgi_favicon_handler(int iIndex, int iNumParams, char* pcParam[], char* pcValue[])
 {
+    printf("Favicon handling\n");
     return "/favicon.ico";
 }
 
 const char* cgi_manifests_handler(int iIndex, int iNumParams, char* pcParam[], char* pcValue[])
 {
+    printf("Manifest handling\n");
     return "/manifest.json";
 }
 
