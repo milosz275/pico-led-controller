@@ -60,10 +60,3 @@ jobs:
         cmake .. -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
         make -j$(nproc)
 
-    - name: Build pico_w Project
-      run: |
-        cd pico_w
-        mkdir build
-        cd build
-        cmake .. -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
-        make -j$(nproc)
