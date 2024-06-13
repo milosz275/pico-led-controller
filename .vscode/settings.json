@@ -1,15 +1,16 @@
 {
     "cSpell.words": [
         "dreq",
+        "endline",
         "GPIO",
         "Leds",
+        "LWIPOPTS",
         "Maculewicz",
         "Miłosz",
         "mldxo",
         "PICO",
         "PICOLED",
-        "urgb",
-        "endline"
+        "urgb"
     ],
     "files.associations": {
         "cyw43_arch.h": "c",
@@ -67,6 +68,9 @@
         "streambuf": "cpp",
         "cinttypes": "cpp",
         "typeinfo": "cpp",
-        "pio.h": "c"
+        "pio.h": "c",
+        "pico_w.h": "c",
+        "stdlib.h": "c",
+        "ws2812.pio.h": "c"
     }
 }
