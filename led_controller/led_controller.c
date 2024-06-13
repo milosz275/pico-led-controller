@@ -109,13 +109,19 @@ int main()
     int speed_factor = 5;
     int density_factor = 2;
     int brightness = 100;
+    int previous_light_state = true;
     while (true)
     {
         handle_light_button_toggle();
-        if (!light_state)
-            turn_off_all(NUM_PIXELS);
-        else
+        bool current_light_state = light_state;
+        if (previous_light_state != current_light_state)
+        {
+            if (!current_light_state)
+                turn_off_all(NUM_PIXELS);
+        }
+        if (current_light_state)
             apply_rainbow_effect(&base_hue, &speed_factor, &density_factor, &brightness);
+        previous_light_state = current_light_state;
         if (cyw43_tcpip_link_status(&cyw43_state, CYW43_ITF_STA) != CYW43_LINK_UP)
             connect_to_wifi();
         sleep_ms(50);
