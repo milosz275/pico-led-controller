@@ -45,7 +45,7 @@ bool init()
     }
 
     cyw43_arch_enable_sta_mode();
-    while(cyw43_arch_wifi_connect_timeout_ms(WIFI_SSID, WIFI_PASSWORD, CYW43_AUTH_WPA2_AES_PSK, 10000) != 0) // ten seconds timeout
+    while (cyw43_arch_wifi_connect_timeout_ms(WIFI_SSID, WIFI_PASSWORD, CYW43_AUTH_WPA2_AES_PSK, 10000) != 0) // ten seconds timeout
         printf("Attempting to connect...\n");
     printf("Connected!\n");
     onboard_led_blink(250, 50);
@@ -56,15 +56,15 @@ bool init()
 void apply_rainbow_effect(int *base_hue, int *speed_factor, int *density_factor, int *brightness)
 {
     for (int i = 0; i < NUM_PIXELS; ++i)
-        {
-            int hue = (*base_hue + i * 360 / NUM_PIXELS * *density_factor) % 360;
-            uint32_t color = hsv_to_rgb(hue * *brightness / 100, 255 * *brightness / 100, 255* *brightness / 100);
-            put_pixel(color);
-            hue++;
-        }
-        *speed_factor = rand() % 3 + 5;
-        *base_hue += *speed_factor;
-        *base_hue %= 360;
+    {
+        int hue = (*base_hue + i * 360 / NUM_PIXELS * *density_factor) % 360;
+        uint32_t color = hsv_to_rgb(hue * *brightness / 100, 255 * *brightness / 100, 255* *brightness / 100);
+        put_pixel(color);
+        hue++;
+    }
+    *speed_factor = rand() % 3 + 5;
+    *base_hue += *speed_factor;
+    *base_hue %= 360;
 }
 
 int main()
