@@ -12,29 +12,22 @@
 #include "urgb.h"
 #include "hsv.h"
 #include "ws2812b.h"
+#include "blink.h"
+#include "light_state.h"
 #include "wifi_credentials.h"
 #include "generated/ws2812.pio.h"
 
 #include "lwipopts.h"
-// #include "lwip/apps/httpd.h"
-// #include "ssi.h"
-// #include "cgi.h"
+#include "lwip/apps/httpd.h"
+#include "ssi.h"
+#include "cgi.h"
 
 #define WS2812_PIN 2
 #define LIGHT_TOGGLE_PIN 15
 #define NUM_PIXELS 118
 #define IS_RGBW false
 
-bool light_on = true;
 bool button_previous_state = true; // button is up
-
-void onboard_led_blink(int on_time, int off_time)
-{
-    cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 1);
-    sleep_ms(on_time);
-    cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 0);
-    sleep_ms(off_time);
-}
 
 void connect_to_wifi()
 {
@@ -59,6 +52,9 @@ bool init()
 
     cyw43_arch_enable_sta_mode();
     connect_to_wifi();
+    httpd_init();
+    ssi_init(); 
+    cgi_init();
     
     onboard_led_blink(250, 50);
     onboard_led_blink(250, 50);
@@ -90,7 +86,7 @@ void handle_light_button_toggle()
     {
         if (button_previous_state)
         {
-            light_on = !light_on;
+            toggle_light_state();
             button_previous_state = false;
             printf("Light toggled");
         }
@@ -116,7 +112,7 @@ int main()
     while (true)
     {
         handle_light_button_toggle();
-        if (!light_on)
+        if (!light_state)
             turn_off_all(NUM_PIXELS);
         else
             apply_rainbow_effect(&base_hue, &speed_factor, &density_factor, &brightness);
