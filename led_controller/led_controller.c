@@ -79,7 +79,7 @@ void apply_rainbow_effect(int *base_hue, int *speed_factor, int *density_factor,
     *base_hue %= 360;
 }
 
-void handle_light_toggle()
+void handle_light_button_toggle()
 {
     if (gpio_get(LIGHT_TOGGLE_PIN))
     {
@@ -115,7 +115,7 @@ int main()
     int brightness = 100;
     while (true)
     {
-        handle_light_toggle();
+        handle_light_button_toggle();
         if (!light_on)
             turn_off_all(NUM_PIXELS);
         else
