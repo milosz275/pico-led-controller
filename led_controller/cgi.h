@@ -33,6 +33,11 @@ const char* cgi_favicon_handler(int iIndex, int iNumParams, char* pcParam[], cha
     return "/favicon.ico";
 }
 
+const char* cgi_manifests_handler(int iIndex, int iNumParams, char* pcParam[], char* pcValue[])
+{
+    return "/manifest.json";
+}
+
 static const tCGI cgi_handlers[] = {
     {
         "/onboard_led.cgi", cgi_onboard_led_handler
@@ -43,11 +48,14 @@ static const tCGI cgi_handlers[] = {
     {
         "/favicon.ico", cgi_favicon_handler
     },
+    {
+        "/manifest.json", cgi_manifests_handler
+    },
 };
 
 void cgi_init(void)
 {
-    http_set_cgi_handlers(cgi_handlers, 3);
+    http_set_cgi_handlers(cgi_handlers, 4);
 }
 
 #endif
