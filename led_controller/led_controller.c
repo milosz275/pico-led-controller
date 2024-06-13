@@ -82,8 +82,10 @@ void apply_rainbow_effect(int *base_hue, int *speed_factor, int *density_factor,
 void handle_light_toggle()
 {
     if (gpio_get(LIGHT_TOGGLE_PIN))
+    {
         if (!button_previous_state)
             button_previous_state = true;
+    }
     else
     {
         if (button_previous_state)
