@@ -7,7 +7,14 @@ This project is a simple example of how to manage a WS2812B LED strip with a Ras
 
 ## Prerequisites
 
-Env variables
+Packages
+
+```bash
+sudo apt-get update
+sudo apt-get install -y cmake gcc-arm-none-eabi libnewlib-arm-none-eabi build-essential
+```
+
+Environmental variables
 
 ```bash
 export PICO_SDK_PATH="insert_path_here"
@@ -35,4 +42,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## References
 
+- [pico-sdk](https://github.com/raspberrypi/pico-sdk)
 - [pico-examples](https://github.com/raspberrypi/pico-examples)
+- [makefsdata.py](https://github.com/krzmaz/pico-w-webserver-example/pull/1/files/4b3e78351dd236f213da9bebbb20df690d470476#diff-e675c4a367e382db6f9ba61833a58c62029d8c71c3156a9f238b612b69de279d)
