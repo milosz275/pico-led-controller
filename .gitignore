@@ -10,3 +10,4 @@ generated
 *.pyo
 *.pyd
 .notes
+wifi_credentials.h

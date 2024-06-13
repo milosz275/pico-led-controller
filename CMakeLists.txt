@@ -26,27 +26,30 @@ pico_sdk_init()
 add_executable(LedController led_controller/led_controller.c)
 
 pico_set_program_name(LedController "LedController")
-pico_set_program_version(LedController "0.1")
+pico_set_program_version(LedController "0.2")
 
-pico_enable_stdio_uart(LedController 1)
+pico_enable_stdio_uart(LedController 0)
 pico_enable_stdio_usb(LedController 1)
 
 # Add the standard library to the build
 target_link_libraries(LedController
-        pico_stdlib
-        pico_cyw43_arch_none)
+    pico_stdlib
+    pico_cyw43_arch_lwip_threadsafe_background
+    pico_lwip_http
+    hardware_adc
+    hardware_pio)
 
-# target_include_directories(LedController PRIVATE
-#         ${CMAKE_CURRENT_LIST_DIR}
-#         ${CMAKE_CURRENT_LIST_DIR}/led_controller
-# )
+target_include_directories(LedController PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}
+    ${CMAKE_CURRENT_LIST_DIR}/led_controller
+)
 
 pico_add_extra_outputs(LedController)
 
 add_compile_options(-Wall
-        -Wno-format          # int != int32_t as far as the compiler is concerned because gcc has int32_t as long int
-        -Wno-unused-function # we have some for the docs that aren't called
-        )
+    -Wno-format          # int != int32_t as far as the compiler is concerned because gcc has int32_t as long int
+    -Wno-unused-function # we have some for the docs that aren't called
+    )
 if (CMAKE_C_COMPILER_ID STREQUAL "GNU")
     add_compile_options(-Wno-maybe-uninitialized)
 endif()

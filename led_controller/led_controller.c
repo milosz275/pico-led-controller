@@ -11,14 +11,21 @@
 #include "urgb.h"
 #include "hsv.h"
 #include "ws2812b.h"
+#include "wifi_credentials.h"
 #include "generated/ws2812.pio.h"
 
+#include "lwipopts.h"
+// #include "lwip/apps/httpd.h"
+// #include "ssi.h"
+// #include "cgi.h"
+
+#define LIGHT_TOGGLE_PIN 1
 #define WS2812_PIN 2
 #define NUM_PIXELS 118
 #define IS_RGBW false
 
-const char* WIFI_SSID = "wifi_ssid";
-const char* WIFI_PASSWORD = "wifi_password";
+bool light_on = true;
+bool button_pressed_prev = true;
 
 void onboard_led_blink(int on_time, int off_time)
 {
@@ -38,7 +45,9 @@ bool init()
     }
 
     cyw43_arch_enable_sta_mode();
-    cyw43_arch_wifi_connect_async(WIFI_SSID, WIFI_PASSWORD, CYW43_AUTH_WPA2_AES_PSK);
+    while(cyw43_arch_wifi_connect_timeout_ms(WIFI_SSID, WIFI_PASSWORD, CYW43_AUTH_WPA2_AES_PSK, 10000) != 0) // ten seconds timeout
+        printf("Attempting to connect...\n");
+    printf("Connected!\n");
     onboard_led_blink(250, 50);
     onboard_led_blink(250, 0);
     return true;
@@ -76,7 +85,7 @@ int main()
     int brightness = 100;
     while (true)
     {
-        onboard_led_blink(50, 0);
+        onboard_led_blink(50, 10);
         apply_rainbow_effect(&base_hue, &speed_factor, &density_factor, &brightness);
     }
 }

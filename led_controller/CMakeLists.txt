@@ -2,22 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 project(led_controller VERSION 0)
 message("CMAKE_PROJECT_VERSION = ${CMAKE_PROJECT_VERSION}")
 
-if (NOT "$ENV{WIFI_SSID}" STREQUAL "")
-    set(WIFI_SSID "$ENV{WIFI_SSID}" CACHE INTERNAL "Copied from environment variable")
-endif()
-message("WIFI_SSID = ${WIFI_SSID}")
-
-if (NOT "$ENV{WIFI_PASSWORD}" STREQUAL "")
-    set(WIFI_PASSWORD "$ENV{WIFI_PASSWORD}" CACHE INTERNAL "Copied from environment variable")
-endif()
-message("WIFI_PASSWORD = ${WIFI_PASSWORD}")
-
 add_executable(led_controller)
-
-add_custom_command(
-        TARGET led_controller PRE_BUILD
-        COMMAND /bin/bash ${CMAKE_CURRENT_LIST_DIR}/pre_build_script.sh
-        COMMENT "Running pre-build script")
         
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/generated)
 
@@ -31,7 +16,9 @@ target_sources(led_controller
 target_link_libraries(led_controller
         PRIVATE
         pico_stdlib
-        pico_cyw43_arch_none
+        pico_cyw43_arch_lwip_threadsafe_background
+        pico_lwip_http
+        hardware_adc
         hardware_pio)
 
 target_include_directories(led_controller PRIVATE
@@ -43,19 +30,3 @@ pico_add_extra_outputs(led_controller)
 
 # add url via pico_set_program_url
 example_auto_set_url(led_controller)
-
-# Additionally generate python and hex pioasm outputs for inclusion in the RP2040 datasheet
-add_custom_target(led_controller_datasheet DEPENDS ${CMAKE_CURRENT_LIST_DIR}/generated/ws2812.py)
-
-add_custom_command(OUTPUT ${CMAKE_CURRENT_LIST_DIR}/generated/ws2812.py
-        DEPENDS ${CMAKE_CURRENT_LIST_DIR}/ws2812.pio
-        COMMAND Pioasm -o python ${CMAKE_CURRENT_LIST_DIR}/ws2812.pio ${CMAKE_CURRENT_LIST_DIR}/generated/ws2812.py
-        VERBATIM)
-
-add_dependencies(led_controller
-        led_controller_datasheet)
-
-add_custom_command(
-        TARGET led_controller POST_BUILD
-        COMMAND /bin/bash ${CMAKE_CURRENT_LIST_DIR}/post_build_script.sh
-        COMMENT "Running post-build script")
