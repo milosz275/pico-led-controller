@@ -3,15 +3,20 @@
         "ARRAYSIZE",
         "dreq",
         "endline",
+        "EXTCALLBACK",
         "GPIO",
         "ifndef",
         "Leds",
         "LWIPOPTS",
         "Maculewicz",
+        "makefsdata",
+        "mdns",
         "Miłosz",
         "mldxo",
+        "netif",
         "PICO",
         "PICOLED",
+        "picow",
         "urgb",
         "Webserver"
     ],
@@ -76,6 +81,7 @@
         "stdlib.h": "c",
         "ws2812.pio.h": "c",
         "lwipopts.h": "c",
-        "blink.h": "c"
+        "blink.h": "c",
+        "mdns.h": "c"
     }
 }
