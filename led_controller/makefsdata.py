@@ -49,6 +49,8 @@ for file in files:
        header += "Content-type: image/svg+xml\r\n"
     elif '.ico' in file:
        header += "Content-type: image/x-icon\r\n"
+    elif '.json' in file:
+       header += "Content-type: text/json\r\n"
     else:
         header += "Content-type: text/plain\r\n"
 
