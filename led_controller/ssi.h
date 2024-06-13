@@ -52,10 +52,10 @@ u16_t ssi_handler(int iIndex, char *pcInsert, int iInsertLen) {
 
 void ssi_init()
 {
-  adc_init();
-  adc_set_temp_sensor_enabled(true);
-  adc_select_input(4);
-  http_set_ssi_handler(ssi_handler, ssi_tags, LWIP_ARRAYSIZE(ssi_tags));
+    adc_init();
+    adc_set_temp_sensor_enabled(true);
+    adc_select_input(4);
+    http_set_ssi_handler(ssi_handler, ssi_tags, LWIP_ARRAYSIZE(ssi_tags));
 }
 
 #endif
