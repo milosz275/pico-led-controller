@@ -36,6 +36,12 @@ export PICO_BOARD="pico_w"
 #endif
 ```
 
+## Web interface
+
+The web interface is a simple page that allows you to control the LED strip. It is served by the Raspberry Pi Pico W itself.
+
+![Web interface](assets/web_interface.png)
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
