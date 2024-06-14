@@ -17,6 +17,7 @@
         "PICO",
         "PICOLED",
         "picow",
+        "POWERSAVE",
         "urgb",
         "Webserver"
     ],
