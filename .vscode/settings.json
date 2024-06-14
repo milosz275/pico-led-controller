@@ -14,12 +14,14 @@
         "Miłosz",
         "mldxo",
         "netif",
+        "onboardled",
         "PICO",
         "PICOLED",
         "picow",
         "POWERSAVE",
         "urgb",
-        "Webserver"
+        "Webserver",
+        "WLED"
     ],
     "files.associations": {
         "cyw43_arch.h": "c",
