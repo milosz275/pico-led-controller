@@ -9,45 +9,38 @@
 
 const char* ssi_tags[] = {"volt","temp","onboard-led","led"};
 
-u16_t ssi_handler(int iIndex, char *pcInsert, int iInsertLen) {
-  size_t print_value;
-  switch (iIndex)
-  {
+u16_t ssi_handler(int iIndex, char *pcInsert, int iInsertLen)
+{
+    BLINK_CODE_SSI_HANDLE;
+    size_t print_value;
+    switch (iIndex)
+    {
     case 0: // volt
-        {
-            const float voltage = adc_read() * 3.3f / (1 << 12);
-            print_value = snprintf(pcInsert, iInsertLen, "%f", voltage);
-        }
+        const float voltage = adc_read() * 3.3f / (1 << 12);
+        print_value = snprintf(pcInsert, iInsertLen, "%f", voltage);
         break;
     case 1: // temp
-        {
-            const float voltage = adc_read() * 3.3f / (1 << 12);
-            const float tempC = 27.0f - (voltage - 0.706f) / 0.001721f;
-            print_value = snprintf(pcInsert, iInsertLen, "%f", tempC);
-        }
+        const float tempC = 27.0f - ((adc_read() * 3.3f / (1 << 12)) - 0.706f) / 0.001721f;
+        print_value = snprintf(pcInsert, iInsertLen, "%f", tempC);
         break;
-    case 2: // onboard led
-        {
-            bool led_status = cyw43_arch_gpio_get(CYW43_WL_GPIO_LED_PIN);
-            if (led_status)
-                print_value = snprintf(pcInsert, iInsertLen, "ON");
-            else
-                print_value = snprintf(pcInsert, iInsertLen, "OFF");
-        }
+    case 2: // onboard-led
+        bool led_status = cyw43_arch_gpio_get(CYW43_WL_GPIO_LED_PIN);
+        if (led_status)
+            print_value = snprintf(pcInsert, iInsertLen, "ON");
+        else
+            print_value = snprintf(pcInsert, iInsertLen, "OFF");
         break;
     case 3: // ws2812b led
-        {
-            if (light_state)
-                print_value = snprintf(pcInsert, iInsertLen, "ON");
-            else
-                print_value = snprintf(pcInsert, iInsertLen, "OFF");
-        }
+        if (light_state)
+            print_value = snprintf(pcInsert, iInsertLen, "ON");
+        else
+            print_value = snprintf(pcInsert, iInsertLen, "OFF");
         break;
     default:
         print_value = 0;
         break;
-  }
-  return (u16_t)print_value;
+    }
+    return (u16_t)print_value;
 }
 
 void ssi_init()
