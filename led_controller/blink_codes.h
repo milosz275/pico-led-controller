@@ -18,5 +18,20 @@
 
 #define BLINK_CODE_SUCCESS_EXIT              do { onboard_led_blink(100, 400); onboard_led_blink(100, 400); onboard_led_blink(100, 400); } while(0)
 
+#else
+
+#define BLINK_CODE_GPIO_INIT_SUCCESS
+#define BLINK_CODE_NETWORK_INIT_SUCCESS
+#define BLINK_CODE_INIT_SUCCESS
+
+#define BLINK_CODE_WIFI_CONNECTING
+#define BLINK_CODE_WIFI_CONNECTED
+#define BLINK_CODE_WIFI_FAILED
+#define BLINK_CODE_WIFI_DISCONNECTED
+
+#define BLINK_CODE_SSI_HANDLE
+
+#define BLINK_CODE_SUCCESS_EXIT
+
 #endif
 #endif
