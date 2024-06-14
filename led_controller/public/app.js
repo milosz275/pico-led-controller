@@ -11,7 +11,7 @@ function fetchData() {
                 led: "<!--#led-->"
             };
 
-            document.getElementById("volt").innerText = (volt !== placeholders.volt) ? volt : "N/A";
+            document.getElementById("volt").innerText = (volt !== placeholders.volt) ? volt + " V" : "N/A";
             document.getElementById("temp").innerText = (temp !== placeholders.temp) ? temp + " °C" : "N/A";
             document.getElementById("onboardled").innerText = (onboardled !== placeholders.onboardled) ? onboardled : "N/A";
             document.getElementById("led").innerText = (led !== placeholders.led) ? led : "N/A";
