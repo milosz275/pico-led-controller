@@ -69,11 +69,12 @@ enum init_result_t init()
         return STDIO_INIT_FAILURE;
     }
 
-    // GPIO setup - buttons
+    // GPIO setup - LED
     gpio_init(CYW43_WL_GPIO_LED_PIN);
     gpio_set_dir(CYW43_WL_GPIO_LED_PIN, GPIO_OUT);
     gpio_put(CYW43_WL_GPIO_LED_PIN, 0);
 
+    // GPIO setup - buttons
     gpio_init(LIGHT_TOGGLE_PIN);
     gpio_set_dir(LIGHT_TOGGLE_PIN, GPIO_IN);
     gpio_pull_up(LIGHT_TOGGLE_PIN);
@@ -111,18 +112,10 @@ enum init_result_t init()
     return INIT_SUCCESS;
 }
 
-void apply_rainbow_effect(uint16_t* base_hue, uint8_t* speed_factor, uint8_t* density_factor)
+void shuffle_modes()
 {
-    for (uint8_t i = 0; i < NUM_PIXELS; ++i)
-    {
-        uint16_t hue = (*base_hue + i * 360 / NUM_PIXELS * *density_factor) % 360;
-        uint32_t color = hsv_to_rgb(hue, 255, 255);
-        put_pixel(color);
-        hue++;
-    }
-    *speed_factor = rand() % 3 + 5; // 5, 6, 7
-    *base_hue += *speed_factor;
-    *base_hue %= 360;
+    sleep_ms(5000);
+    light_state.lighting_mode = (light_state.lighting_mode + 1) % NUM_LIGHTING_MODES;
 }
 
 int main()
@@ -142,8 +135,16 @@ int main()
             turn_off_all(NUM_PIXELS);
             break;
         }
-        if (light_state)
-            apply_rainbow_effect(&base_hue, &speed_factor, &density_factor);
+        if (light_state.state)
+        {
+            if (light_state.lighting_mode == MODE_RAINBOW_WHEEL)
+                apply_rainbow_wheel_effect(NUM_PIXELS, &base_hue, &speed_factor, &density_factor);
+            else if (light_state.lighting_mode == MODE_RAINBOW_CYCLE)
+                apply_rainbow_cycle_effect(NUM_PIXELS, &base_hue, &speed_factor);
+            // else
+            //     set_lighting_mode(light_state.lighting_mode);
+            // shuffle_modes();
+        }
         if (cyw43_tcpip_link_status(&cyw43_state, CYW43_ITF_STA) != CYW43_LINK_UP)
         {
             BLINK_CODE_WIFI_DISCONNECTED;

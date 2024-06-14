@@ -61,3 +61,16 @@ function fetchWithTimeout(url, options, timeout = 30000) {
         )
     ]);
 }
+
+function changeLEDMood(mood) {
+    const url = `/mode?${encodeURIComponent(mood)}`;
+    fetch(url)
+    .then(response => {
+        if (response.ok) {
+            console.log(`LED mood changed to ${mood}`);
+        } else {
+            console.error("Failed to change LED mood");
+        }
+    })
+    .catch(error => console.error("Error:", error));
+}

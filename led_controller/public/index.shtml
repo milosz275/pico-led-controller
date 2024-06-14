@@ -34,11 +34,27 @@
             <button onclick="toggleLEDStrip()" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-300">
                 LED Strip toggle
             </button>
+            <select onchange="changeLEDMood(this.value)" class="bg-purple-500 text-white py-2 px-4 rounded hover:bg-purple-600 transition duration-300">
+                <option value="rainbow-wheel">Rainbow Wheel</option>
+                <option value="rainbow-cycle">Rainbow Cycle</option>
+                <option value="red">Red</option>
+                <option value="green">Green</option>
+                <option value="blue">Blue</option>
+                <option value="cyan">Cyan</option>
+                <option value="yellow">Yellow</option>
+                <option value="magenta">Magenta</option>
+                <option value="orange">Orange</option>
+                <option value="turquoise">Turquoise</option>
+                <option value="white">White</option>
+            </select>
         </div>
         <div>
             <button onclick="fetchData()" class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600 transition duration-300">
                 Refresh SSI Data
             </button>
+        </div>
+        <div class="mt-6">
+            <p class="text-sm">Made by <a href="https://github.com/mldxo" target="_blank" class="text-blue-500">Miłosz Maculewicz</a></p>
         </div>
     </div>
 </body>
