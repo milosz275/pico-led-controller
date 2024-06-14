@@ -1,13 +1,16 @@
 #ifndef _SSI_H
 #define _SSI_H
 
+#include <stdio.h>
+
 #include "lwip/apps/httpd.h"
 #include "pico/cyw43_arch.h"
 #include "hardware/adc.h"
 
 #include "light_state.h"
+#include "blink.h"
 
-const char* ssi_tags[] = {"volt","temp","onboard-led","led"};
+const char* ssi_tags[] = {"volt","temp","gpio","led",NULL};
 
 u16_t ssi_handler(int iIndex, char *pcInsert, int iInsertLen)
 {
@@ -22,9 +25,8 @@ u16_t ssi_handler(int iIndex, char *pcInsert, int iInsertLen)
         const float tempC = 27.0f - ((adc_read() * 3.3f / (1 << 12)) - 0.706f) / 0.001721f;
         print_value = snprintf(pcInsert, iInsertLen, "%f", tempC);
         break;
-    case 2: // onboard-led
-        bool led_status = cyw43_arch_gpio_get(CYW43_WL_GPIO_LED_PIN);
-        if (led_status)
+    case 2: // gpio led
+        if (cyw43_arch_gpio_get(CYW43_WL_GPIO_LED_PIN))
             print_value = snprintf(pcInsert, iInsertLen, "ON");
         else
             print_value = snprintf(pcInsert, iInsertLen, "OFF");
