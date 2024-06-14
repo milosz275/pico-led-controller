@@ -54,9 +54,20 @@ void gpio_button_irq_handler(uint gpio, uint32_t events)
     }
 }
 
-bool init()
+enum init_result_t
 {
-    stdio_init_all();
+    INIT_SUCCESS,
+    STDIO_INIT_FAILURE,
+    WIFI_INIT_FAILURE
+};
+
+enum init_result_t init()
+{
+    if (!stdio_init_all())
+    {
+        printf("Stdio init failed");
+        return STDIO_INIT_FAILURE;
+    }
 
     // GPIO setup - buttons
     gpio_init(CYW43_WL_GPIO_LED_PIN);
@@ -78,9 +89,8 @@ bool init()
     // Wi-Fi setup
     if (cyw43_arch_init())
     {
-        // BLINK_CODE_WIFI_FAILED;
         printf("Wi-Fi init failed");
-        return false;
+        return WIFI_INIT_FAILURE;
     }
     cyw43_wifi_pm(&cyw43_state, cyw43_pm_value(CYW43_NO_POWERSAVE_MODE, 20, 1, 1, 1));
     cyw43_arch_enable_sta_mode();
@@ -98,7 +108,7 @@ bool init()
     printf("WS2812 LED Control, using pin %d\n", WS2812_PIN);
 
     BLINK_CODE_INIT_SUCCESS;
-    return true;
+    return INIT_SUCCESS;
 }
 
 void apply_rainbow_effect(uint16_t* base_hue, uint8_t* speed_factor, uint8_t* density_factor)
@@ -117,8 +127,9 @@ void apply_rainbow_effect(uint16_t* base_hue, uint8_t* speed_factor, uint8_t* de
 
 int main()
 {
-    if (!init())
-        return -1;
+    enum init_result_t init_result = init();
+    if (init_result != INIT_SUCCESS)
+        return init_result;
 
     puts("Beginning main loop");
     uint16_t base_hue = 0;
