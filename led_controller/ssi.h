@@ -30,7 +30,7 @@ u16_t ssi_handler(int iIndex, char *pcInsert, int iInsertLen)
             print_value = snprintf(pcInsert, iInsertLen, "OFF");
         break;
     case 3: // ws2812b led
-        if (light_state)
+        if (light_state.state)
             print_value = snprintf(pcInsert, iInsertLen, "ON");
         else
             print_value = snprintf(pcInsert, iInsertLen, "OFF");
