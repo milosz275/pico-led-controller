@@ -18,12 +18,10 @@ u16_t ssi_handler(int iIndex, char *pcInsert, int iInsertLen)
     switch (iIndex)
     {
     case 0: // volt
-        const float voltage = adc_read() * 3.3f / (1 << 12);
-        print_value = snprintf(pcInsert, iInsertLen, "%f", voltage);
+        print_value = snprintf(pcInsert, iInsertLen, "%f", (adc_read() * 3.3f / (1 << 12)));
         break;
     case 1: // temp
-        const float tempC = 27.0f - ((adc_read() * 3.3f / (1 << 12)) - 0.706f) / 0.001721f;
-        print_value = snprintf(pcInsert, iInsertLen, "%f", tempC);
+        print_value = snprintf(pcInsert, iInsertLen, "%f", (27.0f - ((adc_read() * 3.3f / (1 << 12)) - 0.706f) / 0.001721f));
         break;
     case 2: // gpio led
         if (cyw43_arch_gpio_get(CYW43_WL_GPIO_LED_PIN))
