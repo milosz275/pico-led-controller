@@ -52,6 +52,8 @@ void toggle_light_mode()
 void set_lighting_mode(enum lighting_modes mode)
 {
     light_state.lighting_mode = mode;
+    if (!light_state.state || light_state.brightness == 0)
+        return;
     switch (mode)
     {
     case MODE_RAINBOW_WHEEL:
