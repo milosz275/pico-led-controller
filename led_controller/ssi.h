@@ -10,7 +10,7 @@
 #include "light_state.h"
 #include "blink.h"
 
-const char* ssi_tags[] = {"volt","temp","gpio","led",NULL};
+const char* ssi_tags[] = {"volt","temp","gpio","led","mode",NULL};
 
 u16_t ssi_handler(int iIndex, char *pcInsert, int iInsertLen)
 {
@@ -29,11 +29,58 @@ u16_t ssi_handler(int iIndex, char *pcInsert, int iInsertLen)
         else
             print_value = snprintf(pcInsert, iInsertLen, "OFF");
         break;
-    case 3: // ws2812b led
+    case 3: // light state
         if (light_state.state)
             print_value = snprintf(pcInsert, iInsertLen, "ON");
         else
             print_value = snprintf(pcInsert, iInsertLen, "OFF");
+        break;
+    case 4: // light mode
+        switch (light_state.lighting_mode)
+        {
+        case MODE_RAINBOW_WHEEL:
+            print_value = snprintf(pcInsert, iInsertLen, "rainbow-wheel");
+            break;
+        case MODE_RAINBOW_CYCLE:
+            print_value = snprintf(pcInsert, iInsertLen, "rainbow-cycle");
+            break;
+        case MODE_RED:
+            print_value = snprintf(pcInsert, iInsertLen, "red");
+            break;
+        case MODE_GREEN:
+            print_value = snprintf(pcInsert, iInsertLen, "green");
+            break;
+        case MODE_BLUE:
+            print_value = snprintf(pcInsert, iInsertLen, "blue");
+            break;
+        case MODE_WHITE:
+            print_value = snprintf(pcInsert, iInsertLen, "white");
+            break;
+        case MODE_PURPLE:
+            print_value = snprintf(pcInsert, iInsertLen, "purple");
+            break;
+        case MODE_YELLOW:
+            print_value = snprintf(pcInsert, iInsertLen, "yellow");
+            break;
+        case MODE_CYAN:
+            print_value = snprintf(pcInsert, iInsertLen, "cyan");
+            break;
+        case MODE_ORANGE:
+            print_value = snprintf(pcInsert, iInsertLen, "orange");
+            break;
+        case MODE_PINK:
+            print_value = snprintf(pcInsert, iInsertLen, "pink");
+            break;
+        case MODE_TURQUOISE:
+            print_value = snprintf(pcInsert, iInsertLen, "turquoise");
+            break;
+        case MODE_MAGENTA:
+            print_value = snprintf(pcInsert, iInsertLen, "magenta");
+            break;
+        default:
+            print_value = 0;
+            break;
+        }
         break;
     default:
         print_value = 0;
