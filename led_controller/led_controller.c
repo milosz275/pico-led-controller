@@ -83,6 +83,10 @@ enum init_result_t init()
     gpio_set_dir(LIGHT_TOGGLE_PIN, GPIO_IN);
     gpio_pull_up(LIGHT_TOGGLE_PIN);
 
+    gpio_init(MODE_BUTTON_PIN);
+    gpio_set_dir(MODE_BUTTON_PIN, GPIO_IN);
+    gpio_pull_up(MODE_BUTTON_PIN);
+
     gpio_init(STOP_BUTTON_PIN);
     gpio_set_dir(STOP_BUTTON_PIN, GPIO_IN);
     gpio_pull_up(STOP_BUTTON_PIN);
