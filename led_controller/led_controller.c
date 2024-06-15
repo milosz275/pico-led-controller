@@ -24,6 +24,7 @@
 
 #define WS2812_PIN 2
 #define LIGHT_TOGGLE_PIN 15
+#define MODE_BUTTON_PIN 16
 #define STOP_BUTTON_PIN 17
 #define IS_RGBW false
 
@@ -45,6 +46,9 @@ void gpio_button_irq_handler(uint gpio, uint32_t events)
     {
     case LIGHT_TOGGLE_PIN:
         toggle_light_state(NUM_PIXELS);
+        break;
+    case MODE_BUTTON_PIN:
+        toggle_light_mode();
         break;
     case STOP_BUTTON_PIN:
         stop_flag = true;
@@ -85,6 +89,7 @@ enum init_result_t init()
 
     // GPIO setup - interrupts
     gpio_set_irq_enabled_with_callback(LIGHT_TOGGLE_PIN, GPIO_IRQ_EDGE_FALL, true, &gpio_button_irq_handler);
+    gpio_set_irq_enabled_with_callback(MODE_BUTTON_PIN, GPIO_IRQ_EDGE_FALL, true, &gpio_button_irq_handler);
     gpio_set_irq_enabled_with_callback(STOP_BUTTON_PIN, GPIO_IRQ_EDGE_FALL, true, &gpio_button_irq_handler);
 
     // Wi-Fi setup
