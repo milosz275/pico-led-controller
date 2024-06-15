@@ -43,6 +43,12 @@ void toggle_light_state()
         set_lighting_mode(light_state.lighting_mode);
 }
 
+void toggle_light_mode()
+{
+    light_state.lighting_mode = (light_state.lighting_mode + 1) % NUM_LIGHTING_MODES;
+    set_lighting_mode(light_state.lighting_mode);
+}
+
 void set_lighting_mode(enum lighting_modes mode)
 {
     light_state.lighting_mode = mode;
