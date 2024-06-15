@@ -23,8 +23,9 @@
             <h2 class="text-2xl font-semibold mb-4">SSI:</h2>
             <p class="mb-2">Voltage: <span id="volt" class="font-mono text-blue-500">Loading...</span></p>
             <p class="mb-2">Temp: <span id="temp" class="font-mono text-blue-500">Loading...</span></p>
-            <p class="mb-2">Onboard LED is: <span id="onboardled" class="font-mono text-blue-500">Loading...</span></p>
-            <p class="mb-2">LED strip is: <span id="led" class="font-mono text-blue-500">Loading...</span></p>
+            <p class="mb-2">Onboard LED: <span id="onboardled" class="font-mono text-blue-500">Loading...</span></p>
+            <p class="mb-2">LED strip: <span id="led" class="font-mono text-blue-500">Loading...</span></p>
+            <p class="mb-2">LED strip mode: <span id="mode" class="font-mono text-blue-500">Loading...</span></p>
         </div>
         <div class="mb-6">
             <h2 class="text-2xl font-semibold mb-4">CGI:</h2>
@@ -34,7 +35,7 @@
             <button onclick="toggleLEDStrip()" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-300">
                 LED Strip toggle
             </button>
-            <select onchange="changeLEDMood(this.value)" class="bg-purple-500 text-white py-2 px-4 rounded hover:bg-purple-600 transition duration-300">
+            <select id="modeSelect" onchange="changeLEDMood(this.value)" class="bg-purple-500 text-white py-2 px-4 rounded hover:bg-purple-600 transition duration-300">
                 <option value="rainbow-wheel">Rainbow Wheel</option>
                 <option value="rainbow-cycle">Rainbow Cycle</option>
                 <option value="red">Red</option>
@@ -42,7 +43,9 @@
                 <option value="blue">Blue</option>
                 <option value="cyan">Cyan</option>
                 <option value="yellow">Yellow</option>
+                <option value="pink">Pink</option>
                 <option value="magenta">Magenta</option>
+                <option value="purple">Purple</option>
                 <option value="orange">Orange</option>
                 <option value="turquoise">Turquoise</option>
                 <option value="white">White</option>
