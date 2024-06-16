@@ -36,6 +36,7 @@ target_link_libraries(LedController
     pico_stdlib
     pico_cyw43_arch_lwip_threadsafe_background
     pico_lwip_http
+    # pico_lwip_mbedtls
     hardware_adc
     hardware_pio)
 
