@@ -5,6 +5,7 @@
         "endline",
         "EXTCALLBACK",
         "GPIO",
+        "hiva",
         "ifndef",
         "Leds",
         "LWIPOPTS",
@@ -19,6 +20,8 @@
         "PICOLED",
         "picow",
         "POWERSAVE",
+        "rainforest",
+        "tailwindcss",
         "urgb",
         "Webserver",
         "WLED"
@@ -85,6 +88,7 @@
         "ws2812.pio.h": "c",
         "lwipopts.h": "c",
         "blink.h": "c",
-        "mdns.h": "c"
+        "mdns.h": "c",
+        "altcp_tls.h": "c"
     }
 }
