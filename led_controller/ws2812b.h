@@ -60,7 +60,7 @@ void set_rainbow_spectrum(uint len)
 
 void set_all_purple(uint len, uint8_t brightness)
 {
-    uint32_t purple = urgb_u32(brightness, 0, brightness);
+    uint32_t purple = urgb_u32(brightness * 3 / 4, 0, brightness);
     set_all_leds(purple, len);
 }
 
@@ -78,19 +78,19 @@ void set_all_cyan(uint len, uint8_t brightness)
 
 void set_all_orange(uint len, uint8_t brightness)
 {
-    uint32_t orange = urgb_u32(brightness, brightness / 2, 0);
+    uint32_t orange = urgb_u32(brightness, brightness / 3, 0);
     set_all_leds(orange, len);
 }
 
 void set_all_pink(uint len, uint8_t brightness)
 {
-    uint32_t pink = urgb_u32(brightness, brightness / 2, brightness / 2);
+    uint32_t pink = urgb_u32(brightness, brightness / 3, brightness / 3);
     set_all_leds(pink, len);
 }
 
 void set_all_turquoise(uint len, uint8_t brightness)
 {
-    uint32_t turquoise = urgb_u32(brightness / 2, brightness, brightness);
+    uint32_t turquoise = urgb_u32(brightness / 3, brightness * 2 / 3, brightness);
     set_all_leds(turquoise, len);
 }
 
