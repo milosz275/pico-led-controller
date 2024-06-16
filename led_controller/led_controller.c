@@ -19,6 +19,7 @@
 
 #include "lwipopts.h"
 #include "lwip/apps/httpd.h"
+// #include "lwip/altcp_tls.h"
 #include "ssi.h"
 #include "cgi.h"
 
@@ -28,6 +29,8 @@
 #define STOP_BUTTON_PIN 17
 #define IS_RGBW false
 
+volatile bool light_state_toggle_request = false;
+volatile bool light_mode_toggle_request = false;
 volatile bool stop_flag = false;
 
 void connect_to_wifi()
@@ -45,10 +48,10 @@ void gpio_button_irq_handler(uint gpio, uint32_t events)
     switch (gpio)
     {
     case LIGHT_TOGGLE_PIN:
-        toggle_light_state(NUM_PIXELS);
+        light_state_toggle_request = true;
         break;
     case MODE_BUTTON_PIN:
-        toggle_light_mode();
+        light_mode_toggle_request = true;
         break;
     case STOP_BUTTON_PIN:
         stop_flag = true;
@@ -105,6 +108,9 @@ enum init_result_t init()
     cyw43_wifi_pm(&cyw43_state, cyw43_pm_value(CYW43_NO_POWERSAVE_MODE, 20, 1, 1, 1));
     cyw43_arch_enable_sta_mode();
     connect_to_wifi();
+    
+    // extern struct altcp_tls_config conf;
+    // httpd_inits(&conf);
     httpd_init();
     ssi_init(); 
     cgi_init();
@@ -135,10 +141,21 @@ int main()
 
     puts("Beginning main loop");
     uint16_t base_hue = 0;
-    uint8_t speed_factor = 4;
+    uint8_t speed_factor_wheel = 4;
+    uint8_t speed_factor_cycle = 1;
     uint8_t density_factor = 3;
     while (true)
     {
+        if (light_state_toggle_request)
+        {
+            toggle_light_state(NUM_PIXELS);
+            light_state_toggle_request = false;
+        }
+        if (light_mode_toggle_request)
+        {
+            toggle_light_mode();
+            light_mode_toggle_request = false;
+        }
         if (stop_flag)
         {
             turn_off_all(NUM_PIXELS);
@@ -147,9 +164,9 @@ int main()
         if (light_state.state)
         {
             if (light_state.lighting_mode == MODE_RAINBOW_WHEEL)
-                apply_rainbow_wheel_effect(NUM_PIXELS, &base_hue, &speed_factor, &density_factor);
+                apply_rainbow_wheel_effect(NUM_PIXELS, &base_hue, &speed_factor_wheel, &density_factor);
             else if (light_state.lighting_mode == MODE_RAINBOW_CYCLE)
-                apply_rainbow_cycle_effect(NUM_PIXELS, &base_hue, &speed_factor);
+                apply_rainbow_cycle_effect(NUM_PIXELS, &base_hue, &speed_factor_cycle);
             // else
             //     set_lighting_mode(light_state.lighting_mode);
             // shuffle_modes();
