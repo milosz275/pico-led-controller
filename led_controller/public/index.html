@@ -23,13 +23,13 @@
             <h2 class="text-2xl font-semibold mb-4">SSI:</h2>
             <p class="mb-2">Voltage: <span id="volt" class="font-mono text-blue-500">Loading...</span></p>
             <p class="mb-2">Temp: <span id="temp" class="font-mono text-blue-500">Loading...</span></p>
-            <p class="mb-2">Onboard LED: <span id="onboardled" class="font-mono text-blue-500">Loading...</span></p>
+            <p class="mb-2">Onboard LED: <span id="gpio" class="font-mono text-blue-500">Loading...</span></p>
             <p class="mb-2">LED strip: <span id="led" class="font-mono text-blue-500">Loading...</span></p>
             <p class="mb-2">LED strip mode: <span id="mode" class="font-mono text-blue-500">Loading...</span></p>
         </div>
         <div class="mb-6">
             <h2 class="text-2xl font-semibold mb-4">CGI:</h2>
-            <button onclick="toggleOnboardLED()" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300">
+            <button onclick="toggleGpio()" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300">
                 Onboard LED toggle
             </button>
             <button onclick="toggleLEDStrip()" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-300">
