@@ -4,19 +4,19 @@ function fetchData() {
     fetch("/data.shtml")
         .then(response => response.text())
         .then(data => {
-            const [volt, temp, onboardled, led, mode] = data.trim().split("\n");
+            const [volt, temp, gpio, led, mode] = data.trim().split("\n");
 
             const placeholders = {
                 volt: "<!--#volt-->",
                 temp: "<!--#temp-->",
-                onboardled: "<!--#onboardled-->",
+                gpio: "<!--#gpio-->",
                 led: "<!--#led-->",
                 mode: "<!--#mode-->"
             };
 
             document.getElementById("volt").innerText = (volt !== placeholders.volt) ? volt + " V" : "N/A";
             document.getElementById("temp").innerText = (temp !== placeholders.temp) ? temp + " °C" : "N/A";
-            document.getElementById("onboardled").innerText = (onboardled !== placeholders.onboardled) ? onboardled : "N/A";
+            document.getElementById("gpio").innerText = (gpio !== placeholders.gpio) ? gpio : "N/A";
             document.getElementById("led").innerText = (led !== placeholders.led) ? led : "N/A";
             document.getElementById("mode").innerText = (mode !== placeholders.mode) ? mode : "N/A";
 
@@ -30,7 +30,7 @@ function fetchData() {
         .catch(error => console.error("Error fetching data:", error));
 }
 
-function toggleOnboardLED() {
+function toggleGpio() {
     fetchController.abort();
     fetchController = new AbortController();
     fetch("/onboard_led?toggle")
