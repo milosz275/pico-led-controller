@@ -33,7 +33,7 @@ const char* cgi_onboard_led_handler(int iIndex, int iNumParams, char* pcParam[],
             break;
         }
     }
-    return "/index.shtml";
+    return "/index.html";
 }
 
 const char* cgi_led_handler(int iIndex, int iNumParams, char* pcParam[], char* pcValue[])
@@ -58,7 +58,7 @@ const char* cgi_led_handler(int iIndex, int iNumParams, char* pcParam[], char* p
             break;
         }
     }
-    return "/index.shtml";
+    return "/index.html";
 }
 
 const char* cgi_led_mode_handler(int iIndex, int iNumParams, char* pcParam[], char* pcValue[])
@@ -156,7 +156,7 @@ const char* cgi_led_mode_handler(int iIndex, int iNumParams, char* pcParam[], ch
             break;
         }
     }
-    return "/index.shtml";
+    return "/index.html";
 }
 
 const char* cgi_favicon_handler(int iIndex, int iNumParams, char* pcParam[], char* pcValue[])
@@ -165,7 +165,13 @@ const char* cgi_favicon_handler(int iIndex, int iNumParams, char* pcParam[], cha
     return "/favicon.ico";
 }
 
-const char* cgi_manifests_handler(int iIndex, int iNumParams, char* pcParam[], char* pcValue[])
+const char* cgi_m_icon_handler(int iIndex, int iNumParams, char* pcParam[], char* pcValue[])
+{
+    printf("Handling m.png\n");
+    return "/m.png";
+}
+
+const char* cgi_manifest_handler(int iIndex, int iNumParams, char* pcParam[], char* pcValue[])
 {
     printf("Handling manifest request\n");
     return "/manifest.json";
@@ -183,7 +189,8 @@ static const tCGI cgi_handlers[] =
     { "/led", cgi_led_handler },
     { "/mode", cgi_led_mode_handler },
     { "/favicon.ico", cgi_favicon_handler },
-    { "/manifest.json", cgi_manifests_handler },
+    { "/m.png", cgi_m_icon_handler },
+    { "/manifest.json", cgi_manifest_handler },
     { "/data.shtml", cgi_data_handler },
     { NULL, NULL }
 };
