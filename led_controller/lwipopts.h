@@ -39,7 +39,7 @@
 #define SYS_STATS                   0
 #define MEMP_STATS                  0
 #define LINK_STATS                  0
-// #define ETH_PAD_SIZE                2
+// #define ETH_PAD_SIZE             2
 #define LWIP_CHKSUM_ALGORITHM       3
 #define LWIP_DHCP                   1
 #define LWIP_IPV4                   1
@@ -88,10 +88,15 @@
 
 // This section enables HTTPD server with SSI, SGI
 // and tells server which converted HTML files to use
-#define LWIP_HTTPD 1
-#define LWIP_HTTPD_SSI 1
-#define LWIP_HTTPD_CGI 1
-#define LWIP_HTTPD_SSI_INCLUDE_TAG 0
-#define HTTPD_FSDATA_FILE "html_data.c"
+#define LWIP_HTTPD                  1
+#define LWIP_HTTPD_SSI              1
+#define LWIP_HTTPD_CGI              1
+#define LWIP_HTTPD_SSI_INCLUDE_TAG  0
+#define HTTPD_FSDATA_FILE           "html_data.c"
+// #define HTTPD_ENABLE_HTTPS       1
+
+// #define LWIP_ALTCP               1
+// #define LWIP_ALTCP_TLS           1
+// #define LWIP_ALTCP_TLS_MBEDTLS   1
 
 #endif
