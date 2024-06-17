@@ -183,6 +183,12 @@ const char* cgi_data_handler(int iIndex, int iNumParams, char* pcParam[], char* 
     return "/data.shtml";
 }
 
+const char* cgi_timestamp_handler(int iIndex, int iNumParams, char* pcParam[], char* pcValue[])
+{
+    printf("Handling start timestamp request\n");
+    return "/timestamp.shtml";
+}
+
 static const tCGI cgi_handlers[] =
 {
     { "/onboard_led", cgi_onboard_led_handler },
@@ -192,6 +198,7 @@ static const tCGI cgi_handlers[] =
     { "/m.png", cgi_m_icon_handler },
     { "/manifest.json", cgi_manifest_handler },
     { "/data.shtml", cgi_data_handler },
+    { "/timestamp.shtml", cgi_timestamp_handler },
     { NULL, NULL }
 };
 

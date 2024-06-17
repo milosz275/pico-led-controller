@@ -22,6 +22,7 @@
 // #include "lwip/altcp_tls.h"
 #include "ssi.h"
 #include "cgi.h"
+#include "ntp.h"
 
 #define WS2812_PIN 2
 #define LIGHT_TOGGLE_PIN 15
@@ -114,6 +115,7 @@ enum init_result_t init()
     httpd_init();
     ssi_init(); 
     cgi_init();
+    ntp_update_time();
     BLINK_CODE_NETWORK_INIT_SUCCESS;
 
     // PIO setup - WS2812B
