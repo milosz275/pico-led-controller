@@ -93,7 +93,6 @@ function updateElapsedTime() {
 
     setInterval(() => {
         const now = Date.now();
-        // Adjust the elapsed time by adding the timezone offset
         let elapsed = now - timestampDate;
 
         const hours = Math.floor(elapsed / (1000 * 60 * 60));
@@ -137,8 +136,8 @@ function fetchTimestamp() {
 
                 const tmElement = document.getElementById("tm");
                 tmElement.innerText = formattedDate;
-                tmElement.setAttribute("data-timestamp", tm); // Set timestamp for later use
-                updateElapsedTime(); // Call the function to start updating elapsed time
+                tmElement.setAttribute("data-timestamp", tm);
+                updateElapsedTime();
             } else {
                 document.getElementById("tm").innerText = "N/A";
             }
