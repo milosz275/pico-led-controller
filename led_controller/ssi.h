@@ -9,8 +9,9 @@
 
 #include "light_state.h"
 #include "blink.h"
+#include "ntp.h"
 
-const char* ssi_tags[] = {"volt","temp","gpio","led","mode",NULL};
+const char* ssi_tags[] = {"volt","temp","gpio","led","mode","tm",NULL};
 
 u16_t ssi_handler(int iIndex, char *pcInsert, int iInsertLen)
 {
@@ -81,6 +82,12 @@ u16_t ssi_handler(int iIndex, char *pcInsert, int iInsertLen)
             print_value = 0;
             break;
         }
+        break;
+    case 5: // time tm
+        if (utc)
+            print_value = snprintf(pcInsert, iInsertLen, "%04d-%02d-%02dT%02d:%02d:%02dZ", utc->tm_year + 1900, utc->tm_mon + 1, utc->tm_mday, utc->tm_hour, utc->tm_min, utc->tm_sec);
+        else
+            print_value = snprintf(pcInsert, iInsertLen, "NULL");
         break;
     default:
         print_value = 0;
