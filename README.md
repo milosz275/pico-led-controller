@@ -5,16 +5,16 @@
 
 This project is a simple example of how to manage a WS2812B LED strip with a Raspberry Pi Pico W and a Web interface.
 
-## Prerequisites
+## Build
 
-Packages
+For this project to build, you will need the following packages:
 
 ```bash
 sudo apt-get update
 sudo apt-get install -y cmake gcc-arm-none-eabi libnewlib-arm-none-eabi build-essential
 ```
 
-Environmental variables
+You will probably need those environmental variables exported:
 
 ```bash
 export PICO_SDK_PATH="insert_path_here"
@@ -24,7 +24,7 @@ export FREERTOS_KERNEL_PATH="insert_path_here"
 export PICO_BOARD="pico_w"
 ```
 
-`led_controller/wifi_credentials.h`
+There is gitignored Wi-Fi credentials file to create in following directory `led_controller/wifi_credentials.h`:
 
 ```c
 #ifndef _WIFI_CREDENTIALS_H
@@ -38,7 +38,7 @@ export PICO_BOARD="pico_w"
 
 ## Web interface
 
-The web interface is a simple page that allows you to control the LED strip. It is served by the Raspberry Pi Pico W itself.
+The web interface is a simple page that allows you to control the LED strip. It is served by the Raspberry Pi Pico W itself. Data fetch intervals are set to 5 seconds to avoid overloading the Pico W. Start timestamp is created by the server although counting elapsed is fully client-sided.
 
 ![Web interface](assets/web_interface.png)
 
