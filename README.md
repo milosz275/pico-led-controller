@@ -71,6 +71,10 @@ To build the web interface, `cd` into `led_controller` and run the following com
 python3 makefsdata.py
 ```
 
+### Install
+
+If you will be using the web interface locally, you don't need https to install the app. In Chrome, resolve `chrome://flags/#unsafely-treat-insecure-origin-as-secure` and your's Pico W IP address. Restart the browser and [manifest.json](led_controller/src/public/manifest.json) will allow for the install.
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
