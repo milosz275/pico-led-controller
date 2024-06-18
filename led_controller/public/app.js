@@ -146,3 +146,8 @@ function fetchTimestamp() {
 }
 
 document.addEventListener("DOMContentLoaded", fetchTimestamp);
+
+document.addEventListener('DOMContentLoaded', function() {
+    const currentYear = new Date().getFullYear();
+    document.getElementById('copyright').innerHTML += ` ${currentYear}`;
+});
