@@ -23,7 +23,7 @@ set(PICO_CXX_ENABLE_RTTI 1)
 
 pico_sdk_init()
 
-add_executable(LedController led_controller/led_controller.c)
+add_executable(LedController led_controller/main.c)
 
 pico_set_program_name(LedController "LedController")
 pico_set_program_version(LedController "0.3")

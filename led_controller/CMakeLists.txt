@@ -15,7 +15,7 @@ pico_generate_pio_header(led_controller ${CMAKE_CURRENT_LIST_DIR}/ws2812.pio OUT
 
 target_sources(led_controller
         PRIVATE
-        led_controller.c)
+        main.c)
 
 target_link_libraries(led_controller
         PRIVATE
