@@ -134,7 +134,6 @@ void shuffle_modes()
 
 void run_loop()
 {
-    puts("Beginning main loop");
     uint16_t base_hue = 0;
     uint8_t speed_factor_wheel = 4;
     uint8_t speed_factor_cycle = 1;
@@ -162,12 +161,6 @@ void run_loop()
                 apply_rainbow_wheel_effect(NUM_PIXELS, &base_hue, &speed_factor_wheel, &density_factor);
             else if (light_state.lighting_mode == MODE_RAINBOW_CYCLE)
                 apply_rainbow_cycle_effect(NUM_PIXELS, &base_hue, &speed_factor_cycle);
-        }
-        if (cyw43_tcpip_link_status(&cyw43_state, CYW43_ITF_STA) != CYW43_LINK_UP)
-        {
-            BLINK_CODE_WIFI_DISCONNECTED;
-            turn_off_all(NUM_PIXELS);
-            connect_to_wifi();
         }
         sleep_ms(40);
     }
