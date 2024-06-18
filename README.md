@@ -65,7 +65,7 @@ The web interface is a simple page that allows you to control the LED strip. It 
 
 ### Build
 
-To build the web interface, `cd` into `led_controller` and run the following command:
+To build the web interface, simply run:
 
 ```bash
 python3 makefsdata.py

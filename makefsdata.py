@@ -8,11 +8,11 @@ import os
 import binascii
 
 #Create file to write output into
-output = open('html_data.c', 'w') 
+output = open('./led_controller/src/html_data.c', 'w') 
 
 #Traverse directory, generate list of files
 files = list()
-os.chdir('./public')
+os.chdir('./led_controller/public')
 for(dirpath, dirnames, filenames) in os.walk('.'):
     files += [os.path.join(dirpath, file) for file in filenames]
 
