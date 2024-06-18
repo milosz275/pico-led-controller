@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.10)
-project(led_controller VERSION 0)
+project(led_controller VERSION 1)
 message("CMAKE_PROJECT_VERSION = ${CMAKE_PROJECT_VERSION}")
 
 message("Running makefsdata python script")
 execute_process(COMMAND
-    py makefsdata.py
-    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
+        py makefsdata.py
+        WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
 
 add_executable(led_controller)
         
