@@ -124,8 +124,8 @@ function fetchTimestamp() {
             if (tm !== placeholders.tm) {
                 const date = new Date(tm);
                 const formattedDate = [
-                    date.getMonth() + 1,
-                    date.getDate(),
+                    date.getDate().toString().padStart(2, '0'),
+                    (date.getMonth() + 1).toString().padStart(2, '0'),
                     date.getFullYear().toString().slice(-2)
                 ].join('-') + ' ' +
                 [
@@ -133,7 +133,7 @@ function fetchTimestamp() {
                     date.getMinutes().toString().padStart(2, '0'),
                     date.getSeconds().toString().padStart(2, '0')
                 ].join(':');
-
+            
                 const tmElement = document.getElementById("tm");
                 tmElement.innerText = formattedDate;
                 tmElement.setAttribute("data-timestamp", tm);
