@@ -43,6 +43,7 @@ target_link_libraries(LedController
 target_include_directories(LedController PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}
     ${CMAKE_CURRENT_LIST_DIR}/led_controller/src
+    ${CMAKE_CURRENT_LIST_DIR}/led_controller/include
 )
 
 pico_add_extra_outputs(LedController)

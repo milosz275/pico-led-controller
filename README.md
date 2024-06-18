@@ -24,7 +24,7 @@ For 120 LEDs to power, you will need a 5V power supply with at least 6A current.
 
 ## Software
 
-The code is written in C and follows `src`/`include` structure. The project is based on the Raspberry Pi Pico SDK and FreeRTOS.
+The code is written in C and follows `src, include` structure. The project is based on the Raspberry Pi Pico SDK and FreeRTOS.
 
 ### Build
 
