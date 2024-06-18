@@ -7,15 +7,20 @@ This project is a simple example of how to manage a WS2812B LED strip with a Ras
 
 ## Features
 
-- [x] Control WS2812B LED strip with Raspberry Pi Pico W
-- [x] Web interface to control the LED strip
+- [x] WS2812B LED strip controller
+- [x] IRQ based light state buttons handling
 - [x] Wi-Fi connection
+- [x] Web interface for light state control
 
 ## Hardware
 
 - Raspberry Pi Pico W
 - WS2812B LED strip
-- 5V power supply
+- 5V power supply/supplies
+
+For 120 LEDs to power, you will need a 5V power supply with at least 6A current. The power supply should be connected to the LED strip and the Raspberry Pi Pico W. For this project, two 5V 3A power supplies were used. General schema is shown below:
+
+![Schema](assets/schema.png)
 
 ## Software
 
