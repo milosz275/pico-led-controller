@@ -1,17 +1,14 @@
-// Common settings used in most of the pico_w examples
-// (see https://www.nongnu.org/lwip/2_1_x/group__lwip__opts.html for details)]
-
 #ifndef _LWIPOPTS_H
 #define _LWIPOPTS_H
 
-// allow override in some examples
 #ifndef NO_SYS
 #define NO_SYS                      1
 #endif
-// allow override in some examples
+
 #ifndef LWIP_SOCKET
 #define LWIP_SOCKET                 0
 #endif
+
 #if PICO_CYW43_ARCH_POLL
 #define MEM_LIBC_MALLOC             1
 #else
@@ -50,6 +47,7 @@
 #define LWIP_NETIF_TX_SINGLE_PBUF   1
 #define DHCP_DOES_ARP_CHECK         0
 #define LWIP_DHCP_DOES_ACD_CHECK    0
+#define LWIP_MULTICAST_PING         1
 
 #ifndef NDEBUG
 #define LWIP_DEBUG                  1
@@ -86,17 +84,10 @@
 #define SLIP_DEBUG                  LWIP_DBG_OFF
 #define DHCP_DEBUG                  LWIP_DBG_OFF
 
-// This section enables HTTPD server with SSI, SGI
-// and tells server which converted HTML files to use
-#define LWIP_HTTPD                  1
-#define LWIP_HTTPD_SSI              1
-#define LWIP_HTTPD_CGI              1
+#define LWIP_HTTPD                  10
+#define LWIP_HTTPD_SSI              10
+#define LWIP_HTTPD_CGI              10
 #define LWIP_HTTPD_SSI_INCLUDE_TAG  0
 #define HTTPD_FSDATA_FILE           "html_data.c"
-// #define HTTPD_ENABLE_HTTPS       1
-
-// #define LWIP_ALTCP               1
-// #define LWIP_ALTCP_TLS           1
-// #define LWIP_ALTCP_TLS_MBEDTLS   1
 
 #endif
