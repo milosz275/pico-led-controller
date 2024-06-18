@@ -1,5 +1,4 @@
-#ifndef _CGI_H
-#define _CGI_H
+#include "cgi.h"
 
 #include <stdio.h>
 
@@ -189,22 +188,7 @@ const char* cgi_timestamp_handler(int iIndex, int iNumParams, char* pcParam[], c
     return "/timestamp.shtml";
 }
 
-static const tCGI cgi_handlers[] =
-{
-    { "/onboard_led", cgi_onboard_led_handler },
-    { "/led", cgi_led_handler },
-    { "/mode", cgi_led_mode_handler },
-    { "/favicon.ico", cgi_favicon_handler },
-    { "/m.png", cgi_m_icon_handler },
-    { "/manifest.json", cgi_manifest_handler },
-    { "/data.shtml", cgi_data_handler },
-    { "/timestamp.shtml", cgi_timestamp_handler },
-    { NULL, NULL }
-};
-
 void cgi_init()
 {
     http_set_cgi_handlers(cgi_handlers, LWIP_ARRAYSIZE(cgi_handlers));
 }
-
-#endif

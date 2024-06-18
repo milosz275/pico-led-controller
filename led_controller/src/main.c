@@ -1,4 +1,4 @@
-#include "led_controller.c"
+#include "led_controller.h"
 
 int main()
 {

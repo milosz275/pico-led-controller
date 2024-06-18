@@ -1,9 +1,9 @@
-#ifndef _WS2812B_H
-#define _WS2812B_H
+#include "ws2812b.h"
 
-#include <stdint.h>
+#include <stdlib.h>
 
 #include "urgb.h"
+#include "hsv.h"
 #include "generated/ws2812.pio.h"
 
 static inline void put_pixel(uint32_t pixel_grb)
@@ -123,5 +123,3 @@ void apply_rainbow_cycle_effect(uint len, uint16_t* hue, uint8_t* speed_factor)
     }
     *hue += *speed_factor;
 }
-
-#endif

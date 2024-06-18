@@ -24,7 +24,14 @@ set(PICO_CXX_ENABLE_RTTI 1)
 pico_sdk_init()
 
 add_executable(LedController
-        # led_controller/src/led_controller.c
+        led_controller/src/ws2812b.c
+        led_controller/src/ntp.c
+        led_controller/src/ssi.c
+        led_controller/src/led_controller.c
+        led_controller/src/blink.c
+        led_controller/src/cgi.c
+        led_controller/src/hsv.c
+        led_controller/src/light_state.c
         led_controller/src/main.c)
 
 pico_set_program_name(LedController "LedController")

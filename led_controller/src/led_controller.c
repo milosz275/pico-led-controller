@@ -1,19 +1,11 @@
+#include "led_controller.h"
+
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
-
-#include <pico/stdlib.h>
-#include <pico/cyw43_arch.h>
-#include <pico/multicore.h>
-#include <boards/pico_w.h>
-#include <hardware/pio.h>
-#include <hardware/gpio.h>
-#include <hardware/clocks.h>
 
 #include "urgb.h"
 #include "hsv.h"
 #include "ws2812b.h"
-#include "blink_codes.h"
 #include "light_state.h"
 #include "wifi_credentials.h"
 #include "generated/ws2812.pio.h"
@@ -23,12 +15,6 @@
 #include "ssi.h"
 #include "cgi.h"
 #include "ntp.h"
-
-#define WS2812_PIN 2
-#define LIGHT_TOGGLE_PIN 15
-#define MODE_BUTTON_PIN 16
-#define STOP_BUTTON_PIN 17
-#define IS_RGBW false
 
 volatile bool light_state_toggle_request = false;
 volatile bool light_mode_toggle_request = false;
@@ -61,13 +47,6 @@ void gpio_button_irq_handler(uint gpio, uint32_t events)
         break;
     }
 }
-
-enum init_result_t
-{
-    INIT_SUCCESS,
-    STDIO_INIT_FAILURE,
-    WIFI_INIT_FAILURE
-};
 
 enum init_result_t init()
 {

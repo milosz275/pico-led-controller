@@ -1,5 +1,4 @@
-#ifndef _BLINK_H
-#define _BLINK_H
+#include "blink.h"
 
 #include <stdio.h>
 
@@ -31,5 +30,3 @@ void led_blink(uint32_t on_time, uint32_t off_time)
     toggle_light_state();
     sleep_ms(off_time);
 }
-
-#endif

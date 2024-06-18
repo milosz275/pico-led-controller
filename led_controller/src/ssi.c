@@ -1,5 +1,4 @@
-#ifndef _SSI_H
-#define _SSI_H
+#include "ssi.h"
 
 #include <stdio.h>
 
@@ -7,11 +6,20 @@
 #include "pico/cyw43_arch.h"
 #include "hardware/adc.h"
 
+#include "ntp.h"
 #include "light_state.h"
 #include "blink.h"
-#include "ntp.h"
 
-const char* ssi_tags[] = {"volt","temp","gpio","led","mode","tm",NULL};
+static const char* ssi_tags[] =
+{
+    "volt",
+    "temp",
+    "gpio",
+    "led",
+    "mode",
+    "tm",
+    NULL
+};
 
 u16_t ssi_handler(int iIndex, char *pcInsert, int iInsertLen)
 {
@@ -103,5 +111,3 @@ void ssi_init()
     adc_select_input(4);
     http_set_ssi_handler(ssi_handler, ssi_tags, LWIP_ARRAYSIZE(ssi_tags));
 }
-
-#endif

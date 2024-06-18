@@ -1,7 +1,7 @@
 #ifndef _URGB_H
 #define _URGB_H
 
-#include <stdint.h>
+#include <stdio.h>
 
 static inline uint32_t urgb_u32(uint8_t r, uint8_t g, uint8_t b)
 {
