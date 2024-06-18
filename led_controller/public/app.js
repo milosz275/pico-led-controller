@@ -102,10 +102,10 @@ function updateElapsedTime() {
         const seconds = Math.floor(elapsed / 1000);
 
         const formattedElapsedTime = [
-            hours.toString().padStart(2, '0'),
-            minutes.toString().padStart(2, '0'),
-            seconds.toString().padStart(2, '0')
-        ].join(':');
+            hours.toString().padStart(2, "0"),
+            minutes.toString().padStart(2, "0"),
+            seconds.toString().padStart(2, "0")
+        ].join(":");
 
         document.getElementById("elapsed").innerText = `${formattedElapsedTime}`;
     }, 1000);
@@ -124,15 +124,15 @@ function fetchTimestamp() {
             if (tm !== placeholders.tm) {
                 const date = new Date(tm);
                 const formattedDate = [
-                    date.getDate().toString().padStart(2, '0'),
-                    (date.getMonth() + 1).toString().padStart(2, '0'),
+                    date.getDate().toString().padStart(2, "0"),
+                    (date.getMonth() + 1).toString().padStart(2, "0"),
                     date.getFullYear().toString().slice(-2)
-                ].join('-') + ' ' +
+                ].join("-") + " " +
                 [
-                    date.getHours().toString().padStart(2, '0'),
-                    date.getMinutes().toString().padStart(2, '0'),
-                    date.getSeconds().toString().padStart(2, '0')
-                ].join(':');
+                    date.getHours().toString().padStart(2, "0"),
+                    date.getMinutes().toString().padStart(2, "0"),
+                    date.getSeconds().toString().padStart(2, "0")
+                ].join(":");
             
                 const tmElement = document.getElementById("tm");
                 tmElement.innerText = formattedDate;
@@ -147,7 +147,8 @@ function fetchTimestamp() {
 
 document.addEventListener("DOMContentLoaded", fetchTimestamp);
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener("DOMContentLoaded", function() {
     const currentYear = new Date().getFullYear();
-    document.getElementById('copyright').innerHTML += ` ${currentYear}`;
+    const copyrightElement = document.getElementById("copyright");
+    copyrightElement.innerHTML = `© ${currentYear} ` + copyrightElement.innerHTML;
 });
