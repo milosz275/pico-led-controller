@@ -4,6 +4,7 @@
 
 #include <pico/stdlib.h>
 #include <pico/cyw43_arch.h>
+#include <pico/multicore.h>
 #include <boards/pico_w.h>
 #include <hardware/pio.h>
 #include <hardware/gpio.h>
@@ -19,7 +20,6 @@
 
 #include "lwipopts.h"
 #include "lwip/apps/httpd.h"
-// #include "lwip/altcp_tls.h"
 #include "ssi.h"
 #include "cgi.h"
 #include "ntp.h"
@@ -109,9 +109,6 @@ enum init_result_t init()
     cyw43_wifi_pm(&cyw43_state, cyw43_pm_value(CYW43_NO_POWERSAVE_MODE, 20, 1, 1, 1));
     cyw43_arch_enable_sta_mode();
     connect_to_wifi();
-    
-    // extern struct altcp_tls_config conf;
-    // httpd_inits(&conf);
     httpd_init();
     ssi_init(); 
     cgi_init();
@@ -135,12 +132,8 @@ void shuffle_modes()
     light_state.lighting_mode = (light_state.lighting_mode + 1) % NUM_LIGHTING_MODES;
 }
 
-int main()
+void run_loop()
 {
-    enum init_result_t init_result = init();
-    if (init_result != INIT_SUCCESS)
-        return init_result;
-
     puts("Beginning main loop");
     uint16_t base_hue = 0;
     uint8_t speed_factor_wheel = 4;
@@ -169,9 +162,6 @@ int main()
                 apply_rainbow_wheel_effect(NUM_PIXELS, &base_hue, &speed_factor_wheel, &density_factor);
             else if (light_state.lighting_mode == MODE_RAINBOW_CYCLE)
                 apply_rainbow_cycle_effect(NUM_PIXELS, &base_hue, &speed_factor_cycle);
-            // else
-            //     set_lighting_mode(light_state.lighting_mode);
-            // shuffle_modes();
         }
         if (cyw43_tcpip_link_status(&cyw43_state, CYW43_ITF_STA) != CYW43_LINK_UP)
         {
@@ -181,6 +171,16 @@ int main()
         }
         sleep_ms(40);
     }
+}
+
+int main()
+{
+    enum init_result_t init_result = init();
+    if (init_result != INIT_SUCCESS)
+        return init_result;
+    multicore_launch_core1(run_loop);
+    while (true)
+        sleep_ms(500);
     BLINK_CODE_SUCCESS_EXIT;
     cyw43_arch_deinit();
     return 0;
