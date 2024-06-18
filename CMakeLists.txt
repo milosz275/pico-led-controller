@@ -23,7 +23,7 @@ set(PICO_CXX_ENABLE_RTTI 1)
 
 pico_sdk_init()
 
-add_executable(LedController led_controller/main.c)
+add_executable(LedController led_controller/src/main.c)
 
 pico_set_program_name(LedController "LedController")
 pico_set_program_version(LedController "0.3")
@@ -42,7 +42,7 @@ target_link_libraries(LedController
 
 target_include_directories(LedController PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}
-    ${CMAKE_CURRENT_LIST_DIR}/led_controller
+    ${CMAKE_CURRENT_LIST_DIR}/led_controller/src
 )
 
 pico_add_extra_outputs(LedController)
@@ -57,4 +57,4 @@ endif()
 
 include(example_auto_set_url.cmake)
 
-add_subdirectory(led_controller)
+add_subdirectory(led_controller/src)
