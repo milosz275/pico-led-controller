@@ -27,7 +27,8 @@
         "tailwindcss",
         "urgb",
         "Webserver",
-        "WLED"
+        "WLED",
+        "ziomki"
     ],
     "files.associations": {
         "cyw43_arch.h": "c",
