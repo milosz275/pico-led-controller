@@ -9,6 +9,7 @@
         "GPIO",
         "hiva",
         "ifndef",
+        "INPROGRESS",
         "Leds",
         "LWIPOPTS",
         "Maculewicz",
@@ -93,6 +94,7 @@
         "lwipopts.h": "c",
         "blink.h": "c",
         "mdns.h": "c",
-        "altcp_tls.h": "c"
+        "altcp_tls.h": "c",
+        "stdio.h": "c"
     }
 }
