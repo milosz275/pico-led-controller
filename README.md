@@ -5,7 +5,23 @@
 
 This project is a simple example of how to manage a WS2812B LED strip with a Raspberry Pi Pico W and a Web interface.
 
-## Build
+## Features
+
+- [x] Control WS2812B LED strip with Raspberry Pi Pico W
+- [x] Web interface to control the LED strip
+- [x] Wi-Fi connection
+
+## Hardware
+
+- Raspberry Pi Pico W
+- WS2812B LED strip
+- 5V power supply
+
+## Software
+
+The code is written in C and follows `src`/`include` structure. The project is based on the Raspberry Pi Pico SDK and FreeRTOS.
+
+### Build
 
 For this project to build, you will need the following packages:
 
@@ -41,6 +57,14 @@ There is gitignored Wi-Fi credentials file to create in following directory `led
 The web interface is a simple page that allows you to control the LED strip. It is served by the Raspberry Pi Pico W itself. Data fetch intervals are set to 5 seconds to avoid overloading the Pico W. Start timestamp is created by the server although counting elapsed is fully client-sided.
 
 ![Web interface](assets/web_interface.png)
+
+### Build
+
+To build the web interface, `cd` into `led_controller` and run the following command:
+
+```bash
+python3 makefsdata.py
+```
 
 ## License
 
