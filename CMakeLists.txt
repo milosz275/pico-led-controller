@@ -26,7 +26,7 @@ pico_sdk_init()
 add_executable(LedController led_controller/led_controller.c)
 
 pico_set_program_name(LedController "LedController")
-pico_set_program_version(LedController "0.2")
+pico_set_program_version(LedController "0.3")
 
 pico_enable_stdio_uart(LedController 0)
 pico_enable_stdio_usb(LedController 1)
@@ -36,7 +36,7 @@ target_link_libraries(LedController
     pico_stdlib
     pico_cyw43_arch_lwip_threadsafe_background
     pico_lwip_http
-    # pico_lwip_mbedtls
+    pico_multicore
     hardware_adc
     hardware_pio)
 
@@ -48,8 +48,8 @@ target_include_directories(LedController PRIVATE
 pico_add_extra_outputs(LedController)
 
 add_compile_options(-Wall
-    -Wno-format          # int != int32_t as far as the compiler is concerned because gcc has int32_t as long int
-    -Wno-unused-function # we have some for the docs that aren't called
+    -Wno-format
+    -Wno-unused-function
     )
 if (CMAKE_C_COMPILER_ID STREQUAL "GNU")
     add_compile_options(-Wno-maybe-uninitialized)
@@ -57,5 +57,4 @@ endif()
 
 include(example_auto_set_url.cmake)
 
-# Hardware-specific examples in subdirectories:
 add_subdirectory(led_controller)
