@@ -4,6 +4,8 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
+                "${workspaceFolder}/led_controller/include",
+                "${workspaceFolder}/led_controller/src",
                 "/usr/lib/gcc/arm-none-eabi/**",
                 "${env:PICO_SDK_PATH}/**",
                 "${env:PICO_SDK_PATH}",
