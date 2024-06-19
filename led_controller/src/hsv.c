@@ -48,5 +48,5 @@ uint32_t hsv_to_rgb(uint16_t h, uint8_t s, uint8_t v)
             b = q;
             break;
     }
-    return urgb_u32(r, g, b);
+    return URGB(r, g, b);
 }
