@@ -39,4 +39,3 @@ target_include_directories(led_controller PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}/../include)
 
 pico_add_extra_outputs(led_controller)
-example_auto_set_url(led_controller)

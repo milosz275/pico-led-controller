@@ -73,6 +73,5 @@ add_compile_options(-O2 -g3 -march=armv6-m -mcpu=cortex-m0plus -mthumb
 if (CMAKE_C_COMPILER_ID STREQUAL "GNU")
     add_compile_options(-Wno-maybe-uninitialized)
 endif()
-include(example_auto_set_url.cmake)
 
 add_subdirectory(led_controller/src)
