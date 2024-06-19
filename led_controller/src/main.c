@@ -8,10 +8,11 @@ int main()
     multicore_launch_core1(run_loop);
     while (true)
     {
-        if (cyw43_tcpip_link_status(&cyw43_state, CYW43_ITF_STA) != CYW43_LINK_UP)
+        int wifi_link_status = cyw43_wifi_link_status(&cyw43_state, CYW43_ITF_STA);
+        if (wifi_link_status != CYW43_LINK_UP && wifi_link_status != CYW43_LINK_JOIN)
         {
+            printf("Wi-Fi link status: %d\n", wifi_link_status);
             BLINK_CODE_WIFI_DISCONNECTED;
-            turn_off_all(NUM_PIXELS);
             connect_to_wifi();
         }
         sleep_ms(5000);
