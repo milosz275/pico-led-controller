@@ -111,7 +111,7 @@ function updateElapsedTime() {
     }, 1000);
 }
 
-function fetchTimestamp() {
+function fetchTimestamp(retryCount = 3) {
     fetch("/timestamp.shtml")
         .then(response => response.text())
         .then(data => {
@@ -142,7 +142,13 @@ function fetchTimestamp() {
                 document.getElementById("tm").innerText = "N/A";
             }
         })
-        .catch(error => console.error("Error fetching data:", error));
+        .catch(error => {
+            console.error("Error fetching data:", error);
+            if (retryCount > 0) {
+                console.log(`Retrying... Attempts left: ${retryCount - 1}`);
+                setTimeout(() => fetchTimestamp(retryCount - 1), 1000);
+            }
+        });
 }
 
 document.addEventListener("DOMContentLoaded", fetchTimestamp);
