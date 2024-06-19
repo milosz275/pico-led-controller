@@ -10,14 +10,16 @@
 #include <hardware/pio.h>
 #include <hardware/gpio.h>
 #include <hardware/clocks.h>
+#include <hardware/timer.h>
 
 #include "blink_codes.h"
 
-#define WS2812_PIN 2
-#define LIGHT_TOGGLE_PIN 15
-#define MODE_BUTTON_PIN 16
-#define STOP_BUTTON_PIN 17
-#define IS_RGBW false
+#define WS2812_PIN          2
+#define LIGHT_TOGGLE_PIN    15
+#define MODE_BUTTON_PIN     16
+#define STOP_BUTTON_PIN     17
+#define IS_RGBW             false
+#define DEBOUNCE_TIME_US    250000 // 250ms
 
 void connect_to_wifi();
 void gpio_button_irq_handler(uint gpio, uint32_t events);

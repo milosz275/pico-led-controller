@@ -19,6 +19,7 @@
 volatile bool light_state_toggle_request = false;
 volatile bool light_mode_toggle_request = false;
 volatile bool stop_flag = false;
+volatile uint64_t last_press_time = 0;
 
 void connect_to_wifi()
 {
@@ -32,19 +33,24 @@ void connect_to_wifi()
 
 void gpio_button_irq_handler(uint gpio, uint32_t events)
 {
-    switch (gpio)
+    uint64_t current_time = time_us_64();
+    if (current_time - last_press_time >= DEBOUNCE_TIME_US)
     {
-    case LIGHT_TOGGLE_PIN:
-        light_state_toggle_request = true;
-        break;
-    case MODE_BUTTON_PIN:
-        light_mode_toggle_request = true;
-        break;
-    case STOP_BUTTON_PIN:
-        stop_flag = true;
-        break;
-    default:
-        break;
+        last_press_time = current_time;
+        switch (gpio)
+        {
+        case LIGHT_TOGGLE_PIN:
+            light_state_toggle_request = true;
+            break;
+        case MODE_BUTTON_PIN:
+            light_mode_toggle_request = true;
+            break;
+        case STOP_BUTTON_PIN:
+            stop_flag = true;
+            break;
+        default:
+            break;
+        }
     }
 }
 
