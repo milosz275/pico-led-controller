@@ -1,15 +1,21 @@
 cmake_minimum_required(VERSION 3.13)
 
+set(PICO_BOARD "pico_w")
+set(ENV{'PICO_BOARD'} "pico_w")
 set(PICO_SDK_PATH "${PICO_SDK_PATH}")
+# set(PICO_SDK_PATH ${CMAKE_CURRENT_SOURCE_DIR}/pico-sdk)
+
+set(FAMILY rp2040)
+set(BOARD pico_sdk)
 
 include(pico_sdk_import.cmake)
-
 include(pico_extras_import_optional.cmake)
+
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 
 project(LedController C CXX ASM)
 project(PRERELEASE VERSION 0.0.2)
-set(CMAKE_C_STANDARD 11)
-set(CMAKE_CXX_STANDARD 17)
 
 if (PICO_SDK_VERSION_STRING VERSION_LESS "1.3.0")
     message(FATAL_ERROR "Raspberry Pi Pico SDK version 1.3.0 (or later) required. Your version is ${PICO_SDK_VERSION_STRING}")
@@ -56,11 +62,17 @@ target_include_directories(LedController PRIVATE
 
 pico_add_extra_outputs(LedController)
 
-add_compile_options(-Wall
+add_compile_options(-O2 -g3 -march=armv6-m -mcpu=cortex-m0plus -mthumb
+        -Wall
+        -Wno-unused-result
         -Wno-format
-        -Wno-unused-function)
+        -Wno-unused-function
+        -Wno-maybe-uninitialized
+        -Werror)
+
 if (CMAKE_C_COMPILER_ID STREQUAL "GNU")
     add_compile_options(-Wno-maybe-uninitialized)
 endif()
 include(example_auto_set_url.cmake)
+
 add_subdirectory(led_controller/src)
