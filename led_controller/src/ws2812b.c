@@ -109,7 +109,7 @@ void apply_rainbow_wheel_effect(uint len, uint16_t* base_hue, uint8_t* speed_fac
         put_pixel(color);
         hue++;
     }
-    *speed_factor = rand() % 3 + 5; // 5, 6, 7
+    *speed_factor = rand() % 3 + 6; // 6, 7, 8
     *base_hue += *speed_factor;
     *base_hue %= 360;
 }
