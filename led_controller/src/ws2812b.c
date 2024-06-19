@@ -102,7 +102,7 @@ void set_all_magenta(uint len, uint8_t brightness)
 
 void apply_rainbow_wheel_effect(uint len, uint16_t* base_hue, uint8_t* speed_factor, uint8_t* density_factor)
 {
-    for (uint8_t i = 0; i < len; ++i)
+    for (uint i = 0; i < len; ++i)
     {
         uint16_t hue = (*base_hue + i * 360 / len * *density_factor) % 360;
         uint32_t color = hsv_to_rgb(hue, 255, 255);
@@ -116,7 +116,7 @@ void apply_rainbow_wheel_effect(uint len, uint16_t* base_hue, uint8_t* speed_fac
 
 void apply_rainbow_cycle_effect(uint len, uint16_t* hue, uint8_t* speed_factor)
 {
-    for (uint8_t i = 0; i < len; ++i)
+    for (uint i = 0; i < len; ++i)
     {
         uint32_t color = hsv_to_rgb(*hue, 255, 255);
         put_pixel(color);
