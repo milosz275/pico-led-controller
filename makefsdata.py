@@ -7,19 +7,15 @@
 import os
 import binascii
 
-#Create file to write output into
 output = open('./led_controller/src/html_data.c', 'w') 
-
-#Traverse directory, generate list of files
 files = list()
 os.chdir('./led_controller/public')
 for(dirpath, dirnames, filenames) in os.walk('.'):
     files += [os.path.join(dirpath, file) for file in filenames]
 
 filenames = list()
-varnames  = list()
+var_names  = list()
 
-#Generate appropriate HTTP headers
 for file in files:
 
     if '404' in file:
@@ -56,12 +52,13 @@ for file in files:
 
     header += "\r\n"
 
-    fvar = file[1:]                 #remove leading dot in filename
-    fvar = fvar.replace('/', '_')   #replace *nix path separator with underscore
-    fvar = fvar.replace('\\', '_')  #replace DOS path separator with underscore
-    fvar = fvar.replace('.', '_')   #replace file extension dot with underscore
+    f_var = file[1:]                 #remove leading dot in filename
+    f_var = f_var.replace('/', '_')   #replace *nix path separator with underscore
+    f_var = f_var.replace('\\', '_')  #replace DOS path separator with underscore
+    f_var = f_var.replace('.', '_')   #replace file extension dot with underscore
+    f_var = f_var.replace('-', '_')   #replace dash with underscore
 
-    output.write("static const unsigned char data{}[] = {{\n".format(fvar))
+    output.write("static const unsigned char data{}[] = {{\n".format(f_var))
     output.write("\t/* {} */\n\t".format(file))
 
     #first set of hex data encodes the filename
@@ -94,17 +91,17 @@ for file in files:
         output.write("};\n\n")
 
     filenames.append(file[1:])
-    varnames.append(fvar)
+    var_names.append(f_var)
 
 for i in range(len(filenames)):
-    prevfile = "NULL"
+    prev_file = "NULL"
     if(i > 0):
-        prevfile = "file" + varnames[i-1]
+        prev_file = "file" + var_names[i-1]
 
-    output.write("const struct fsdata_file file{0}[] = {{{{ {1}, data{2}, ".format(varnames[i], prevfile, varnames[i]))
-    output.write("data{} + {}, ".format(varnames[i], len(filenames[i]) + 1))
-    output.write("sizeof(data{}) - {}, ".format(varnames[i], len(filenames[i]) + 1))
+    output.write("const struct fsdata_file file{0}[] = {{{{ {1}, data{2}, ".format(var_names[i], prev_file, var_names[i]))
+    output.write("data{} + {}, ".format(var_names[i], len(filenames[i]) + 1))
+    output.write("sizeof(data{}) - {}, ".format(var_names[i], len(filenames[i]) + 1))
     output.write("FS_FILE_FLAGS_HEADER_INCLUDED | FS_FILE_FLAGS_HEADER_PERSISTENT}};\n")
 
-output.write("\n#define FS_ROOT file{}\n".format(varnames[-1])) 
+output.write("\n#define FS_ROOT file{}\n".format(var_names[-1])) 
 output.write("#define FS_NUMFILES {}\n".format(len(filenames)))
