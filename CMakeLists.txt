@@ -1,15 +1,17 @@
 cmake_minimum_required(VERSION 3.13)
 
+include(pico_sdk_import.cmake)
+include(pico_extras_import.cmake)
+
 set(PICO_BOARD "pico_w")
 set(ENV{'PICO_BOARD'} "pico_w")
-set(PICO_SDK_PATH "${PICO_SDK_PATH}")
-# set(PICO_SDK_PATH ${CMAKE_CURRENT_SOURCE_DIR}/pico-sdk)
+set(ENV{'PICO_SDK_FETCH_FROM_GIT'} "ON")
+set(ENV{'PICO_EXTRAS_FETCH_FROM_GIT'} "ON")
+set(ENV{'PICO_SDK_FETCH_FROM_GIT_PATH'} "./pico-sdk")
+set(ENV{'PICO_EXTRAS_FETCH_FROM_GIT_PATH'} "./pico-extras")
 
 set(FAMILY rp2040)
 set(BOARD pico_sdk)
-
-include(pico_sdk_import.cmake)
-include(pico_extras_import_optional.cmake)
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)

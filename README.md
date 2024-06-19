@@ -38,11 +38,10 @@ sudo apt-get install -y cmake gcc-arm-none-eabi libnewlib-arm-none-eabi build-es
 You will probably need those environmental variables exported:
 
 ```bash
-export PICO_SDK_PATH="insert_path_here"
-export PICO_EXTRAS_PATH="insert_path_here"
-export PICO_EXAMPLES_PATH="insert_path_here"
-export FREERTOS_KERNEL_PATH="insert_path_here"
-export PICO_BOARD="pico_w"
+export PICO_SDK_FETCH_FROM_GIT="ON"
+export PICO_EXTRAS_FETCH_FROM_GIT="ON"
+export PICO_SDK_FETCH_FROM_GIT_PATH="./pico-sdk"
+export PICO_EXTRAS_FETCH_FROM_GIT_PATH="./pico-extras"
 ```
 
 There is gitignored Wi-Fi credentials file to create in following directory `led_controller/wifi_credentials.h`:

@@ -1,8 +1,3 @@
-# This is a copy of <PICO_SDK_PATH>/external/pico_sdk_import.cmake
-
-# This can be dropped into an external project to help locate this SDK
-# It should be include()ed prior to project()
-
 if (DEFINED ENV{PICO_SDK_PATH} AND (NOT PICO_SDK_PATH))
     set(PICO_SDK_PATH $ENV{PICO_SDK_PATH})
     message("Using PICO_SDK_PATH from environment ('${PICO_SDK_PATH}')")
@@ -29,7 +24,6 @@ if (NOT PICO_SDK_PATH)
         if (PICO_SDK_FETCH_FROM_GIT_PATH)
             get_filename_component(FETCHCONTENT_BASE_DIR "${PICO_SDK_FETCH_FROM_GIT_PATH}" REALPATH BASE_DIR "${CMAKE_SOURCE_DIR}")
         endif ()
-        # GIT_SUBMODULES_RECURSE was added in 3.17
         if (${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.17.0")
             FetchContent_Declare(
                     pico_sdk
