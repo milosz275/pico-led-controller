@@ -10,7 +10,8 @@ This project is a simple example of how to manage a WS2812B LED strip with a Ras
 - [x] WS2812B LED strip controller
 - [x] IRQ based light state buttons handling
 - [x] Wi-Fi connection
-- [x] Web interface for light state control
+- [x] Web interface light state control
+- [x] NTP time synchronization
 
 ## Hardware
 
@@ -73,6 +74,10 @@ python3 makefsdata.py
 ### Install
 
 If you will be using the web interface locally, you don't need https to install the app. In Chrome, resolve `chrome://flags/#unsafely-treat-insecure-origin-as-secure` and your's Pico W IP address. Restart the browser and [manifest.json](led_controller/src/public/manifest.json) will allow for the install.
+
+## Usage
+
+After building the project, you can flash the Raspberry Pi Pico W with the generated `led_controller.uf2` file. The LED strip should light up with the default mode `Rainbow Wheel`. You can change the color by choosing one of the buttons on the web interface. When connecting to the Wi-Fi for the first time, check the serial output for the IP address.
 
 ## License
 
