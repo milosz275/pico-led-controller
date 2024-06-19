@@ -140,13 +140,19 @@ void run_loop()
             turn_off_all(NUM_PIXELS);
             break;
         }
-        if (light_state.state)
+        switch (light_state.lighting_mode)
         {
-            if (light_state.lighting_mode == MODE_RAINBOW_WHEEL)
+        case MODE_RAINBOW_WHEEL:
+            if (light_state.state)
                 apply_rainbow_wheel_effect(NUM_PIXELS, &base_hue, &speed_factor_wheel, &density_factor);
-            else if (light_state.lighting_mode == MODE_RAINBOW_CYCLE)
+            break;
+        case MODE_RAINBOW_CYCLE:
+            if (light_state.state)
                 apply_rainbow_cycle_effect(NUM_PIXELS, &base_hue, &speed_factor_cycle);
+            break;
+        default:
+            break;
         }
-        sleep_ms(40);
+        sleep_ms(50);
     }
 }
