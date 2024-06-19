@@ -28,6 +28,9 @@ void connect_to_wifi()
     while (cyw43_arch_wifi_connect_timeout_ms(WIFI_SSID, WIFI_PASSWORD, CYW43_AUTH_WPA2_AES_PSK, 10000) != 0)
         printf("Attempting to connect...\n");
     printf("Connected!\n");
+    extern cyw43_t cyw43_state;
+    uint32_t ip_addr = cyw43_state.netif[CYW43_ITF_STA].ip_addr.addr;
+    printf("IP Address: %lu.%lu.%lu.%lu\n", ip_addr & 0xFF, (ip_addr >> 8) & 0xFF, (ip_addr >> 16) & 0xFF, ip_addr >> 24);
     BLINK_CODE_WIFI_CONNECTED;
 }
 
