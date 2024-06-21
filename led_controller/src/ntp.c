@@ -30,8 +30,6 @@ static void ntp_result(NTP_T* state, int status, time_t *result)
     state->dns_request_sent = false;
 }
 
-static int64_t ntp_failed_handler(alarm_id_t id, void *user_data);
-
 static void ntp_request(NTP_T *state)
 {
     cyw43_arch_lwip_begin();
@@ -108,6 +106,15 @@ static NTP_T* ntp_init(void)
     }
     udp_recv(state->ntp_pcb, ntp_recv, state);
     return state;
+}
+
+void ntp_deinit(void)
+{
+    if (utc)
+    {
+        free((void*)utc);
+        utc = NULL;
+    }
 }
 
 void ntp_update_time(void)

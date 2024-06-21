@@ -37,6 +37,7 @@ static int64_t ntp_failed_handler(alarm_id_t id, void *user_data);
 static void ntp_dns_found(const char *hostname, const ip_addr_t *ipaddr, void *arg);
 static void ntp_recv(void *arg, struct udp_pcb *pcb, struct pbuf *p, const ip_addr_t *addr, u16_t port);
 static NTP_T* ntp_init(void);
+void ntp_deinit(void);
 void ntp_update_time(void);
 
 #endif
