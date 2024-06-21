@@ -47,6 +47,8 @@ void gpio_button_irq_handler(uint gpio, uint32_t events)
             break;
         case MODE_BUTTON_PIN:
             light_mode_toggle_request = true;
+            if (!light_state.state)
+                light_state_toggle_request = true;
             break;
         case STOP_BUTTON_PIN:
             stop_flag = true;
@@ -128,15 +130,15 @@ void run_loop()
     uint8_t density_factor = 3;
     while (true)
     {
-        if (light_state_toggle_request)
-        {
-            toggle_light_state(NUM_PIXELS);
-            light_state_toggle_request = false;
-        }
         if (light_mode_toggle_request)
         {
             toggle_light_mode();
             light_mode_toggle_request = false;
+        }
+        if (light_state_toggle_request)
+        {
+            toggle_light_state(NUM_PIXELS);
+            light_state_toggle_request = false;
         }
         if (stop_flag)
         {
