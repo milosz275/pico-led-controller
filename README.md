@@ -15,7 +15,7 @@ This project is a simple example of how to manage a WS2812B LED strip with a Ras
 
 ## Documentation
 
-Documentation is available [here](https://mldxo.github.io/pico-led-controller/docs).
+Documentation is available [here](https://mldxo.github.io/pico-led-controller/).
 
 ## Hardware
 
