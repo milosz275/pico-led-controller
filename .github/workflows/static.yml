@@ -59,7 +59,6 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: docs
-          path: ./docs
 
       - name: List files after downloading artifact
         run: ls -la ./docs
@@ -67,6 +66,8 @@ jobs:
       - name: Deploy docs to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
+        with:
+          folder: ./docs
 
       - name: Override page_url
         id: change-page-url
