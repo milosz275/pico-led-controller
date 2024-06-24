@@ -13,6 +13,10 @@ This project is a simple example of how to manage a WS2812B LED strip with a Ras
 - [x] Web interface light state control
 - [x] NTP time synchronization
 
+## Documentation
+
+Documentation is currently unavailable but can be obtained running `doxygen` in project root. It will be available [here](https://mldxo.github.io/pico-led-controller/).
+
 ## Hardware
 
 - Raspberry Pi Pico W
