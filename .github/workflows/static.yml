@@ -62,12 +62,10 @@ jobs:
       - name: List files after downloading artifact
         run: ls -la /home/runner/work/pico-led-controller/pico-led-controller
 
-      - name: Deploy docs to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
-        with:
-          folder: /home/runner/work/pico-led-controller/pico-led-controller
-
       - name: Override page_url
         id: change-page-url
         run: echo "new_page_url=${{ steps.deployment.outputs.page_url }}notebook/" >> $GITHUB_OUTPUT
+        
+      - name: Deploy docs to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
