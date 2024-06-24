@@ -34,7 +34,7 @@ jobs:
       - name: Run Doxygen
         run: doxygen Doxyfile
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
           name: docs
           path: ./docs
