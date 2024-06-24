@@ -2,7 +2,6 @@
 #define _CGI_H
 
 #include <stdio.h>
-#include <httpd.h>
 #include "lwip/apps/httpd.h"
 
 /**
