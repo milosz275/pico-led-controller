@@ -22,9 +22,19 @@
 #define IS_RGBW             false
 #define DEBOUNCE_TIME_US    250000 // 250ms
 
+/**
+ * Connect to WiFi. Function connects to WiFi using the SSID and password defined in the wifi_credentials.h file. 
+ */
 void connect_to_wifi();
+
+/**
+ * GPIO button interrupt handler. Function handles button interrupts setting proper flags.
+ */
 void gpio_button_irq_handler(uint gpio, uint32_t events);
 
+/**
+ * Init result enum. Enum for the initialization result.
+ */
 enum init_result_t
 {
     INIT_SUCCESS,
@@ -32,8 +42,21 @@ enum init_result_t
     WIFI_INIT_FAILURE
 };
 
+/**
+ * Init. Function initializes the LED controller.
+ * 
+ * @return: initialization result
+ */
 enum init_result_t init();
+
+/**
+ * Shuffle modes. Function shuffles the LED modes.
+ */
 void shuffle_modes();
+
+/**
+ * Run loop. Function runs the main loop of the LED controller.
+ */
 void run_loop();
 
 #endif

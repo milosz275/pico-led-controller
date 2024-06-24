@@ -10,6 +10,9 @@
 #include "urgb.h"
 #include "ws2812b.h"
 
+/**
+ * Lighting modes enum. Enum for the lighting modes.
+ */
 enum lighting_modes
 {
     MODE_RAINBOW_WHEEL,
@@ -27,6 +30,9 @@ enum lighting_modes
     MODE_WHITE,
 };
 
+/**
+ * Light state struct. Struct for the light state.
+ */
 struct light_state_t
 {
     bool state;
@@ -34,10 +40,26 @@ struct light_state_t
     enum lighting_modes lighting_mode;
 };
 
+/**
+ * Light state. External, not optimized variable for the light state.
+ */
 extern volatile struct light_state_t light_state;
 
+/**
+ * Toggle light state. Function toggles on/off the light state.
+ */
 void toggle_light_state();
+
+/**
+ * Toggle light mode. Function toggles the light mode iterating through the lighting modes.
+ */
 void toggle_light_mode();
+
+/**
+ * Set light mode. Function sets the light mode to the specified mode.
+ * 
+ * @param mode: mode
+ */
 void set_lighting_mode(enum lighting_modes mode);
 
 #endif
