@@ -38,10 +38,21 @@ jobs:
           name: docs
           path: ./docs
 
-      - name: Override page_url
-        id: change-page-url
-        run: echo "new_page_url=${{ steps.deployment.outputs.page_url }}notebook/" >> $GITHUB_OUTPUT
-        
+      - name: Download Docs for verification
+        uses: actions/download-artifact@v3
+        with:
+          name: docs
+          path: ./downloaded-docs
+
+      - name: List files after downloading artifact
+        run: ls -la ./downloaded-docs
+
       - name: Deploy docs to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
+        with:
+          folder: ./downloaded-docs
+
+      - name: Override page_url
+        id: change-page-url
+        run: echo "new_page_url=${{ steps.deployment.outputs.page_url }}notebook/" >> $GITHUB_OUTPUT
