@@ -56,13 +56,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: docs
-          path: ./docs
 
       - name: Deploy docs to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
-        with:
-          path: ./docs
 
       - name: Override page_url
         id: change-page-url
