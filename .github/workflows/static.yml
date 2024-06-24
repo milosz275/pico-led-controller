@@ -35,6 +35,9 @@ jobs:
       - name: Run Doxygen
         run: doxygen Doxyfile
 
+      - name: List files after Doxygen run
+        run: ls -la ./docs
+
       - name: Upload Docs to GitHub Pages
         uses: actions/upload-artifact@v3
         with:
@@ -45,7 +48,7 @@ jobs:
     needs: build-docs
     environment:
       name: github-pages
-      url: ${{ steps.change-page-url.outputs.new_page_url }}
+      url: https://your-custom-domain.com/notebook/
 
     runs-on: ubuntu-latest
     steps:
@@ -56,6 +59,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: docs
+          path: ./docs
+
+      - name: List files after downloading artifact
+        run: ls -la ./docs
 
       - name: Deploy docs to GitHub Pages
         id: deployment
