@@ -125,8 +125,8 @@ void run_loop()
     uint8_t density_factor = 3;
     uint8_t breathing_brightness = 15;
     bool breathing_up = true;
-    while (true)
-    {
+    while (true) // [ ] Remove bug - cannot change mode after multiple changes
+    { // [ ] Add restart button from web interface
         if (light_mode_toggle_request)
         {
             toggle_light_mode();
