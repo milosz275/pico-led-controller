@@ -225,8 +225,22 @@ const char* cgi_led_brightness_handler(int iIndex, int iNumParams, char* pcParam
         else
         {
             printf("Setting brightness to %d\n", brightness);
-            light_state.brightness = brightness * 255 / 100;
+            if (brightness == 0)
+                brightness = 0;
+            else if (brightness == 100)
+                brightness = 255;
+            else
+            {
+                brightness = (int)(brightness * 255.0 / 100.0) + 1;
+                if (brightness > 255)
+                    brightness = 255;
+                else if (brightness < 0)
+                    brightness = 0;
+            }
+            light_state.brightness = brightness;
         }
+        if (light_state.light_mode == MODE_STATIC)
+            set_light_color(light_state.color);
     }
     return "/index.html";
 }
