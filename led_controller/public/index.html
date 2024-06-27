@@ -26,6 +26,8 @@
             <p class="mb-2">Onboard LED: <span id="gpio" class="font-mono text-blue-500">Loading...</span></p>
             <p class="mb-2">LED strip: <span id="led" class="font-mono text-blue-500">Loading...</span></p>
             <p class="mb-2">LED strip mode: <span id="mode" class="font-mono text-blue-500">Loading...</span></p>
+            <p class="mb-2">LED strip color: <span id="color" class="font-mono text-blue-500">Loading...</span></p>
+            <p class="mb-2">LED brightness: <span id="brightness" class="font-mono text-blue-500">Loading...</span></p>
             <p class="mb-2">Start timestamp: <span id="tm" class="font-mono text-blue-500">Loading...</span></p>
             <p class="mb-2">Time since start: <span id="elapsed" class="font-mono text-blue-500">Loading...</span></p>
         </div>
@@ -40,6 +42,13 @@
             <select id="modeSelect" onchange="changeLEDMood(this.value)" class="bg-purple-500 text-white py-2 px-4 rounded hover:bg-purple-600 transition duration-300 mb-1">
                 <option value="rainbow-wheel">Rainbow Wheel</option>
                 <option value="rainbow-cycle">Rainbow Cycle</option>
+                <option value="static">Static</option>
+                <option value="breathing">Breathing</option>
+                <option value="flashing">Flashing</option>
+                <option value="wave">Wave</option>
+                <option value="fade">Fade</option>
+            </select>
+            <select id="colorSelect" onchange="changeLEDColor(this.value)" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300 mb-1">
                 <option value="red">Red</option>
                 <option value="green">Green</option>
                 <option value="blue">Blue</option>
@@ -52,6 +61,10 @@
                 <option value="turquoise">Turquoise</option>
                 <option value="white">White</option>
             </select>
+            <div class="flex items-center gap-4">
+                <input type="range" id="rangeSlider" name="rangeSlider" min="0" max="100" oninput="document.getElementById('numberInput').value = value; debouncedChangeLEDBrightness(value)" class="form-range w-full h-2 bg-gray-200 rounded-full outline outline-2 border-bg-blue-500 slider-thumb:bg-blue-500 focus:ring focus:ring-blue-300">
+                <input type="number" id="numberInput" name="numberInput" min="0" max="100" value="50" oninput="document.getElementById('rangeSlider').value = value; debouncedChangeLEDBrightness(value)" class="form-input appearance-none block w-20 text-gray-700 bg-white border border-gray-300 rounded py-1.5 px-2 leading-tight focus:outline-none focus:bg-white focus:border-blue-500 shadow-sm">
+            </div>
         </div>
         <div>
             <button onclick="fetchData()" class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600 transition duration-300 mb-1">
