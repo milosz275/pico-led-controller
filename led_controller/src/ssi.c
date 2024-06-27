@@ -17,6 +17,8 @@ static const char* ssi_tags[] =
     "gpio",
     "led",
     "mode",
+    "color",
+    "bright",
     "tm",
     NULL
 };
@@ -45,7 +47,7 @@ u16_t ssi_handler(int iIndex, char *pcInsert, int iInsertLen)
             print_value = snprintf(pcInsert, iInsertLen, "OFF");
         break;
     case 4: // light mode
-        switch (light_state.lighting_mode)
+        switch (light_state.light_mode)
         {
         case MODE_RAINBOW_WHEEL:
             print_value = snprintf(pcInsert, iInsertLen, "rainbow-wheel");
@@ -53,37 +55,63 @@ u16_t ssi_handler(int iIndex, char *pcInsert, int iInsertLen)
         case MODE_RAINBOW_CYCLE:
             print_value = snprintf(pcInsert, iInsertLen, "rainbow-cycle");
             break;
-        case MODE_RED:
+        case MODE_STATIC:
+            print_value = snprintf(pcInsert, iInsertLen, "static");
+            break;
+        case MODE_BREATHING:
+            print_value = snprintf(pcInsert, iInsertLen, "breathing");
+            break;
+        case MODE_FLASHING:
+            print_value = snprintf(pcInsert, iInsertLen, "flashing");
+            break;
+        case MODE_LOADING:
+            print_value = snprintf(pcInsert, iInsertLen, "loading");
+            break;
+        case MODE_WAVE:
+            print_value = snprintf(pcInsert, iInsertLen, "wave");
+            break;
+        case MODE_FADE:
+            print_value = snprintf(pcInsert, iInsertLen, "fade");
+            break;
+        default:
+            print_value = 0;
+            break;
+        }
+        break;
+    case 5: // light color
+        switch (light_state.color)
+        {
+        case COLOR_RED:
             print_value = snprintf(pcInsert, iInsertLen, "red");
             break;
-        case MODE_GREEN:
+        case COLOR_GREEN:
             print_value = snprintf(pcInsert, iInsertLen, "green");
             break;
-        case MODE_BLUE:
+        case COLOR_BLUE:
             print_value = snprintf(pcInsert, iInsertLen, "blue");
             break;
-        case MODE_WHITE:
+        case COLOR_WHITE:
             print_value = snprintf(pcInsert, iInsertLen, "white");
             break;
-        case MODE_PURPLE:
+        case COLOR_PURPLE:
             print_value = snprintf(pcInsert, iInsertLen, "purple");
             break;
-        case MODE_YELLOW:
+        case COLOR_YELLOW:
             print_value = snprintf(pcInsert, iInsertLen, "yellow");
             break;
-        case MODE_CYAN:
+        case COLOR_CYAN:
             print_value = snprintf(pcInsert, iInsertLen, "cyan");
             break;
-        case MODE_ORANGE:
+        case COLOR_ORANGE:
             print_value = snprintf(pcInsert, iInsertLen, "orange");
             break;
-        case MODE_PINK:
+        case COLOR_PINK:
             print_value = snprintf(pcInsert, iInsertLen, "pink");
             break;
-        case MODE_TURQUOISE:
+        case COLOR_TURQUOISE:
             print_value = snprintf(pcInsert, iInsertLen, "turquoise");
             break;
-        case MODE_MAGENTA:
+        case COLOR_MAGENTA:
             print_value = snprintf(pcInsert, iInsertLen, "magenta");
             break;
         default:
@@ -91,7 +119,10 @@ u16_t ssi_handler(int iIndex, char *pcInsert, int iInsertLen)
             break;
         }
         break;
-    case 5: // time tm
+    case 6: // brightness
+        print_value = snprintf(pcInsert, iInsertLen, "%d", (int)(light_state.brightness / 255.0 * 100.0));
+        break;
+    case 7: // time tm
         if (utc)
             print_value = snprintf(pcInsert, iInsertLen, "%04d-%02d-%02dT%02d:%02d:%02dZ", utc->tm_year + 1900, utc->tm_mon + 1, utc->tm_mday, utc->tm_hour, utc->tm_min, utc->tm_sec);
         else
