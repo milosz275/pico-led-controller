@@ -2,7 +2,8 @@
 #define _LIGHT_STATE_H
 
 #define NUM_PIXELS 120
-#define NUM_LIGHTING_MODES 13
+#define NUM_LIGHT_MODES 8
+#define NUM_LIGHT_COLORS 11
 
 #include <stdio.h>
 #include <pico/stdlib.h>
@@ -11,33 +12,52 @@
 #include "ws2812b.h"
 
 /**
- * Lighting modes enum. Enum for the lighting modes.
+ * Light modes enum. Enum for the light modes.
  */
-enum lighting_modes
+enum light_modes
 {
     MODE_RAINBOW_WHEEL,
     MODE_RAINBOW_CYCLE,
-    MODE_RED,
-    MODE_GREEN,
-    MODE_BLUE,
-    MODE_CYAN,
-    MODE_YELLOW,
-    MODE_MAGENTA,
-    MODE_PURPLE,
-    MODE_ORANGE,
-    MODE_TURQUOISE,
-    MODE_PINK,
-    MODE_WHITE,
+    MODE_STATIC,
+    MODE_BREATHING,
+    MODE_FLASHING,
+    MODE_LOADING,
+    MODE_WAVE,
+    MODE_FADE
+};
+
+/**
+ * Light colors enum. Enum for the light colors.
+ */
+enum light_colors
+{
+    COLOR_RED,
+    COLOR_GREEN,
+    COLOR_BLUE,
+    COLOR_CYAN,
+    COLOR_YELLOW,
+    COLOR_MAGENTA,
+    COLOR_PURPLE,
+    COLOR_ORANGE,
+    COLOR_TURQUOISE,
+    COLOR_PINK,
+    COLOR_WHITE
 };
 
 /**
  * Light state struct. Struct for the light state.
+ * 
+ * @param state: state
+ * @param brightness: brightness
+ * @param light_mode: light mode
+ * @param color: color
  */
 struct light_state_t
 {
     bool state;
     uint8_t brightness;
-    enum lighting_modes lighting_mode;
+    enum light_modes light_mode;
+    enum light_colors color;
 };
 
 /**
@@ -51,15 +71,34 @@ extern volatile struct light_state_t light_state;
 void toggle_light_state();
 
 /**
- * Toggle light mode. Function toggles the light mode iterating through the lighting modes.
+ * Toggle light mode. Function toggles the light mode iterating through the light modes.
  */
 void toggle_light_mode();
+
+/**
+ * Toggle light color. Function toggles the light color iterating through the light colors.
+ */
+void toggle_light_color();
 
 /**
  * Set light mode. Function sets the light mode to the specified mode.
  * 
  * @param mode: mode
  */
-void set_lighting_mode(enum lighting_modes mode);
+void set_light_mode(enum light_modes mode);
+
+/**
+ * Set light color. Function sets the light mode to the specified color.
+ * 
+ * @param color: color
+ */
+void set_light_color(enum light_colors color);
+
+/**
+ * Get current color. Function gets the current color.
+ * 
+ * @return current color in RGB format
+ */
+uint32_t get_current_color();
 
 #endif
