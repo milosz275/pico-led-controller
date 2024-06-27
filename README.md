@@ -49,7 +49,7 @@ export PICO_SDK_FETCH_FROM_GIT_PATH="./pico-sdk"
 export PICO_EXTRAS_FETCH_FROM_GIT_PATH="./pico-extras"
 ```
 
-There is gitignored Wi-Fi credentials file to create in following directory `led_controller/wifi_credentials.h`:
+There is gitignored Wi-Fi credentials file to create in following directory `led_controller/include/wifi_credentials.h`:
 
 ```c
 #ifndef _WIFI_CREDENTIALS_H
@@ -77,7 +77,7 @@ python3 makefsdata.py
 
 ### Install
 
-If you will be using the web interface locally, you don't need https to install the app. In Chrome, resolve `chrome://flags/#unsafely-treat-insecure-origin-as-secure` and your's Pico W IP address. Restart the browser and [manifest.json](led_controller/src/public/manifest.json) will allow for the install.
+If you will be using the web interface locally, you don't need https to install the app. In Chrome, resolve `chrome://flags/#unsafely-treat-insecure-origin-as-secure` and your's Pico W IP address. Restart the browser and [manifest.json](led_controller/src/public/manifest.json) will allow for the install. Then, Chrome flag can be set back to default.
 
 ## Usage
 
