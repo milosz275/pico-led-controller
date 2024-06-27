@@ -11,14 +11,17 @@
 #include "lwip/udp.h"
 
 volatile struct tm *utc = NULL;
+volatile struct tm *current_utc = NULL;
 
 static void ntp_result(NTP_T* state, int status, time_t *result)
 {
     if (status == 0 && result)
     {
         // *result += TIMEZONE_OFFSET;
-        utc = gmtime(result);
-        printf("Got NTP response: %02d/%02d/%04d %02d:%02d:%02d\n", utc->tm_mday, utc->tm_mon + 1, utc->tm_year + 1900, utc->tm_hour, utc->tm_min, utc->tm_sec);
+        if (!utc)
+            utc = gmtime(result);
+        current_utc = gmtime(result);
+        printf("Got NTP response: %02d/%02d/%04d %02d:%02d:%02d\n", current_utc->tm_mday, current_utc->tm_mon + 1, current_utc->tm_year + 1900, current_utc->tm_hour, current_utc->tm_min, current_utc->tm_sec);
     }
 
     if (state->ntp_resend_alarm > 0)

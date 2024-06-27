@@ -19,9 +19,14 @@
 #define NTP_RESEND_TIME (10 * 1000)
 
 /**
- * UTC time struct. Struct for the UTC time.
+ * UTC time struct. Struct for the UTC time of program start.
  */
 extern volatile struct tm *utc;
+
+/**
+ * UTC time struct. Struct for the last checked UTC time.
+ */
+extern volatile struct tm *current_utc;
 
 /**
  * NTP struct. Struct for the NTP state.
