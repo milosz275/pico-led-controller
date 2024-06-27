@@ -50,11 +50,6 @@ enum init_result_t
 enum init_result_t init();
 
 /**
- * Shuffle modes. Function shuffles the LED modes.
- */
-void shuffle_modes();
-
-/**
  * Run loop. Function runs the main loop of the LED controller.
  */
 void run_loop();
