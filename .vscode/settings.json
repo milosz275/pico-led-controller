@@ -99,6 +99,7 @@
         "blink.h": "c",
         "mdns.h": "c",
         "altcp_tls.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "math.h": "c"
     }
 }
