@@ -19,7 +19,7 @@ int main()
         }
         if (stop_flag)
             break;
-        sleep_ms(5000);
+        sleep_ms(25000);
     }
     printf("Stopping...\n");
     BLINK_CODE_SUCCESS_EXIT;
