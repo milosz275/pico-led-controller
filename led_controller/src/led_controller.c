@@ -116,18 +116,15 @@ enum init_result_t init()
     return INIT_SUCCESS;
 }
 
-void shuffle_modes()
-{
-    sleep_ms(5000);
-    light_state.lighting_mode = (light_state.lighting_mode + 1) % NUM_LIGHTING_MODES;
-}
-
 void run_loop()
 {
     uint16_t base_hue = 0;
     uint8_t speed_factor_wheel = 4;
     uint8_t speed_factor_cycle = 1;
+    uint8_t speed_factor_breathing = 3;
     uint8_t density_factor = 3;
+    uint8_t breathing_brightness = 15;
+    bool breathing_up = true;
     while (true)
     {
         if (light_mode_toggle_request)
@@ -137,7 +134,7 @@ void run_loop()
         }
         if (light_state_toggle_request)
         {
-            toggle_light_state(NUM_PIXELS);
+            toggle_light_state();
             light_state_toggle_request = false;
         }
         if (stop_flag)
@@ -145,19 +142,34 @@ void run_loop()
             turn_off_all(NUM_PIXELS);
             break;
         }
-        switch (light_state.lighting_mode)
+        switch (light_state.light_mode)
         {
         case MODE_RAINBOW_WHEEL:
             if (light_state.state)
-                apply_rainbow_wheel_effect(NUM_PIXELS, &base_hue, &speed_factor_wheel, &density_factor);
+                apply_rainbow_wheel_effect(NUM_PIXELS, &base_hue, &speed_factor_wheel, &density_factor, &light_state.brightness);
             break;
         case MODE_RAINBOW_CYCLE:
             if (light_state.state)
-                apply_rainbow_cycle_effect(NUM_PIXELS, &base_hue, &speed_factor_cycle);
+                apply_rainbow_cycle_effect(NUM_PIXELS, &base_hue, &speed_factor_cycle, &light_state.brightness);
             break;
+        case MODE_BREATHING:
+            if (light_state.state)
+            {
+                uint32_t current_color = get_current_color();
+                apply_breathing_effect(NUM_PIXELS, &speed_factor_breathing, &current_color, &light_state.brightness, &breathing_brightness, &breathing_up);
+            }
+            break;
+        case MODE_FLASHING:
+            if (light_state.state)
+            {
+                uint32_t current_color = get_current_color();
+                apply_flashing_effect(NUM_PIXELS, &current_color);
+            }
+            break;
+        // [ ] Implement the rest of dynamic modes
         default:
             break;
         }
-        sleep_ms(50);
+        sleep_ms(40);
     }
 }
