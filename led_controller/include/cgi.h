@@ -38,6 +38,28 @@ const char* cgi_led_handler(int iIndex, int iNumParams, char* pcParam[], char* p
 const char* cgi_led_mode_handler(int iIndex, int iNumParams, char* pcParam[], char* pcValue[]);
 
 /**
+ * CGI LED color handler. Function handles CGI requests for the LED strip color.
+ * 
+ * @param iIndex: index of the CGI handler
+ * @param iNumParams: number of parameters
+ * @param pcParam: array of parameters
+ * @param pcValue: array of values
+ * @return: redirect URL
+ */
+const char* cgi_led_color_handler(int iIndex, int iNumParams, char* pcParam[], char* pcValue[]);
+
+/**
+ * CGI LED strip brightness handler. Function handles CGI requests for the LED strip brightness change.
+ * 
+ * @param iIndex: index of the CGI handler
+ * @param iNumParams: number of parameters
+ * @param pcParam: array of parameters
+ * @param pcValue: array of values
+ * @return: redirect URL
+ */
+const char* cgi_led_brightness_handler(int iIndex, int iNumParams, char* pcParam[], char* pcValue[]);
+
+/**
  * CGI favicon handler. Function handles CGI requests for the favicon.
  * 
  * @param iIndex: index of the CGI handler
@@ -100,6 +122,8 @@ static const tCGI cgi_handlers[] =
     { "/onboard_led", cgi_onboard_led_handler },
     { "/led", cgi_led_handler },
     { "/mode", cgi_led_mode_handler },
+    { "/color", cgi_led_color_handler },
+    { "/brightness", cgi_led_brightness_handler },
     { "/favicon.ico", cgi_favicon_handler },
     { "/m.png", cgi_m_icon_handler },
     { "/manifest.json", cgi_manifest_handler },
