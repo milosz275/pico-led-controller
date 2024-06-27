@@ -4,14 +4,16 @@ function fetchData() {
     fetch("/data.shtml")
         .then(response => response.text())
         .then(data => {
-            const [volt, temp, gpio, led, mode] = data.trim().split("\n");
+            const [volt, temp, gpio, led, mode, color, brightness] = data.trim().split("\n");
 
             const placeholders = {
                 volt: "<!--#volt-->",
                 temp: "<!--#temp-->",
                 gpio: "<!--#gpio-->",
                 led: "<!--#led-->",
-                mode: "<!--#mode-->"
+                mode: "<!--#mode-->",
+                color: "<!--#color-->",
+                brightness: "<!--#bright-->"
             };
 
             document.getElementById("volt").innerText = (volt !== placeholders.volt) ? volt + " V" : "N/A";
@@ -19,12 +21,32 @@ function fetchData() {
             document.getElementById("gpio").innerText = (gpio !== placeholders.gpio) ? gpio : "N/A";
             document.getElementById("led").innerText = (led !== placeholders.led) ? led : "N/A";
             document.getElementById("mode").innerText = (mode !== placeholders.mode) ? mode : "N/A";
+            document.getElementById("color").innerText = (color !== placeholders.color) ? color : "N/A";
+            document.getElementById("brightness").innerText = (brightness !== placeholders.brightness) ? brightness : "N/A";
 
             const modeSelect = document.getElementById("modeSelect");
             if (mode !== placeholders.mode && modeSelect) {
                 modeSelect.value = mode;
             } else {
                 modeSelect.value = "rainbow-wheel";
+            }
+            const colorSelect = document.getElementById("colorSelect");
+            if (color !== placeholders.color && colorSelect) {
+                colorSelect.value = color;
+            } else {
+                colorSelect.value = "blue";
+            }
+            const rangeSlider = document.getElementById("rangeSlider");
+            if (brightness !== placeholders.brightness && rangeSlider) {
+                rangeSlider.value = brightness;
+            } else {
+                rangeSlider.value = "100";
+            }
+            const numberInput = document.getElementById("numberInput");
+            if (brightness !== placeholders.brightness && numberInput) {
+                numberInput.value = brightness;
+            } else {
+                numberInput.value = "100";
             }
         })
         .catch(error => console.error("Error fetching data:", error));
@@ -79,6 +101,22 @@ function changeLEDMood(mood) {
             fetchData();
         } else {
             console.error("Failed to change LED mood");
+        }
+    })
+    .catch(error => console.error("Error:", error));
+}
+
+function changeLEDColor(color) {
+    fetchController.abort();
+    fetchController = new AbortController();
+    const url = `/color?${encodeURIComponent(color)}`;
+    fetch(url)
+    .then(response => {
+        if (response.ok) {
+            console.log(`LED color changed to ${color}`);
+            fetchData();
+        } else {
+            console.error("Failed to change LED color");
         }
     })
     .catch(error => console.error("Error:", error));
@@ -158,3 +196,48 @@ document.addEventListener("DOMContentLoaded", function() {
     const copyrightElement = document.getElementById("copyright");
     copyrightElement.innerHTML = `© ${currentYear} ` + copyrightElement.innerHTML;
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+    const rangeSlider = document.getElementById("rangeSlider");
+    const numberInput = document.getElementById("numberInput");
+
+    function syncInputs(source, target) {
+        target.value = source.value;
+        debouncedChangeLEDBrightness(source.value);
+    }
+
+    rangeSlider.addEventListener("input", function() {
+        syncInputs(rangeSlider, numberInput);
+    });
+
+    numberInput.addEventListener("input", function() {
+        syncInputs(numberInput, rangeSlider);
+    });
+});
+
+let debounceTimer;
+
+function debounce(func, delay) {
+    return function(args) {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => func(args), delay);
+    };
+}
+
+function changeLEDBrightness(brightness) {
+    fetchController.abort();
+    fetchController = new AbortController();
+    const url = `/brightness?${encodeURIComponent(brightness)}`;
+    fetch(url, { signal: fetchController.signal })
+    .then(response => {
+        if (response.ok) {
+            console.log(`LED brightness changed to: ${brightness}`);
+            fetchData();
+        } else {
+            console.error("Failed to change LED brightness");
+        }
+    })
+    .catch(error => console.error("Error:", error));
+}
+
+const debouncedChangeLEDBrightness = debounce(changeLEDBrightness, 500);
