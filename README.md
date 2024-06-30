@@ -5,6 +5,9 @@
 
 This project is a simple example of how to manage a WS2812B LED strip with a Raspberry Pi Pico W and a Web interface.
 
+> [!NOTE]
+> Some of the light modes are not already implemented. The project is still in development.
+
 ## Features
 
 - [x] WS2812B LED strip controller
