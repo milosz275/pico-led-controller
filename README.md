@@ -75,6 +75,9 @@ The web interface is a simple page that allows you to control the LED strip. It 
 
 ### Build
 
+> [!NOTE]
+> Building the frontend separately with Python is an older practise. This could be avoided using CMAKE.
+> 
 To build the web interface, simply run:
 
 ```bash
