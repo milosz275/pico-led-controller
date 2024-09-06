@@ -4,6 +4,8 @@
 [![CodeQL](https://github.com/mldxo/pico-led-controller/actions/workflows/codeql.yml/badge.svg)](https://github.com/mldxo/pico-led-controller/actions/workflows/codeql.yml)
 [![Doxygen Pages](https://github.com/mldxo/pico-led-controller/actions/workflows/doxygen-pages.yml/badge.svg)](https://github.com/mldxo/pico-led-controller/actions/workflows/doxygen-pages.yml)
 
+![Logo](assets/logo.jpg)
+
 This project is a simple example of how to manage a WS2812B LED strip with a Raspberry Pi Pico W and a Web interface.
 
 > [!NOTE]
