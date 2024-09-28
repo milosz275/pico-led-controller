@@ -8,8 +8,21 @@
 
 This project is a simple example of how to manage a WS2812B LED strip with a Raspberry Pi Pico W and a Web interface.
 
-> [!NOTE]
-> Some of the light modes are not already implemented. The project is still in development.
+- [GitHub repository](https://github.com/mldxo/pico-led-controller)
+- [Doxygen documentation](https://mldxo.github.io/pico-led-controller/)
+
+## Table of contents
+
+- [Features](#features)
+- [Hardware](#hardware)
+- [Software](#software)
+  - [Build](#build)
+- [Web interface](#web-interface)
+    - [Build](#build-1)
+    - [Install](#install)
+- [Usage](#usage)
+- [License](#license)
+- [References](#references)
 
 ## Features
 
@@ -19,9 +32,29 @@ This project is a simple example of how to manage a WS2812B LED strip with a Ras
 - [x] Web interface light state control
 - [x] NTP time synchronization
 
-## Documentation
+### Modes
 
-Documentation is available [here](https://mldxo.github.io/pico-led-controller/).
+- [x] Rainbow Wheel
+- [x] Rainbow Cycle
+- [x] Static Color
+- [x] Breathing
+- [ ] Flashing
+- [ ] Wave
+- [ ] Fade
+
+### Colors
+
+- [x] Red
+- [x] Green
+- [x] Blue
+- [x] Cyan
+- [x] Yellow
+- [x] Pink
+- [x] Magenta
+- [x] Purple
+- [x] Orange
+- [x] Turquoise
+- [x] White
 
 ## Hardware
 
@@ -76,7 +109,7 @@ The web interface is a simple page that allows you to control the LED strip. It 
 ### Build
 
 > [!NOTE]
-> Building the frontend separately with Python is an older practise. This could be avoided using CMAKE.
+> Building the frontend separately with Python is an older practice. This could be avoided using CMAKE.
 > 
 To build the web interface, simply run:
 
@@ -86,7 +119,7 @@ python3 makefsdata.py
 
 ### Install
 
-If you will be using the web interface locally, you don't need https to install the app. In Chrome, resolve `chrome://flags/#unsafely-treat-insecure-origin-as-secure` and your's Pico W IP address. Restart the browser and [manifest.json](led_controller/src/public/manifest.json) will allow for the install. Then, Chrome flag can be set back to default.
+If you will be using the web interface locally, you don't need https to install the app. In Chrome, resolve `chrome://flags/#unsafely-treat-insecure-origin-as-secure` and your's Pico W IP address. Restart the browser and [manifest.json](https://github.com/mldxo/pico-led-controller/blob/main/led_controller/public/manifest.json) will allow for the install. Then, Chrome flag can be set back to default.
 
 ## Usage
 
@@ -94,7 +127,7 @@ After building the project, you can flash the Raspberry Pi Pico W with the gener
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/mldxo/pico-led-controller/blob/main/LICENSE) file for details.
 
 ## References
 
