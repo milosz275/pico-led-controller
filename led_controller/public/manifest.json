@@ -22,14 +22,14 @@
   "theme_color": "#455A64",
   "screenshots": [
       {
-          "src": "https://raw.githubusercontent.com/mldxo/mldxo.github.io/main/public/assets/rainforest.jpg",
+          "src": "https://raw.githubusercontent.com/milosz275/milosz275.github.io/main/public/assets/rainforest.jpg",
           "sizes": "1024x1034",
           "type": "image/jpg",
           "form_factor": "wide",
           "label": "Wonder Widgets"
       },
       {
-          "src": "https://raw.githubusercontent.com/mldxo/mldxo.github.io/main/public/assets/rainforest-hiva.jpg",
+          "src": "https://raw.githubusercontent.com/milosz275/milosz275.github.io/main/public/assets/rainforest-hiva.jpg",
           "sizes": "1020x812",
           "type": "image/jpg",
           "form_factor": "narrow",
