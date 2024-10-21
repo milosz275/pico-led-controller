@@ -24,6 +24,5 @@ int main()
     printf("Stopping...\n");
     BLINK_CODE_SUCCESS_EXIT;
     cyw43_arch_deinit();
-    ntp_deinit();
     return 0;
 }

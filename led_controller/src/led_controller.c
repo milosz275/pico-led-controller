@@ -14,7 +14,6 @@
 #include "lwip/apps/httpd.h"
 #include "ssi.h"
 #include "cgi.h"
-#include "ntp.h"
 
 volatile bool light_state_toggle_request = false;
 volatile bool light_mode_toggle_request = false;
@@ -102,7 +101,6 @@ enum init_result_t init()
     httpd_init();
     ssi_init(); 
     cgi_init();
-    ntp_update_time();
     BLINK_CODE_NETWORK_INIT_SUCCESS;
 
     // PIO setup - WS2812B

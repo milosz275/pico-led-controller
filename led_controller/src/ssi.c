@@ -6,7 +6,6 @@
 #include "pico/cyw43_arch.h"
 #include "hardware/adc.h"
 
-#include "ntp.h"
 #include "light_state.h"
 #include "blink.h"
 
@@ -123,10 +122,10 @@ u16_t ssi_handler(int iIndex, char *pcInsert, int iInsertLen)
         print_value = snprintf(pcInsert, iInsertLen, "%d", (int)(light_state.brightness / 255.0 * 100.0));
         break;
     case 7: // time tm
-        if (utc)
-            print_value = snprintf(pcInsert, iInsertLen, "%04d-%02d-%02dT%02d:%02d:%02dZ", utc->tm_year + 1900, utc->tm_mon + 1, utc->tm_mday, utc->tm_hour, utc->tm_min, utc->tm_sec);
-        else
-            print_value = snprintf(pcInsert, iInsertLen, "NULL");
+        // if (utc)
+        //     print_value = snprintf(pcInsert, iInsertLen, "%04d-%02d-%02dT%02d:%02d:%02dZ", utc->tm_year + 1900, utc->tm_mon + 1, utc->tm_mday, utc->tm_hour, utc->tm_min, utc->tm_sec);
+        // else
+        print_value = snprintf(pcInsert, iInsertLen, "NULL");
         break;
     default:
         print_value = 0;

@@ -76,16 +76,13 @@ For this project to build, you will need the following packages:
 
 ```bash
 sudo apt-get update
-sudo apt-get install -y cmake gcc-arm-none-eabi libnewlib-arm-none-eabi build-essential
+sudo apt-get install -y cmake gcc-arm-none-eabi libnewlib-arm-none-eabi build-essential ninja-build
 ```
 
-You will probably need those environmental variables exported:
+Proceed to sdk setup:
 
 ```bash
-export PICO_SDK_FETCH_FROM_GIT="ON"
-export PICO_EXTRAS_FETCH_FROM_GIT="ON"
-export PICO_SDK_FETCH_FROM_GIT_PATH="./pico-sdk"
-export PICO_EXTRAS_FETCH_FROM_GIT_PATH="./pico-extras"
+git submodule update --init --recursive
 ```
 
 There is gitignored Wi-Fi credentials file to create in following directory `led_controller/include/wifi_credentials.h`:
@@ -99,6 +96,17 @@ There is gitignored Wi-Fi credentials file to create in following directory `led
 
 #endif
 ```
+
+Build the project using [ninja](https://ninja-build.org/):
+
+```bash
+mkdir build
+cd build
+cmake -G Ninja ..
+ninja
+```
+
+Flash .uf2 file to the Raspberry Pi Pico W.
 
 ## Web interface
 

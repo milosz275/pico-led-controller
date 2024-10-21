@@ -13,7 +13,6 @@
 #include <hardware/timer.h>
 
 #include "blink_codes.h"
-#include "ntp.h"
 
 #define WS2812_PIN          2
 #define LIGHT_TOGGLE_PIN    15

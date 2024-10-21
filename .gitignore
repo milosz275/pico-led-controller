@@ -11,7 +11,5 @@ generated
 *.pyd
 .notes
 wifi_credentials.h
-pico-sdk
-pico-extras
 docs
 *.bak
