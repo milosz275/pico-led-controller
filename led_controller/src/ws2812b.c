@@ -12,15 +12,15 @@ static inline void put_pixel(uint32_t pixel_grb)
     pio_sm_put_blocking(pio0, 0, pixel_grb << 8u);
 }
 
-void set_all_leds(uint32_t color, uint len)
+void set_all_leds(uint32_t color, uint32_t len)
 {
-    for (uint i = 0; i < len; ++i)
+    for (uint32_t i = 0; i < len; ++i)
     {
         put_pixel(color);
     }
 }
 
-void turn_off_all(uint len)
+void turn_off_all(uint32_t len)
 {
     uint32_t off = URGB(0, 0, 0);
     set_all_leds(off, len);
@@ -82,84 +82,84 @@ uint32_t get_magenta(uint8_t brightness)
     return URGB(brightness, 0, brightness);
 }
 
-void set_all_red(uint len, uint8_t brightness)
+void set_all_red(uint32_t len, uint8_t brightness)
 {
     uint32_t red = URGB(brightness, 0, 0);
     set_all_leds(red, len);
 }
 
-void set_all_green(uint len, uint8_t brightness)
+void set_all_green(uint32_t len, uint8_t brightness)
 {
     uint32_t green = URGB(0, brightness, 0);
     set_all_leds(green, len);
 }
 
-void set_all_blue(uint len, uint8_t brightness)
+void set_all_blue(uint32_t len, uint8_t brightness)
 {
     uint32_t blue = URGB(0, 0, brightness);
     set_all_leds(blue, len);
 }
 
-void set_all_white(uint len, uint8_t brightness)
+void set_all_white(uint32_t len, uint8_t brightness)
 {
     uint32_t white = URGB(brightness, brightness, brightness);
     set_all_leds(white, len);
 }
 
-void set_all_purple(uint len, uint8_t brightness)
+void set_all_purple(uint32_t len, uint8_t brightness)
 {
     uint32_t purple = URGB(brightness * 3 / 4, 0, brightness);
     set_all_leds(purple, len);
 }
 
-void set_all_yellow(uint len, uint8_t brightness)
+void set_all_yellow(uint32_t len, uint8_t brightness)
 {
     uint32_t yellow = URGB(brightness, brightness, 0);
     set_all_leds(yellow, len);
 }
 
-void set_all_cyan(uint len, uint8_t brightness)
+void set_all_cyan(uint32_t len, uint8_t brightness)
 {
     uint32_t cyan = URGB(0, brightness, brightness);
     set_all_leds(cyan, len);
 }
 
-void set_all_orange(uint len, uint8_t brightness)
+void set_all_orange(uint32_t len, uint8_t brightness)
 {
     uint32_t orange = URGB(brightness, brightness / 3, 0);
     set_all_leds(orange, len);
 }
 
-void set_all_pink(uint len, uint8_t brightness)
+void set_all_pink(uint32_t len, uint8_t brightness)
 {
     uint32_t pink = URGB(brightness, brightness / 3, brightness / 3);
     set_all_leds(pink, len);
 }
 
-void set_all_turquoise(uint len, uint8_t brightness)
+void set_all_turquoise(uint32_t len, uint8_t brightness)
 {
     uint32_t turquoise = URGB(brightness / 3, brightness * 2 / 3, brightness);
     set_all_leds(turquoise, len);
 }
 
-void set_all_magenta(uint len, uint8_t brightness)
+void set_all_magenta(uint32_t len, uint8_t brightness)
 {
     uint32_t magenta = URGB(brightness, 0, brightness);
     set_all_leds(magenta, len);
 }
 
-void set_rainbow_spectrum(uint len)
+void set_rainbow_spectrum(uint32_t len)
 {
-    for (uint i = 0; i < len; ++i)
+    for (uint32_t i = 0; i < len; ++i)
     {
         uint32_t color = hsv_to_rgb(i * 360 / len, 255, 255);
         put_pixel(color);
     }
 }
 
-void apply_rainbow_wheel_effect(uint len, uint16_t* base_hue, uint8_t* speed_factor, uint8_t* density_factor, volatile uint8_t* brightness)
+void apply_rainbow_wheel_effect(uint32_t len, uint16_t* base_hue, uint8_t* speed_factor, uint8_t* density_factor, volatile uint8_t* brightness)
 {
-    for (uint i = 0; i < len; ++i)
+    for (uint32_t i = 0; i < len; ++i)
     {
         uint16_t hue = (*base_hue + i * 360 / len * *density_factor) % 360;
         uint32_t color = hsv_to_rgb(hue, 255, *brightness);
@@ -171,9 +171,9 @@ void apply_rainbow_wheel_effect(uint len, uint16_t* base_hue, uint8_t* speed_fac
     *base_hue %= 360;
 }
 
-void apply_rainbow_cycle_effect(uint len, uint16_t* hue, uint8_t* speed_factor, volatile uint8_t* brightness)
+void apply_rainbow_cycle_effect(uint32_t len, uint16_t* hue, uint8_t* speed_factor, volatile uint8_t* brightness)
 {
-    for (uint i = 0; i < len; ++i)
+    for (uint32_t i = 0; i < len; ++i)
     {
         uint32_t color = hsv_to_rgb(*hue, 255, *brightness);
         put_pixel(color);
@@ -181,13 +181,13 @@ void apply_rainbow_cycle_effect(uint len, uint16_t* hue, uint8_t* speed_factor, 
     *hue += *speed_factor;
 }
 
-void apply_breathing_effect(uint len, uint8_t* speed_factor, uint32_t* color, volatile uint8_t* base_brightness, uint8_t* brightness, bool* breathing_up)
+void apply_breathing_effect(uint32_t len, uint8_t* speed_factor, uint32_t* color, volatile uint8_t* base_brightness, uint8_t* brightness, bool* breathing_up)
 {
     uint8_t min_brightness = 15;
     uint8_t max_brightness = *base_brightness;
     if (max_brightness < min_brightness)
         max_brightness = min_brightness;
-    for (uint i = 0; i < len; ++i)
+    for (uint32_t i = 0; i < len; ++i)
     {
         uint8_t r = URGB_R(*color);
         uint8_t g = URGB_G(*color);
@@ -211,7 +211,7 @@ void apply_breathing_effect(uint len, uint8_t* speed_factor, uint32_t* color, vo
         *brightness -= *speed_factor;
 }
 
-void apply_flashing_effect(uint len, uint32_t* color)
+void apply_flashing_effect(uint32_t len, uint32_t* color)
 {
     srand(time(NULL));
     int num_led_flash = 10;

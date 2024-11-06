@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 /**
  * Put pixel to the LED strip.
@@ -17,14 +18,14 @@ static inline void put_pixel(uint32_t pixel_grb);
  * @param color: color in RGB format
  * @param len: number of leds
  */
-void set_all_leds(uint32_t color, uint len);
+void set_all_leds(uint32_t color, uint32_t len);
 
 /**
  * Turn off all leds.
  * 
  * @param len: number of leds
  */
-void turn_off_all(uint len);
+void turn_off_all(uint32_t len);
 
 /**
  * Get red color.
@@ -120,7 +121,7 @@ uint32_t get_magenta(uint8_t brightness);
  * @param len: number of leds
  * @param brightness: brightness
  */
-void set_all_red(uint len, uint8_t brightness);
+void set_all_red(uint32_t len, uint8_t brightness);
 
 /**
  * Set all leds to green.
@@ -128,7 +129,7 @@ void set_all_red(uint len, uint8_t brightness);
  * @param len: number of leds
  * @param brightness: brightness
  */
-void set_all_green(uint len, uint8_t brightness);
+void set_all_green(uint32_t len, uint8_t brightness);
 
 /**
  * Set all leds to blue.
@@ -136,7 +137,7 @@ void set_all_green(uint len, uint8_t brightness);
  * @param len: number of leds
  * @param brightness: brightness
  */
-void set_all_blue(uint len, uint8_t brightness);
+void set_all_blue(uint32_t len, uint8_t brightness);
 
 /**
  * Set all leds to white.
@@ -144,14 +145,14 @@ void set_all_blue(uint len, uint8_t brightness);
  * @param len: number of leds
  * @param brightness: brightness
  */
-void set_all_white(uint len, uint8_t brightness);
+void set_all_white(uint32_t len, uint8_t brightness);
 
 /**
  * Set all leds to rainbow spectrum.
  * 
  * @param len: number of leds
  */
-void set_rainbow_spectrum(uint len);
+void set_rainbow_spectrum(uint32_t len);
 
 /**
  * Set all leds purple.
@@ -159,7 +160,7 @@ void set_rainbow_spectrum(uint len);
  * @param len: number of leds
  * @param brightness: brightness
  */
-void set_all_purple(uint len, uint8_t brightness);
+void set_all_purple(uint32_t len, uint8_t brightness);
 
 /**
  * Set all leds yellow.
@@ -167,7 +168,7 @@ void set_all_purple(uint len, uint8_t brightness);
  * @param len: number of leds
  * @param brightness: brightness
  */
-void set_all_yellow(uint len, uint8_t brightness);
+void set_all_yellow(uint32_t len, uint8_t brightness);
 
 /**
  * Set all leds cyan.
@@ -175,7 +176,7 @@ void set_all_yellow(uint len, uint8_t brightness);
  * @param len: number of leds
  * @param brightness: brightness
  */
-void set_all_cyan(uint len, uint8_t brightness);
+void set_all_cyan(uint32_t len, uint8_t brightness);
 
 /**
  * Set all leds orange.
@@ -183,7 +184,7 @@ void set_all_cyan(uint len, uint8_t brightness);
  * @param len: number of leds
  * @param brightness: brightness
  */
-void set_all_orange(uint len, uint8_t brightness);
+void set_all_orange(uint32_t len, uint8_t brightness);
 
 /**
  * Set all leds pink.
@@ -191,7 +192,7 @@ void set_all_orange(uint len, uint8_t brightness);
  * @param len: number of leds
  * @param brightness: brightness
  */
-void set_all_pink(uint len, uint8_t brightness);
+void set_all_pink(uint32_t len, uint8_t brightness);
 
 /**
  * Set all leds turquoise.
@@ -199,7 +200,7 @@ void set_all_pink(uint len, uint8_t brightness);
  * @param len: number of leds
  * @param brightness: brightness
  */
-void set_all_turquoise(uint len, uint8_t brightness);
+void set_all_turquoise(uint32_t len, uint8_t brightness);
 
 /**
  * Set all leds magenta.
@@ -207,7 +208,7 @@ void set_all_turquoise(uint len, uint8_t brightness);
  * @param len: number of leds
  * @param brightness: brightness
  */
-void set_all_magenta(uint len, uint8_t brightness);
+void set_all_magenta(uint32_t len, uint8_t brightness);
 
 /**
  * Apply rainbow wheel effect.
@@ -218,7 +219,7 @@ void set_all_magenta(uint len, uint8_t brightness);
  * @param density_factor: density factor
  * @param brightness: brightness
  */
-void apply_rainbow_wheel_effect(uint len, uint16_t* base_hue, uint8_t* speed_factor, uint8_t* density_factor, volatile uint8_t* brightness);
+void apply_rainbow_wheel_effect(uint32_t len, uint16_t* base_hue, uint8_t* speed_factor, uint8_t* density_factor, volatile uint8_t* brightness);
 
 /**
  * Apply rainbow cycle effect.
@@ -228,7 +229,7 @@ void apply_rainbow_wheel_effect(uint len, uint16_t* base_hue, uint8_t* speed_fac
  * @param speed_factor: speed factor
  * @param brightness: brightness
  */
-void apply_rainbow_cycle_effect(uint len, uint16_t* hue, uint8_t* speed_factor, volatile uint8_t* brightness);
+void apply_rainbow_cycle_effect(uint32_t len, uint16_t* hue, uint8_t* speed_factor, volatile uint8_t* brightness);
 
 /**
  * Apply breathing effect.
@@ -240,7 +241,7 @@ void apply_rainbow_cycle_effect(uint len, uint16_t* hue, uint8_t* speed_factor, 
  * @param brightness: brightness
  * @param breathing_up: breathing up
  */
-void apply_breathing_effect(uint len, uint8_t* speed_factor, uint32_t* color, volatile uint8_t* base_brightness, uint8_t* brightness, bool* breathing_up);
+void apply_breathing_effect(uint32_t len, uint8_t* speed_factor, uint32_t* color, volatile uint8_t* base_brightness, uint8_t* brightness, bool* breathing_up);
 
 /**
  * Apply flashing effect.
@@ -249,6 +250,6 @@ void apply_breathing_effect(uint len, uint8_t* speed_factor, uint32_t* color, vo
  * @param led_values: led values
  * @param color: color
  */
-void apply_flashing_effect(uint len, uint32_t* color);
+void apply_flashing_effect(uint32_t len, uint32_t* color);
 
 #endif
