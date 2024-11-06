@@ -4,13 +4,11 @@ on:
   push:
     branches: [ "main", "default-branch-rule" ]
     paths-ignore:
-      - 'pico-sdk/**'
-      - 'pico-extras/**'
+      - 'lib/**'
   pull_request:
     branches: [ "main", "default-branch-rule" ]
     paths-ignore:
-      - 'pico-sdk/**'
-      - 'pico-extras/**'
+      - 'lib/**'
   schedule:
     - cron: '35 20 * * 0'
 
