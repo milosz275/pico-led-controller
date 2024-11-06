@@ -1,6 +1,6 @@
 {
   "short_name": "PicoLED",
-  "name": "Raspberry Pi Pico W LED Controller and Webserver",
+  "name": "Pico LED Controller",
   "description": "Pico W controller with web interface",
   "icons": [
     {
