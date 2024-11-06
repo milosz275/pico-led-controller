@@ -1,4 +1,4 @@
-# Raspberry Pi Pico W LED Controller with Web interface
+# Pico LED Controller
 
 [![Build](https://github.com/milosz275/pico-led-controller/actions/workflows/cmake.yml/badge.svg)](https://github.com/milosz275/pico-led-controller/actions/workflows/cmake.yml)
 [![CodeQL](https://github.com/milosz275/pico-led-controller/actions/workflows/codeql.yml/badge.svg)](https://github.com/milosz275/pico-led-controller/actions/workflows/codeql.yml)
@@ -6,7 +6,7 @@
 
 ![Logo](assets/logo.jpg)
 
-This project is a simple example of how to manage a WS2812B LED strip with a Raspberry Pi Pico W and a Web interface.
+Raspberry Pi Pico W LED Controller is a simple example of how to manage a WS2812B LED strip using state buttons and a web interface. The project is based on the Raspberry Pi Pico SDK. The web interface is served by the Raspberry Pi Pico W itself.
 
 - [GitHub repository](https://github.com/milosz275/pico-led-controller)
 - [Doxygen documentation](https://milosz275.github.io/pico-led-controller/)
@@ -18,8 +18,8 @@ This project is a simple example of how to manage a WS2812B LED strip with a Ras
 - [Software](#software)
   - [Build](#build)
 - [Web interface](#web-interface)
-    - [Build](#build-1)
-    - [Install](#install)
+  - [Compile](#compile)
+  - [Install](#install)
 - [Usage](#usage)
 - [License](#license)
 - [References](#references)
@@ -38,7 +38,7 @@ This project is a simple example of how to manage a WS2812B LED strip with a Ras
 - [x] Rainbow Cycle
 - [x] Static Color
 - [x] Breathing
-- [ ] Flashing
+- [x] Flashing
 - [ ] Wave
 - [ ] Fade
 
@@ -72,20 +72,13 @@ The code is written in C and follows `src, include` structure. The project is ba
 
 ### Build
 
-For this project to build, you will need the following packages:
+This project connect `pico-sdk` and `pico-extras` as submodules into the `lib` directory.
+
+For the project to build, you will need the following packages:
 
 ```bash
 sudo apt-get update
 sudo apt-get install -y cmake gcc-arm-none-eabi libnewlib-arm-none-eabi build-essential
-```
-
-You will probably need those environmental variables exported:
-
-```bash
-export PICO_SDK_FETCH_FROM_GIT="ON"
-export PICO_EXTRAS_FETCH_FROM_GIT="ON"
-export PICO_SDK_FETCH_FROM_GIT_PATH="./pico-sdk"
-export PICO_EXTRAS_FETCH_FROM_GIT_PATH="./pico-extras"
 ```
 
 There is gitignored Wi-Fi credentials file to create in following directory `led_controller/include/wifi_credentials.h`:
@@ -100,17 +93,38 @@ There is gitignored Wi-Fi credentials file to create in following directory `led
 #endif
 ```
 
+Initialize the submodules:
+
+```bash
+cd lib/pico-sdk
+git submodule update --init
+```
+
+To build the project, run:
+
+```bash
+mkdir build
+cd build
+cmake ..
+make
+```
+
+Built `LedController.uf2` file can be found in the `build/led_controller` directory.
+
+Before flashing the Raspberry Pi Pico W, connect the LED strip to the GPIO pin set in `led_controller/include/led_controller.h` and power it according to instructions in previous paragraphs. The LED strip should light up with the default mode `Rainbow Wheel`.
+
 ## Web interface
 
 The web interface is a simple page that allows you to control the LED strip. It is served by the Raspberry Pi Pico W itself. Data fetch intervals are set to 5 seconds to avoid overloading the Pico W. Start timestamp is created by the server although counting elapsed is fully client-sided.
 
 ![Web interface](assets/web_interface.png)
 
-### Build
+### Compile
 
 > [!NOTE]
 > Building the frontend separately with Python is an older practice. This could be avoided using CMAKE.
-> 
+>
+
 To build the web interface, simply run:
 
 ```bash
