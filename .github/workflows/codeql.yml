@@ -3,8 +3,14 @@ name: "CodeQL with CMake Build"
 on:
   push:
     branches: [ "main", "default-branch-rule" ]
+    paths-ignore:
+      - 'pico-sdk/**'
+      - 'pico-extras/**'
   pull_request:
     branches: [ "main", "default-branch-rule" ]
+    paths-ignore:
+      - 'pico-sdk/**'
+      - 'pico-extras/**'
   schedule:
     - cron: '35 20 * * 0'
 
@@ -50,37 +56,21 @@ jobs:
         name: Setup PICO SDK
         run: |
           echo "Setting up PICO SDK"
-          git clone https://github.com/raspberrypi/pico-sdk.git
+          cd lib
+          git clone --recurse-submodules https://github.com/raspberrypi/pico-sdk.git
           cd pico-sdk
           git submodule update --init
           echo "PICO_SDK_PATH=$(pwd)" >> $GITHUB_ENV
 
       - if: matrix.build-mode == 'manual'
-        name: Setup PICO Examples
-        run: |
-          echo "Setting up PICO Examples"
-          git clone https://github.com/raspberrypi/pico-examples.git
-          cd pico-examples
-          git submodule update --init
-          echo "PICO_EXAMPLES_PATH=$(pwd)" >> $GITHUB_ENV
-
-      - if: matrix.build-mode == 'manual'
         name: Setup PICO Extras
         run: |
           echo "Setting up PICO Extras"
-          git clone https://github.com/raspberrypi/pico-extras.git
+          cd lib
+          git clone --recurse-submodules https://github.com/raspberrypi/pico-extras.git
           cd pico-extras
           git submodule update --init
           echo "PICO_EXTRAS_PATH=$(pwd)" >> $GITHUB_ENV
-
-      - if: matrix.build-mode == 'manual'
-        name: Setup FreeRTOS Kernel
-        run: |
-          echo "Setting up FreeRTOS Kernel"
-          git clone https://github.com/FreeRTOS/FreeRTOS-Kernel.git
-          cd FreeRTOS-Kernel
-          git submodule update --init
-          echo "FREERTOS_KERNEL_PATH=$(pwd)" >> $GITHUB_ENV
 
       - if: matrix.build-mode == 'manual'
         name: Setup Pico Board
