@@ -240,4 +240,8 @@ function changeLEDBrightness(brightness) {
     .catch(error => console.error("Error:", error));
 }
 
+function toggleDarkMode() {
+    document.documentElement.classList.toggle("dark");
+}
+
 const debouncedChangeLEDBrightness = debounce(changeLEDBrightness, 500);
