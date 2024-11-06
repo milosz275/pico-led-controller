@@ -47,6 +47,11 @@ uint32_t hsv_to_rgb(uint16_t h, uint8_t s, uint8_t v)
             g = p;
             b = q;
             break;
+        default:
+            r = 0;
+            g = 0;
+            b = 0;
+            break;
     }
     return URGB(r, g, b);
 }
