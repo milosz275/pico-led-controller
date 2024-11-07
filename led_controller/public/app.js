@@ -207,10 +207,14 @@ let estimatedTotalPowerConsumption = 0; // in W
 
 function updateEstimatedPowerConsumption() {
     let brightness = document.getElementById("brightness").innerText;
-
-    // 1 W = 1 V * 1 A
-    let power = ledNum * ledPower * (brightness / 100) * voltage
-    document.getElementById("consumption").innerText = (power).toFixed(2) + " W";
+    
+    let is_on = document.getElementById("led").innerText;
+    let power = 0;
+    if (is_on === "ON") {
+        // 1 W = 1 V * 1 A
+        let power = ledNum * ledPower * (brightness / 100) * voltage
+        document.getElementById("consumption").innerText = (power).toFixed(2) + " W";
+    }
 
     // 1 kWh = 1000 W * 3600 s
     estimatedTotalPowerConsumption += power;
