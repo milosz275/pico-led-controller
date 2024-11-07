@@ -200,16 +200,21 @@ function fetchTimestamp(retryCount = 3) {
 
 document.addEventListener("DOMContentLoaded", fetchTimestamp);
 
-let estimatedTotalPowerConsumption = 0;
+let ledNum = 120; // adjust here
+let voltage = 5; // 5 V
+let ledPower = 0.06; // 60 mA = 0.06 A
+let estimatedTotalPowerConsumption = 0; // in W
 
 function updateEstimatedPowerConsumption() {
-    const ledNum = 120;
-    const ledPower = 0.06; // 60 mA
-    const brightness = document.getElementById("brightness").innerText;
-    document.getElementById("consumption").innerText = (ledNum * ledPower * brightness / 100).toFixed(2) + " W";
-    
-    estimatedTotalPowerConsumption += ledNum * ledPower * brightness / 100;
-    document.getElementById("totalConsumption").innerText = (estimatedTotalPowerConsumption / 1000).toFixed(2) + " kWh";
+    let brightness = document.getElementById("brightness").innerText;
+
+    // 1 W = 1 V * 1 A
+    let power = ledNum * ledPower * (brightness / 100) * voltage
+    document.getElementById("consumption").innerText = (power).toFixed(2) + " W";
+
+    // 1 kWh = 1000 W * 3600 s
+    estimatedTotalPowerConsumption += power;
+    document.getElementById("totalConsumption").innerText = (estimatedTotalPowerConsumption / 1000 / 3600).toFixed(2) + " kWh";
 }
 
 setInterval(updateEstimatedPowerConsumption, 1000);
