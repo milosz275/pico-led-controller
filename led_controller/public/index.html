@@ -21,13 +21,13 @@
 </head>
 <body class="min-w-full min-h-full">
     <div class="fixed top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-green-500"></div>
-    <button onclick="toggleDarkMode()" class="fixed top-4 right-4 bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600 transition duration-300 mb-1">
+    <button onclick="toggleDarkMode()" class="fixed top-4 right-4 bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600 transition duration-300 mb-1 min-h-10 min-w-48">
         Toggle Dark Mode
     </button>
     <div class="min-w-full min-h-screen bg-slate-200 dark:bg-gray-800 text-gray-800 dark:text-white">
         <div class="mx-auto p-6">
             <h1 class="text-4xl font-bold mb-6">Pico Led Controller</h1>
-            <div class="mb-6">
+            <div class="mb-6 max-w-5xl">
                 <h2 class="text-2xl font-semibold mb-4">SSI:</h2>
                 <table class="min-w-full divide-y divide-gray-600 dark:divide-gray-200">
                     <tbody class="divide-y divide-gray-600 dark:divide-gray-200">
@@ -67,18 +67,26 @@
                             <td class="px-6 py-4 whitespace-nowrap">Time since start:</td>
                             <td class="px-6 py-4 whitespace-nowrap font-mono text-blue-500" id="elapsed">Loading...</td>
                         </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">Estimated power consumption:</td>
+                            <td class="px-6 py-4 whitespace-nowrap font-mono text-blue-500" id="consumption">Loading...</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">Estimated total power consumption:</td>
+                            <td class="px-6 py-4 whitespace-nowrap font-mono text-blue-500" id="totalConsumption">Loading...</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="mb-6">
+            <div class="mb-6 max-w-5xl">
                 <h2 class="text-2xl font-semibold mb-4">CGI:</h2>
-                <button onclick="toggleGpio()" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300 mb-1">
+                <button onclick="toggleGpio()" class="bg-blue-500 text-white text-left px-4 rounded hover:bg-blue-600 transition duration-300 m-1 mb-2 min-h-10 min-w-48">
                     Onboard LED toggle
                 </button>
-                <button onclick="toggleLEDStrip()" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-300 mb-1">
+                <button onclick="toggleLEDStrip()" class="bg-green-500 text-white text-left px-4 rounded hover:bg-green-600 transition duration-300 m-1 mb-2 min-h-10 min-w-48">
                     LED Strip toggle
                 </button>
-                <select id="modeSelect" onchange="changeLEDMood(this.value)" class="bg-purple-500 text-white py-2 px-4 rounded hover:bg-purple-600 transition duration-300 mb-1">
+                <select id="modeSelect" onchange="changeLEDMood(this.value)" class="bg-purple-500 text-white text-left px-4 rounded hover:bg-purple-600 transition duration-300 m-1 mb-2 min-h-10 min-w-48">
                     <option value="rainbow-wheel">Rainbow Wheel</option>
                     <option value="rainbow-cycle">Rainbow Cycle</option>
                     <option value="static">Static</option>
@@ -87,7 +95,7 @@
                     <option value="wave">Wave</option>
                     <option value="fade">Fade</option>
                 </select>
-                <select id="colorSelect" onchange="changeLEDColor(this.value)" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300 mb-1">
+                <select id="colorSelect" onchange="changeLEDColor(this.value)" class="bg-blue-500 text-white text-left px-4 rounded hover:bg-blue-600 transition duration-300 m-1 mb-2 min-h-10 min-w-48">
                     <option value="red">Red</option>
                     <option value="green">Green</option>
                     <option value="blue">Blue</option>
@@ -100,14 +108,22 @@
                     <option value="turquoise">Turquoise</option>
                     <option value="white">White</option>
                 </select>
-                <div class="flex items-center gap-4">
+                <h3 class="text-xl font-semibold mt-6">Brightness:</h3>
+                <div class="flex items-center gap-4 max-w-5xl">
                     <input type="range" id="rangeSlider" name="rangeSlider" min="0" max="100" oninput="document.getElementById('numberInput').value = value; debouncedChangeLEDBrightness(value)" class="form-range w-full h-2 bg-gray-200 rounded-full outline outline-0 border-bg-blue-500 slider-thumb:bg-blue-500 focus:ring focus:ring-blue-300">
                     <input type="number" id="numberInput" name="numberInput" min="0" max="100" value="50" oninput="document.getElementById('rangeSlider').value = value; debouncedChangeLEDBrightness(value)" class="form-input appearance-none block w-20 bg-slate-200 text-gray-800 dark:text-white dark:bg-gray-800 border border-gray-300 rounded py-1.5 px-2 leading-tight focus:outline-none focus:bg-slate-400 focus:border-blue-500 shadow-sm">
                 </div>
             </div>
             <div>
-                <button onclick="fetchData()" class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600 transition duration-300 mb-1">
+                <h3 class="text-xl font-semibold mt-6">Actions:</h3>
+                <button onclick="fetchData()" class="bg-gray-500 text-white text-left px-4 rounded hover:bg-gray-600 transition duration-300 m-1 mb-2 min-h-10 min-w-48">
                     Refresh SSI Data
+                </button>
+                <button onclick="refreshPage()" class="bg-gray-500 text-white text-left px-4 rounded hover:bg-gray-600 transition duration-300 m-1 mb-2 min-h-10 min-w-48">
+                    Refresh Page
+                </button>
+                <button onclick="clearDarkmodePreference()" class="bg-gray-500 text-white text-left px-4 rounded hover:bg-gray-600 transition duration-300 m-1 mb-2 min-h-10 min-w-48">
+                    Clear Darkmode
                 </button>
             </div>
             <div class="mt-6">
