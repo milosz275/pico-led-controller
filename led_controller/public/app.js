@@ -221,7 +221,6 @@ function updateEstimatedPowerConsumption() {
     // 1 kWh = 1000 W * 3600 s
     estimatedTotalPowerConsumption += power;
     document.getElementById("totalConsumption").innerText = (estimatedTotalPowerConsumption / 1000 / 3600).toFixed(2) + " kWh";
-    console.log("Estimated total power consumption in W: " + estimatedTotalPowerConsumption);
 }
 
 setInterval(updateEstimatedPowerConsumption, 1000);
