@@ -137,7 +137,7 @@ If you will be using the web interface locally, you don't need https to install 
 
 ## Usage
 
-After building the project, you can flash the Raspberry Pi Pico W with the generated `led_controller.uf2` file. The LED strip should light up with the default mode `Rainbow Wheel`. You can change the color by choosing one of the buttons on the web interface. When connecting to the Wi-Fi for the first time, check the serial output for the IP address.
+After building the project, you can flash the Raspberry Pi Pico W with the generated `led_controller.uf2` file obtained from `build/led_controller/src` directory. The LED strip should light up with the default mode `Rainbow Wheel`. You can change the color by choosing one of the buttons on the web interface. When connecting to the Wi-Fi for the first time, check the serial output for the IP address.
 
 ## License
 
