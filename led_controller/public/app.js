@@ -145,7 +145,11 @@ function updateElapsedTime() {
             seconds.toString().padStart(2, "0")
         ].join(":");
 
-        document.getElementById("elapsed").innerText = `${formattedElapsedTime}`;
+        if (formattedElapsedTime.includes("NaN")) {
+            document.getElementById("elapsed").innerText = "Couldn't calculate";
+        } else {
+            document.getElementById("elapsed").innerText = `${formattedElapsedTime}`;
+        }
     }, 1000);
 }
 
@@ -171,11 +175,16 @@ function fetchTimestamp(retryCount = 3) {
                     date.getMinutes().toString().padStart(2, "0"),
                     date.getSeconds().toString().padStart(2, "0")
                 ].join(":");
-            
+
                 const tmElement = document.getElementById("tm");
-                tmElement.innerText = formattedDate;
-                tmElement.setAttribute("data-timestamp", tm);
-                updateElapsedTime();
+
+                if (formattedDate.includes("NaN")) {
+                    tmElement.innerText = "Couldn't load";
+                } else {
+                    tmElement.innerText = formattedDate;
+                    tmElement.setAttribute("data-timestamp", tm);
+                    updateElapsedTime();
+                }
             } else {
                 document.getElementById("tm").innerText = "N/A";
             }
@@ -190,6 +199,20 @@ function fetchTimestamp(retryCount = 3) {
 }
 
 document.addEventListener("DOMContentLoaded", fetchTimestamp);
+
+let estimatedTotalPowerConsumption = 0;
+
+function updateEstimatedPowerConsumption() {
+    const ledNum = 120;
+    const ledPower = 0.06; // 60 mA
+    const brightness = document.getElementById("brightness").innerText;
+    document.getElementById("consumption").innerText = (ledNum * ledPower * brightness / 100).toFixed(2) + " W";
+    
+    estimatedTotalPowerConsumption += ledNum * ledPower * brightness / 100;
+    document.getElementById("totalConsumption").innerText = (estimatedTotalPowerConsumption / 1000).toFixed(2) + " kWh";
+}
+
+setInterval(updateEstimatedPowerConsumption, 1000);
 
 document.addEventListener("DOMContentLoaded", function() {
     const currentYear = new Date().getFullYear();
@@ -240,8 +263,31 @@ function changeLEDBrightness(brightness) {
     .catch(error => console.error("Error:", error));
 }
 
+function loadDarkMode() {
+    let darkMode = localStorage.getItem("dark");
+    if (darkMode === null) {
+        darkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    } else {
+        darkMode = JSON.parse(darkMode);
+    }
+    document.documentElement.classList.toggle("dark", darkMode);
+}
+
+document.addEventListener("DOMContentLoaded", loadDarkMode);
+
 function toggleDarkMode() {
     document.documentElement.classList.toggle("dark");
+    let darkMode = document.documentElement.classList.contains("dark");
+    localStorage.setItem("dark", JSON.stringify(darkMode));
+}
+
+function refreshPage() {
+    location.reload();
+}
+
+function clearDarkmodePreference() {
+    localStorage.removeItem("dark");
+    refreshPage();
 }
 
 const debouncedChangeLEDBrightness = debounce(changeLEDBrightness, 500);
