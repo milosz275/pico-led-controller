@@ -19,12 +19,12 @@
     <link rel="icon" type="image/icon" href="/favicon.ico">
     <script src="/app.js"></script>
 </head>
-<body class="min-w-full min-h-full">
+<body class="bg-slate-200 dark:bg-gray-800 text-gray-800 dark:text-white">
     <div class="fixed top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-green-500"></div>
     <button onclick="toggleDarkMode()" class="fixed top-4 right-4 bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600 transition duration-300 mb-1 min-h-10 min-w-48">
         Toggle Dark Mode
     </button>
-    <div class="min-w-full min-h-screen bg-slate-200 dark:bg-gray-800 text-gray-800 dark:text-white">
+    <div class="">
         <div class="mx-auto p-6">
             <h1 class="text-4xl font-bold mb-6">Pico Led Controller</h1>
             <div class="mb-6 max-w-5xl">
@@ -95,18 +95,18 @@
                     <option value="wave">Wave</option>
                     <option value="fade">Fade</option>
                 </select>
-                <select id="colorSelect" onchange="changeLEDColor(this.value)" class="bg-blue-500 text-white text-left px-4 rounded hover:bg-blue-600 transition duration-300 m-1 mb-2 min-h-10 min-w-48">
-                    <option value="red">Red</option>
-                    <option value="green">Green</option>
-                    <option value="blue">Blue</option>
-                    <option value="cyan">Cyan</option>
-                    <option value="yellow">Yellow</option>
-                    <option value="pink">Pink</option>
-                    <option value="magenta">Magenta</option>
-                    <option value="purple">Purple</option>
-                    <option value="orange">Orange</option>
-                    <option value="turquoise">Turquoise</option>
-                    <option value="white">White</option>
+                <select id="colorSelect" onchange="changeLEDColor(this)" class="bg-blue-500 text-white text-left px-4 rounded hover:bg-blue-600 transition duration-300 m-1 mb-2 min-h-10 min-w-48">
+                    <option value="red" data-color="text-white bg-red-500 hover:bg-red-600">Red</option>
+                    <option value="green" data-color="text-white bg-green-500 hover:bg-green-600">Green</option>
+                    <option value="blue" data-color="text-white bg-blue-500 hover:bg-blue-600">Blue</option>
+                    <option value="cyan" data-color="text-white bg-cyan-500 hover:bg-cyan-600">Cyan</option>
+                    <option value="yellow" data-color="text-white bg-yellow-500 hover:bg-yellow-600">Yellow</option>
+                    <option value="pink" data-color="text-white bg-pink-500 hover:bg-pink-600">Pink</option>
+                    <option value="magenta" data-color="text-white bg-[#FF00FF] hover:bg-[#FF11FF]">Magenta</option>
+                    <option value="purple" data-color="text-white bg-purple-500 hover:bg-purple-600">Purple</option>
+                    <option value="orange" data-color="text-white bg-orange-500 hover:bg-orange-600">Orange</option>
+                    <option value="turquoise" data-color="text-white bg-[#40E0D0] hover:bg-[#00CED1]">Turquoise</option>
+                    <option value="white" data-color="text-black bg-white hover:bg-gray-200">White</option>
                 </select>
                 <h3 class="text-xl font-semibold mt-6">Brightness:</h3>
                 <div class="flex items-center gap-4 max-w-5xl">

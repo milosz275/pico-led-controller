@@ -106,20 +106,42 @@ function changeLEDMood(mood) {
     .catch(error => console.error("Error:", error));
 }
 
-function changeLEDColor(color) {
-    fetchController.abort();
-    fetchController = new AbortController();
+function changeLEDColor(selectElement) {
+    const selectedOption = selectElement.options[selectElement.selectedIndex];
+    const color = selectedOption.value;
+    const colorClass = selectedOption.getAttribute("data-color");
+
+    selectElement.classList.remove(...Array.from(selectElement.classList).filter(cls => cls.startsWith("bg-") || cls.startsWith("hover:bg-")));
+    selectElement.classList.add(...colorClass.split(" "));
+
+    if (color === "magenta" || color === "turquoise") {
+        const customColorClass = colorClass.split(" ");
+        selectElement.classList.add(...customColorClass);
+    }
+    if (color === "white") {
+        selectElement.classList.remove("text-white");
+        selectElement.classList.add("text-black");
+    } else {
+        selectElement.classList.remove("text-black");
+        selectElement.classList.add("text-white");
+    }
+
+    if (window.fetchController) {
+        window.fetchController.abort();
+    }
+    window.fetchController = new AbortController();
+
     const url = `/color?${encodeURIComponent(color)}`;
-    fetch(url)
-    .then(response => {
-        if (response.ok) {
-            console.log(`LED color changed to ${color}`);
-            fetchData();
-        } else {
-            console.error("Failed to change LED color");
-        }
-    })
-    .catch(error => console.error("Error:", error));
+    fetch(url, { signal: window.fetchController.signal })
+        .then(response => {
+            if (response.ok) {
+                console.log(`LED color changed to ${color}`);
+                fetchData();
+            } else {
+                console.error("Failed to change LED color");
+            }
+        })
+        .catch(error => console.error("Error:", error));
 }
 
 function updateElapsedTime() {
