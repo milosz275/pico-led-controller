@@ -101,6 +101,7 @@
         "mdns.h": "c",
         "altcp_tls.h": "c",
         "stdio.h": "c",
-        "math.h": "c"
+        "math.h": "c",
+        "ws2812b.h": "c"
     }
 }
