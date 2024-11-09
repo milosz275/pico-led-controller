@@ -225,7 +225,20 @@ document.addEventListener("DOMContentLoaded", fetchTimestamp);
 let ledNum = 120; // adjust here
 let voltage = 5; // 5 V
 let ledPower = 0.06; // 60 mA = 0.06 A
-let estimatedTotalPowerConsumption = localStorage.getItem("power_usage"); // in W
+let estimatedTotalPowerConsumption = 0;
+
+function loadEstimatedTotalPowerConsumption() {
+    estimatedTotalPowerConsumption = parseFloat(localStorage.getItem("power_usage")) || 0;
+    document.getElementById("totalConsumption").innerText = (estimatedTotalPowerConsumption / 1000 / 3600).toFixed(2) + " kWh";
+}
+
+document.addEventListener("DOMContentLoaded", loadEstimatedTotalPowerConsumption);
+
+function clearEstimatedTotalPowerConsumption() {
+    estimatedTotalPowerConsumption = 0;
+    localStorage.setItem("power_usage", 0);
+    document.getElementById("totalConsumption").innerText = (0).toFixed(2) + " kWh";
+}
 
 function updateEstimatedPowerConsumption() {
     let brightness = document.getElementById("brightness").innerText;
@@ -237,7 +250,7 @@ function updateEstimatedPowerConsumption() {
         power = ledNum * ledPower * (brightness / 100) * voltage
         document.getElementById("consumption").innerText = (power).toFixed(2) + " W";
     } else {
-        document.getElementById("consumption").innerText = 0.00 + " W";
+        document.getElementById("consumption").innerText = (0).toFixed(2) + " W";
     }
 
     // 1 kWh = 1000 W * 3600 s
