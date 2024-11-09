@@ -225,7 +225,7 @@ document.addEventListener("DOMContentLoaded", fetchTimestamp);
 let ledNum = 120; // adjust here
 let voltage = 5; // 5 V
 let ledPower = 0.06; // 60 mA = 0.06 A
-let estimatedTotalPowerConsumption = 0; // in W
+let estimatedTotalPowerConsumption = localStorage.getItem("power_usage"); // in W
 
 function updateEstimatedPowerConsumption() {
     let brightness = document.getElementById("brightness").innerText;
@@ -242,6 +242,7 @@ function updateEstimatedPowerConsumption() {
 
     // 1 kWh = 1000 W * 3600 s
     estimatedTotalPowerConsumption += power;
+    localStorage.setItem("power_usage", estimatedTotalPowerConsumption);
     document.getElementById("totalConsumption").innerText = (estimatedTotalPowerConsumption / 1000 / 3600).toFixed(2) + " kWh";
 }
 
