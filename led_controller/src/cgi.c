@@ -44,6 +44,8 @@ const char* cgi_led_handler(int iIndex, int iNumParams, char* pcParam[], char* p
         if (!strcmp(pcParam[i], "toggle"))
         {
             printf("Toggling LED strip\n");
+            if (light_state.state == false && light_state.brightness == 0)
+                light_state.brightness = light_state.previous_brightness;
             toggle_light_state();
             break;
         }
@@ -57,6 +59,7 @@ const char* cgi_led_handler(int iIndex, int iNumParams, char* pcParam[], char* p
         {
             printf("Turning LED strip off\n");
             light_state.state = false;
+            turn_off_all(NUM_PIXELS);
             break;
         }
     }
@@ -225,19 +228,27 @@ const char* cgi_led_brightness_handler(int iIndex, int iNumParams, char* pcParam
         else
         {
             printf("Setting brightness to %d\n", brightness);
-            if (brightness == 0)
-                brightness = 0;
+            int scaled_brightness = 0;
+            if (brightness <= 0)
+            {
+                light_state.state = false;
+                light_state.brightness = 0;
+                turn_off_all(NUM_PIXELS);
+            }
             else if (brightness == 100)
-                brightness = 255;
+            {
+                scaled_brightness = 255;
+                light_state.state = true;
+                light_state.brightness = light_state.previous_brightness = scaled_brightness;
+            }
             else
             {
-                brightness = (int)(brightness * 255.0 / 100.0) + 1;
-                if (brightness > 255)
-                    brightness = 255;
-                else if (brightness < 0)
-                    brightness = 0;
+                scaled_brightness = (int)(brightness * 255.0 / 100.0) + 1;
+                if (scaled_brightness > 255)
+                    scaled_brightness = 255;
+                light_state.state = true;
+                light_state.brightness = light_state.previous_brightness = scaled_brightness;
             }
-            light_state.brightness = brightness;
         }
         if (light_state.light_mode == MODE_STATIC)
             set_light_color(light_state.color);

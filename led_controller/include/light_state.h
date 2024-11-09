@@ -49,6 +49,7 @@ enum light_colors
  * 
  * @param state: state
  * @param brightness: brightness
+ * @param previous_brightness: last set brightness
  * @param light_mode: light mode
  * @param color: color
  */
@@ -56,6 +57,7 @@ struct light_state_t
 {
     bool state;
     uint8_t brightness;
+    uint8_t previous_brightness;
     enum light_modes light_mode;
     enum light_colors color;
 };

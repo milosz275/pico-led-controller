@@ -5,7 +5,7 @@
 #include "urgb.h"
 #include "ws2812b.h"
 
-volatile struct light_state_t light_state = {true, 128, MODE_RAINBOW_WHEEL, COLOR_BLUE};
+volatile struct light_state_t light_state = {true, 128, 128, MODE_RAINBOW_WHEEL, COLOR_BLUE};
 
 void toggle_light_state()
 {
