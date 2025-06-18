@@ -5,10 +5,12 @@ on:
     branches: [ "main", "default-branch-rule" ]
     paths-ignore:
       - 'lib/**'
+      - 'build/**'
   pull_request:
     branches: [ "main", "default-branch-rule" ]
     paths-ignore:
       - 'lib/**'
+      - 'build/**'
   schedule:
     - cron: '35 20 * * 0'
 
