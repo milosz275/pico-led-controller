@@ -5,12 +5,10 @@ on:
     branches: [ "main", "default-branch-rule" ]
     paths-ignore:
       - 'lib/**'
-      - 'build/**'
   pull_request:
     branches: [ "main", "default-branch-rule" ]
     paths-ignore:
       - 'lib/**'
-      - 'build/**'
   schedule:
     - cron: '35 20 * * 0'
 
@@ -99,6 +97,10 @@ jobs:
           cd build
           cmake .. -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
           make -j$(nproc)
+
+      - if: matrix.build-mode == 'manual'
+        name: Cleanup build directory
+        run: rm -rf build
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
